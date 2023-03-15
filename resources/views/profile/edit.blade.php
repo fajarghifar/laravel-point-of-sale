@@ -1,29 +1,25 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('dashboard.body.main')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('container')
+    <!--begin::Navbar-->
+    @include('profile.partials.navbar-profile-information')
+    <!--end::Navbar-->
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+    <!--begin::details View-->
+    @include('profile.partials.update-profile-information-form')
+    <!--end::details View-->
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+    <!--begin::Signin Method -->
+    @include('profile.partials.update-signin-method-form')
+    <!--end::Signin Method -->
+
+    <!--begin::Deactivate Account-->
+    @include('profile.partials.delete-user-form')
+    <!--end::Deactivate Account-->
+@endsection
+
+@section('pagespecificscripts')
+    <script src="{{ asset('assets/js/custom/account/settings/signin-methods.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/account/settings/profile-details.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/account/settings/deactivate-account.js') }}"></script>
+@endsection
