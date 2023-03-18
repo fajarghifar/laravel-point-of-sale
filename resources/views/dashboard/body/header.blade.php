@@ -43,9 +43,9 @@
 							<!--end::Avatar-->
 							<!--begin::Username-->
 							<div class="d-flex flex-column">
-								<div class="fw-bold d-flex align-items-center fs-5">Max Smith
+								<div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->name }}
 								<span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
-								<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+								<a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()->email }}</a>
 							</div>
 							<!--end::Username-->
 						</div>
@@ -59,18 +59,21 @@
 						<a href="{{ route('profile') }}" class="menu-link px-5">My Profile</a>
 					</div>
 					<!--end::Menu item-->
-					<!--begin::Menu separator-->
-					<div class="separator my-2"></div>
-					<!--end::Menu separator-->
 					<!--begin::Menu item-->
 					<div class="menu-item px-5 my-1">
 						<a href="{{ route('profile.edit') }}" class="menu-link px-5">Account Settings</a>
 					</div>
 					<!--end::Menu item-->
+					<!--begin::Menu separator-->
+					<div class="separator my-2"></div>
+					<!--end::Menu separator-->
 					<!--begin::Menu item-->
-					<div class="menu-item px-5">
-						<a href="#" class="menu-link px-5">Sign Out</a>
-					</div>
+                    <div class="menu-item px-5">
+                        <form action="{{ route('logout') }}" method="POST" class="menu-link p-0">
+                            @csrf
+                            <button type="submit" class="menu-link px-5 py-2 btn border-0">Sign Out</button>
+                        </form>
+                    </div>
 					<!--end::Menu item-->
 				</div>
 				<!--end::User account menu-->
