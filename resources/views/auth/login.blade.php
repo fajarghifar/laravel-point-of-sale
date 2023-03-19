@@ -1,47 +1,115 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('auth.body.main')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('container')
+	<!--begin::Authentication - Sign-in -->
+	<div class="d-flex flex-column flex-lg-row flex-column-fluid">
+		<!--begin::Logo-->
+		<a href="../../demo38/dist/index.html" class="d-block d-lg-none mx-auto py-20">
+			<img alt="Logo" src="assets/media/logos/default.svg" class="theme-light-show h-25px" />
+			<img alt="Logo" src="assets/media/logos/default-dark.svg" class="theme-dark-show h-25px" />
+		</a>
+		<!--end::Logo-->
+		<!--begin::Aside-->
+		<div class="d-flex flex-column flex-column-fluid flex-center w-lg-50 p-10">
+			<!--begin::Wrapper-->
+			<div class="d-flex justify-content-center flex-column-fluid flex-column w-100 mw-450px">
+				<!--begin::Body-->
+				<div class="py-20">
+					<!--begin::Form-->
+					<form class="form w-100" method="POST" action="{{ route('login') }}">
+                        @csrf
+						<!--begin::Body-->
+						<div class="card-body">
+							<!--begin::Heading-->
+							<div class="text-start mb-10">
+								<!--begin::Title-->
+								<h1 class="text-dark mb-3 fs-3x">Log In</h1>
+								<!--end::Title-->
+								<!--begin::Text-->
+								<div class="text-gray-400 fw-semibold fs-6">Get unlimited access & earn money</div>
+								<!--end::Link-->
+							</div>
+							<!--begin::Heading-->
+							<!--begin::Input group=-->
+							<div class="fv-row mb-8">
+								<!--begin::Email-->
+								<input type="text" placeholder="Username" name="username" autocomplete="off" class="form-control form-control-solid @error('username') is-invalid @enderror" value="{{ old('username') }}" required/>
+                                @error('username')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+								<!--end::Email-->
+							</div>
+							<!--end::Input group=-->
+							<div class="fv-row mb-7">
+								<!--begin::Password-->
+								<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid @error('password') is-invalid @enderror" required/>
+                                @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+								<!--end::Password-->
+							</div>
+							<!--end::Input group=-->
+							<!--begin::Wrapper-->
+							<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+								<div>
+                                    <span class="text-gray-400 me-2" data-kt-translate="sign-in-head-desc">Not a Member yet?</span>
+                                    <a href="{{ route('register') }}" class="link-primary" data-kt-translate="sign-in-head-link">Register</a>
+                                </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+								<!--begin::Link-->
+								<a href="#" class="link-primary">Forgot Password ?</a>
+								<!--end::Link-->
+							</div>
+							<!--end::Wrapper-->
+							<!--begin::Actions-->
+							<div class="d-flex flex-stack">
+								<!--begin::Submit-->
+                                <button type="submit" class="btn btn-primary me-2 flex-shrink-0">
+									<!--begin::Indicator label-->
+									<span class="indicator-label">Log In</span>
+									<!--end::Indicator label-->
+                                </button>
+								<!--end::Submit-->
+								<!--begin::Social-->
+								<div class="d-flex align-items-center">
+									<div class="text-gray-400 fw-semibold fs-6 me-3 me-md-6" data-kt-translate="general-or">Or</div>
+									<!--begin::Symbol-->
+									<a href="#" class="symbol symbol-circle symbol-45px w-45px bg-light me-3">
+										<img alt="Logo" src="assets/media/svg/brand-logos/google-icon.svg" class="p-4" />
+									</a>
+									<!--end::Symbol-->
+									<!--begin::Symbol-->
+									<a href="#" class="symbol symbol-circle symbol-45px w-45px bg-light me-3">
+										<img alt="Logo" src="assets/media/svg/brand-logos/facebook-3.svg" class="p-4" />
+									</a>
+									<!--end::Symbol-->
+									<!--begin::Symbol-->
+									<a href="#" class="symbol symbol-circle symbol-45px w-45px bg-light">
+										<img alt="Logo" src="assets/media/svg/brand-logos/apple-black.svg" class="theme-light-show p-4" />
+									</a>
+									<!--end::Symbol-->
+								</div>
+								<!--end::Social-->
+							</div>
+							<!--end::Actions-->
+						</div>
+						<!--begin::Body-->
+					</form>
+					<!--end::Form-->
+				</div>
+				<!--end::Body-->
+			</div>
+			<!--end::Wrapper-->
+		</div>
+		<!--end::Aside-->
+		<!--begin::Body-->
+		<div class="d-none d-lg-flex flex-lg-row-fluid w-50 bgi-size-cover bgi-position-y-center bgi-position-x-start bgi-no-repeat" style="background-image: url(assets/media/auth/bg11.png)"></div>
+		<!--begin::Body-->
+	</div>
+	<!--end::Authentication - Sign-in-->
+@endsection
