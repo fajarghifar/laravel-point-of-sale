@@ -32,14 +32,19 @@
 							<!--begin::Heading-->
 							<!--begin::Input group=-->
 							<div class="fv-row mb-8">
-								<!--begin::Email-->
-								<input type="text" placeholder="Username or Email" name="login" autocomplete="off" class="form-control form-control-solid @error('login') is-invalid @enderror" value="{{ old('login') }}" required/>
-                                @error('login')
+								<!--begin::Login-->
+								<input type="text" placeholder="Username or Email" name="input_type" autocomplete="off" class="form-control form-control-solid @error('email') is-invalid @enderror @error('username') is-invalid @enderror" value="{{ old('input_type') }}" required/>
+                                @error('email')
                                 <div class="invalid-feedback">
                                     {{ 'Incorrect username or password.' }}
                                 </div>
                                 @enderror
-								<!--end::Email-->
+                                @error('username')
+                                <div class="invalid-feedback">
+                                    {{ 'Incorrect username or password.' }}
+                                </div>
+                                @enderror
+								<!--end::Login-->
 							</div>
 							<!--end::Input group=-->
 							<div class="fv-row mb-7">
