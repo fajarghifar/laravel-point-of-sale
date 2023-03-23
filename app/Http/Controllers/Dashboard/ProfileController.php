@@ -103,7 +103,7 @@ class ProfileController extends Controller
             Image::make($file)
                 ->resize(360, 360, function ($constraint) {
                     $constraint->aspectRatio();
-                })->save($fileName, 90);
+                });
 
             $file->storeAs($path, $fileName);
             $validatedData['photo'] = $fileName;
