@@ -33,10 +33,10 @@
 							<!--begin::Input group=-->
 							<div class="fv-row mb-8">
 								<!--begin::Email-->
-								<input type="text" placeholder="Username" name="username" autocomplete="off" class="form-control form-control-solid @error('username') is-invalid @enderror" value="{{ old('username') }}" required/>
-                                @error('username')
+								<input type="text" placeholder="Username or Email" name="login" autocomplete="off" class="form-control form-control-solid @error('login') is-invalid @enderror" value="{{ old('login') }}" required/>
+                                @error('login')
                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                                    {{ 'Incorrect username or password.' }}
                                 </div>
                                 @enderror
 								<!--end::Email-->
@@ -44,12 +44,7 @@
 							<!--end::Input group=-->
 							<div class="fv-row mb-7">
 								<!--begin::Password-->
-								<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid @error('password') is-invalid @enderror" required/>
-                                @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+								<input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control form-control-solid" required/>
 								<!--end::Password-->
 							</div>
 							<!--end::Input group=-->
