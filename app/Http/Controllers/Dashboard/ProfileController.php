@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Facades\Image;
@@ -62,19 +63,25 @@ class ProfileController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        $userData = User::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
 
         $rules = [
             'name' => 'required|max:50',
-            'photo_profile' => 'image|file|max:1024'
+            'photo_profile' => 'image|file|max:1024',
+            'email' => ['required', 'email', 'max:50', Rule::unique(User::class)->ignore($user->id)],
         ];
 
-        if ($request->username != $userData->username)
+        if ($request->username != $user->username)
         {
             $rules['username'] = 'required|min:4|max:25|unique:users|alpha_dash:ascii';
         }
 
         $validatedData = $request->validate($rules);
+
+        if ($validatedData['email'] != $user->email) {
+            $validatedData['email_verified_at'] = null;
+        }
+
 
         // if ($file = $request->file('photo_profile')) {
         //     $fileName = 'profile-' . date('YmdHi') . '-' . $file->getClientOriginalName();
@@ -91,7 +98,7 @@ class ProfileController extends Controller
         //     $validatedData['photo_profile'] = $path;
         // }
 
-        User::where('id', $userData->id)->update($validatedData);
+        User::where('id', $user->id)->update($validatedData);
 
         return Redirect::route('profile')->with('success', 'Profile has been updated!');
     }
