@@ -29,7 +29,7 @@
                         <!--begin::Image input-->
                         <div class="image-input @if(!$user->photo) image-input-empty @endif" data-kt-image-input="true">
                             <!--begin::Image preview wrapper-->
-                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('{{ asset('storage/images/' . $user->photo) }}');"></div>
+                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url('{{ $user->photo ? asset('storage/images/' . $user->photo) : asset('assets/media/avatars/blank.png') }}');"></div>
                             <!--end::Image preview wrapper-->
 
                             <!--begin::Edit button-->
