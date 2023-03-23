@@ -82,21 +82,32 @@ class ProfileController extends Controller
             $validatedData['email_verified_at'] = null;
         }
 
+            /**
+         * Handle upload image with Storage.
+         */
+        if($file = $request->file('photo'))
+        {
+            $fileName = 'profile-'.date('YmdHi').'-'.$file->getClientOriginalName();
+            $path = 'public/images/';
 
-        // if ($file = $request->file('photo_profile')) {
-        //     $fileName = 'profile-' . date('YmdHi') . '-' . $file->getClientOriginalName();
+            /**
+             * Delete photo if exists.
+             */
+            if($user->photo){
+                Storage::delete($path . $user->photo);
+            }
 
-        //     $file = Image::make($file)
-        //         ->resize(360, 360, function ($constraint) {
-        //             $constraint->aspectRatio();
-        //         });
+            /**
+             * Rezise and Compress the photo.
+             */
+            Image::make($file)
+                ->resize(360, 360, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($fileName, 90);
 
-        //     $path = 'public/upload/profile/' . $fileName;
-
-        //     Storage::put($path, $file);
-
-        //     $validatedData['photo_profile'] = $path;
-        // }
+            $file->storeAs($path, $fileName);
+            $validatedData['photo'] = $fileName;
+        }
 
         User::where('id', $user->id)->update($validatedData);
 

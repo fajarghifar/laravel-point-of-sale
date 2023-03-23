@@ -10,7 +10,7 @@
     <!--end::details View-->
 
     <!--begin::Signin Method -->
-    @include('profile.partials.update-signin-method-form')
+    @include('profile.partials.update-password-form')
     <!--end::Signin Method -->
 
     <!--begin::Deactivate Account-->
