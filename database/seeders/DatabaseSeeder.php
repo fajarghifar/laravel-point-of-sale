@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Employee;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +27,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'user',
             'email' => 'user@gmail.com',
         ]);
+
+        Employee::factory(10)->create();
     }
 }
