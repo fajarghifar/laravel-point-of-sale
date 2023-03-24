@@ -17,11 +17,11 @@
         <!--begin::Input group-->
         <div class="row mb-7">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+            <label class="col-lg-4 fw-semibold text-muted">Username</label>
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $user->name }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $user->username }}</span>
             </div>
             <!--end::Col-->
         </div>
@@ -43,11 +43,11 @@
         <!--begin::Input group-->
         <div class="row mb-7">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-semibold text-muted">Username</label>
+            <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $user->username }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $user->name }}</span>
             </div>
             <!--end::Col-->
         </div>
