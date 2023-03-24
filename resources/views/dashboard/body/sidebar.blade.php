@@ -26,15 +26,6 @@
 		<div id="kt_app_sidebar_navs_wrappers" class="app-sidebar-wrapper hover-scroll-y my-2" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_header" data-kt-scroll-wrappers="#kt_app_sidebar_navs" data-kt-scroll-offset="5px">
 			<!--begin::Sidebar menu-->
             <div class="app-sidebar-menu-secondary menu menu-rounded menu-column mb-6">
-                <!--begin::Heading-->
-                <div class="menu-item mb-2">
-                    <div class="menu-heading text-uppercase fs-7 fw-bold">Menu</div>
-                    <!--begin::Separator-->
-                    <div class="app-sidebar-separator separator"></div>
-                    <!--end::Separator-->
-                </div>
-                <!--end::Heading-->
-
                 <!--begin::Menu Item-->
                 <div class="menu-item">
                     <!--begin::Menu link-->
@@ -46,6 +37,31 @@
                         <!--end::Icon-->
                         <!--begin::Title-->
                         <span class="menu-title">Dashboard</span>
+                        <!--end::Title-->
+                    </a>
+                    <!--end::Menu link-->
+                </div>
+                <!--end::Menu Item-->
+
+                <!--begin::Heading-->
+                <div class="menu-item mb-2 mt-4">
+                    <div class="menu-heading text-uppercase fs-7 fw-bold">Menu</div>
+                    <!--begin::Separator-->
+                    <div class="app-sidebar-separator separator"></div>
+                    <!--end::Separator-->
+                </div>
+                <!--end::Heading-->
+
+                <!--begin::Menu Item-->
+                <div class="menu-item">
+                    <!--begin::Menu link-->
+                    <a class="menu-link" href="{{ route('employees.index') }}">
+                        <!--begin::Icon-->
+                        <span class="menu-icon"><i class="fa-solid fa-users fs-2"></i>
+                        </span>
+                        <!--end::Icon-->
+                        <!--begin::Title-->
+                        <span class="menu-title">Employees</span>
                         <!--end::Title-->
                     </a>
                     <!--end::Menu link-->

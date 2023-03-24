@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Dashboard\ProfileController as NewProfile;
+use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+// Dashboard
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+    Route::resource('/employees', EmployeeController::class);
+});
 
+// Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [NewProfile::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 require __DIR__.'/auth.php';
