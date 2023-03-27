@@ -43,14 +43,10 @@ class ProfileController extends Controller
 
         $rules = [
             'name' => 'required|max:50',
-            'photo_profile' => 'image|file|max:1024',
-            'email' => ['required', 'email', 'max:50', Rule::unique(User::class)->ignore($user->id)],
+            'photo' => 'image|file|max:1024',
+            'email' => 'required|email|max:50|unique:users,email,'.$user->id,
+            'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username,'.$user->id
         ];
-
-        if ($request->username != $user->username)
-        {
-            $rules['username'] = 'required|min:4|max:25|unique:users|alpha_dash:ascii';
-        }
 
         $validatedData = $request->validate($rules);
 
