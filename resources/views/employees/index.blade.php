@@ -4,6 +4,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
+            @if (session()->has('success'))
+                <div class="alert text-white bg-success" role="alert">
+                    <div class="iq-alert-text">{{ session('success') }}</div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ri-close-line"></i>
+                    </button>
+                </div>
+            @endif
             <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div>
                     <h4 class="mb-3">Employee List</h4>
@@ -15,50 +23,53 @@
         </div>
         <div class="col-lg-12">
             <div class="table-responsive rounded mb-3">
-            <table class="data-table table mb-0 tbl-server-info">
-                <thead class="bg-white text-uppercase">
-                    <tr class="ligth ligth-data">
-                        <th>No.</th>
-                        <th>Photo</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Salary</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="ligth-body">
-                    <?php $i = 1; ?>
-                    @foreach ($employees as $employee)
-                    <tr>
-                        <td>{{ $i++ }}</td>
-                        <td>
-                            <img class="avatar-60 rounded" src="{{ $employee->photo ? asset('storage/employees/'.$employee->photo) : asset('assets/images/user/1.png') }}">
-                        </td>
-                        <td>{{ $employee->name }}</td>
-                        <td>{{ $employee->email }}</td>
-                        <td>{{ $employee->phone }}</td>
-                        <td>${{ $employee->salary }}</td>
-                        <td>
-                            <div class="d-flex align-items-center list-action">
-                                <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                    href="{{ route('employees.show', $employee->id) }}"><i class="ri-eye-line mr-0"></i>
-                                </a>
-                                <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                    href="{{ route('employees.edit', $employee->id) }}""><i class="ri-pencil-line mr-0"></i>
-                                </a>
-                                <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                    href="#"><i class="ri-delete-bin-line mr-0"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                <table class="table mb-0">
+                    <thead class="bg-white text-uppercase">
+                        <tr class="ligth ligth-data">
+                            <th>No.</th>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Salary</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ligth-body">
+                        @foreach ($employees as $employee)
+                        <tr>
+                            <td>{{ (($employees->currentPage() * 10) - 10) + $loop->iteration  }}</td>
+                            <td>
+                                <img class="avatar-60 rounded" src="{{ $employee->photo ? asset('storage/employees/'.$employee->photo) : asset('assets/images/user/1.png') }}">
+                            </td>
+                            <td>{{ $employee->name }}</td>
+                            <td>{{ $employee->email }}</td>
+                            <td>{{ $employee->phone }}</td>
+                            <td>${{ $employee->salary }}</td>
+                            <td>
+                                <div class="d-flex align-items-center list-action">
+                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
+                                        href="{{ route('employees.show', $employee->id) }}"><i class="ri-eye-line mr-0"></i>
+                                    </a>
+                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                        href="{{ route('employees.edit', $employee->id) }}""><i class="ri-pencil-line mr-0"></i>
+                                    </a>
+                                    <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="margin-bottom: 5px">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="badge bg-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+            {{ $employees->links() }}
         </div>
     </div>
     <!-- Page end  -->
 </div>
+
 @endsection

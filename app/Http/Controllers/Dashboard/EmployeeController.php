@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::latest()->get();
+        $employees = Employee::latest()->paginate(10);
 
         return view('employees.index', [
             'user' => auth()->user(),
@@ -108,8 +108,8 @@ class EmployeeController extends Controller
             'photo' => 'image|file|max:1024',
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50|unique:employees,email,'.$employee->id,
-            'phone' => 'required|string|max:15|unique:employees,phone,'.$employee->id,
-            'experience' => 'required|string|max:8',
+            'phone' => 'required|string|max:20|unique:employees,phone,'.$employee->id,
+            'experience' => 'string|max:8',
             'salary' => 'numeric',
             'vacation' => 'max:50',
             'city' => 'max:50',
@@ -154,6 +154,15 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        /**
+         * Delete photo if exists.
+         */
+        if($employee->photo){
+            Storage::delete('public/employees/' . $employee->photo);
+        }
+
+        Employee::destroy($employee->id);
+
+        return Redirect::route('employees.index')->with('success', 'Employee has been deleted!');
     }
 }
