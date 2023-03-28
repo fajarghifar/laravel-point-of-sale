@@ -25,6 +25,16 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function changePassword(Request $request): View
+    {
+        return view('profile.change-password', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Request $request): View

@@ -15,7 +15,7 @@
                     <!-- end: Navbar Profile -->
 
                     <!-- begin: Profile -->
-                    @include('profile.partials.show-profile')
+                    @include('profile.partials.change-password-form')
                     <!-- end: Profile -->
                 </div>
             </div>
