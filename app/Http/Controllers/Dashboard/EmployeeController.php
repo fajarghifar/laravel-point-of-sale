@@ -14,13 +14,17 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::sortable()->paginate(10);
+        $row = (int) $request->query('row', 10);
+
+        if ($row < 1 || $row > 100) {
+            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+        }
 
         return view('employees.index', [
             'user' => auth()->user(),
-            'employees' => $employees,
+            'employees' => Employee::filter(request(['search']))->sortable()->paginate($row),
         ]);
     }
 
