@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Kyslik\ColumnSortable\Sortable;
 
-class Employee extends Model
+class Customer extends Model
 {
     use HasFactory, Sortable;
 
@@ -16,21 +16,23 @@ class Employee extends Model
         'email',
         'phone',
         'address',
-        'experience',
+        'shopname',
         'photo',
-        'salary',
-        'vacation',
+        'account_holder',
+        'account_number',
+        'bank_name',
+        'bank_branch',
         'city',
     ];
-
     public $sortable = [
         'name',
         'email',
         'phone',
-        'salary',
+        'shopname',
+        'city',
     ];
 
     protected $guarded = [
-        'id'
+        'id',
     ];
 }
