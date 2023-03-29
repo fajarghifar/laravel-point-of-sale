@@ -75,7 +75,7 @@
                             <div class="form-group col-md-6">
                                 <label for="experience">Employee Experience:</label>
                                 <select class="form-control" name="experience">
-                                    <option value="0 Year">Select Year..</option>
+                                    <option value="">Select Year..</option>
                                     <option value="1 Year">1 Year</option>
                                     <option value="2 Year">2 Year</option>
                                     <option value="3 Year">3 Year</option>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="salary">Employee Salary:</label>
-                                <input type="text" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ old('salary') }}">
+                                <input type="text" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ old('salary') }}" required>
                                 @error('salary')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -103,7 +103,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="city">Employee City:</label>
-                                <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}">
+                                <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" required>
                                 @error('city')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -112,7 +112,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="address">Employee Address:</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" name="address">{{ old('address') }}</textarea>
+                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address') }}</textarea>
                                 @error('address')
                                 <div class="invalid-feedback">
                                     {{ $message }}

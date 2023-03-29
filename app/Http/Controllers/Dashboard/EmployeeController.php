@@ -44,10 +44,10 @@ class EmployeeController extends Controller
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50|unique:employees,email',
             'phone' => 'required|string|max:15|unique:employees,phone',
-            'experience' => 'string|max:6',
-            'salary' => 'numeric',
+            'experience' => 'max:6',
+            'salary' => 'required|numeric',
             'vacation' => 'max:50',
-            'city' => 'max:50',
+            'city' => 'requried|max:50',
             'address' => 'required|max:100',
         ];
 

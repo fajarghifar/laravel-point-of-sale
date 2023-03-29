@@ -76,7 +76,7 @@
                             <div class="form-group col-md-6">
                                 <label for="experience">Employee Experience:</label>
                                 <select class="form-control" name="experience">
-                                    <option value="0 Year">Select Year..</option>
+                                    <option value="">Select Year..</option>
                                     <option value="1 Year" @if(old('experience', $employee->experience) == '1 Year')selected="selected"@endif>1 Year</option>
                                     <option value="2 Year" @if(old('experience', $employee->experience) == '2 Year')selected="selected"@endif>2 Year</option>
                                     <option value="3 Year" @if(old('experience', $employee->experience) == '3 Year')selected="selected"@endif>3 Year</option>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="salary">Employee Salary:</label>
-                                <input type="text" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ old('salary', $employee->salary) }}">
+                                <input type="text" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ old('salary', $employee->salary) }}" required>
                                 @error('salary')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -104,7 +104,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="city">Employee City:</label>
-                                <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city', $employee->city) }}">
+                                <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city', $employee->city) }}" required>
                                 @error('city')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -113,7 +113,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="address">Employee Address:</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" name="address">{{ old('address',$employee->address) }}</textarea>
+                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address',$employee->address) }}</textarea>
                                 @error('address')
                                 <div class="invalid-feedback">
                                     {{ $message }}
