@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@gmail.com',
         ]);
 
-        Employee::factory(10)->create();
+        Employee::factory(15)->create();
     }
 }

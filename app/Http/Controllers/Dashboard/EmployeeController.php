@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::latest()->paginate(10);
+        $employees = Employee::sortable()->paginate(10);
 
         return view('employees.index', [
             'user' => auth()->user(),
@@ -57,7 +57,7 @@ class EmployeeController extends Controller
          * Handle upload image with Storage.
          */
         if ($file = $request->file('photo')) {
-            $fileName = 'profile-' . date('YmdHi') . '-' . $file->getClientOriginalName();
+            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
             $path = 'public/employees/';
 
             /**
@@ -122,7 +122,7 @@ class EmployeeController extends Controller
          * Handle upload image with Storage.
          */
         if ($file = $request->file('photo')) {
-            $fileName = 'profile-' . date('YmdHi') . '-' . $file->getClientOriginalName();
+            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
             $path = 'public/employees/';
 
             /**

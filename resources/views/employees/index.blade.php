@@ -28,10 +28,10 @@
                         <tr class="ligth ligth-data">
                             <th>No.</th>
                             <th>Photo</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Salary</th>
+                            <th>@sortablelink('name')</th>
+                            <th>@sortablelink('email')</th>
+                            <th>@sortablelink('phone')</th>
+                            <th>@sortablelink('salary')</th>
                             <th>Action</th>
                         </tr>
                     </thead>
