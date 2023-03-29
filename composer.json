@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "itsgoingd/clockwork": "^5.1",
+        "kyslik/column-sortable": "^6.5",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8"
