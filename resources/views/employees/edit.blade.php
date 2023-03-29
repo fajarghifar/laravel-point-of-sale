@@ -76,7 +76,7 @@
                             <div class="form-group col-md-6">
                                 <label for="experience">Employee Experience:</label>
                                 <select class="form-control" name="experience">
-                                    <option value="">Select Year..</option>
+                                    <option value="0 Year">Select Year..</option>
                                     <option value="1 Year" @if(old('experience', $employee->experience) == '1 Year')selected="selected"@endif>1 Year</option>
                                     <option value="2 Year" @if(old('experience', $employee->experience) == '2 Year')selected="selected"@endif>2 Year</option>
                                     <option value="3 Year" @if(old('experience', $employee->experience) == '3 Year')selected="selected"@endif>3 Year</option>

@@ -28,6 +28,7 @@ class Employee extends Model
         'email',
         'phone',
         'salary',
+        'city',
     ];
 
     protected $guarded = [

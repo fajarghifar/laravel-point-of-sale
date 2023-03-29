@@ -75,7 +75,7 @@
                             <div class="form-group col-md-6">
                                 <label for="experience">Employee Experience:</label>
                                 <select class="form-control" name="experience">
-                                    <option value="">Select Year..</option>
+                                    <option value="0 Year">Select Year..</option>
                                     <option value="1 Year">1 Year</option>
                                     <option value="2 Year">2 Year</option>
                                     <option value="3 Year">3 Year</option>
