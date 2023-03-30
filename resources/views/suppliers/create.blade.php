@@ -131,15 +131,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="type">Type of Supplier <span class="text-danger">*</span></label>
-                                <select class="form-control @error('type') is-invalid @enderror" name="type">
-                                    <option value=" ">Select Type..</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
+                                <select class="form-control @error('type') is-invalid @enderror" name="type" required>
+                                    <option value="">Select Type..</option>
+                                    <option value="Distributor">Distributor</option>
+                                    <option value="Whole Seller">Whole Seller</option>
                                 </select>
                                 @error('type')
                                 <div class="invalid-feedback">

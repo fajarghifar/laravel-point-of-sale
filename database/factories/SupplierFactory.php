@@ -22,7 +22,7 @@ class SupplierFactory extends Factory
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->address(),
             'shopname' => fake()->company(),
-            'type' => fake()->randomElement(['1', '2', '3', '4', '5', '6', '7']),
+            'type' => fake()->randomElement(['Distributor', 'Whole Seller']),
             'account_holder' => fake()->name(),
             'account_number' => fake()->randomNumber(8, true),
             'bank_name' => fake()->randomElement(['BRI', 'BNI', 'BCA', 'BSI', 'MANDIRI', 'BJB']),

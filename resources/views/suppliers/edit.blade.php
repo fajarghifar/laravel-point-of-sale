@@ -132,12 +132,12 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="type">Type of Supplier <span class="text-danger">*</span></label>
-                                <select class="form-control @error('type') is-invalid @enderror" name="type">
-                                    <option value="">Select Year..</option>
-                                    <option value="1" @if(old('type', $supplier->type) == '1')selected="selected"@endif>1</option>
-                                    <option value="2" @if(old('type', $supplier->type) == '2')selected="selected"@endif>2</option>
+                                <select class="form-control @error('type') is-invalid @enderror" name="type" required>
+                                    <option value="">Select Type..</option>
+                                    <option value="Distributor" @if(old('type', $supplier->type) == 'Distributor')selected="selected"@endif>Distributor</option>
+                                    <option value="Whole Seller" @if(old('type', $supplier->type) == 'Whole Seller')selected="selected"@endif>Whole Seller</option>
                                 </select>
-                                @error('bank_name')
+                                @error('type')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
