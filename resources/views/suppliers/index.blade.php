@@ -102,7 +102,7 @@
                     </tbody>
                 </table>
             </div>
-            {{-- {{ $suppliers->links() }} --}}
+            {{ $suppliers->links() }}
         </div>
     </div>
     <!-- Page end  -->
