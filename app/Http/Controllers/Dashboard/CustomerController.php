@@ -24,7 +24,7 @@ class CustomerController extends Controller
 
         return view('customers.index', [
             'user' => auth()->user(),
-            'customers' => Customer::filter(request(['search']))->sortable()->paginate($row),
+            'customers' => Customer::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
         ]);
     }
 

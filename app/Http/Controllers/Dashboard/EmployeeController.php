@@ -24,7 +24,7 @@ class EmployeeController extends Controller
 
         return view('employees.index', [
             'user' => auth()->user(),
-            'employees' => Employee::filter(request(['search']))->sortable()->paginate($row),
+            'employees' => Employee::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
         ]);
     }
 

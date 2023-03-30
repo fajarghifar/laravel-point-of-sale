@@ -24,7 +24,7 @@ class SupplierController extends Controller
 
         return view('suppliers.index', [
             'user' => auth()->user(),
-            'suppliers' => Supplier::filter(request(['search']))->sortable()->paginate($row),
+            'suppliers' => Supplier::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
         ]);
     }
 
