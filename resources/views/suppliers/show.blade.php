@@ -75,7 +75,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Name:</label>
+                                    <label class="col-form-label">Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->name }}" readonly>
@@ -85,7 +85,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Email:</label>
+                                    <label class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->email }}" readonly>
@@ -95,7 +95,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Phone:</label>
+                                    <label class="col-form-label">Phone</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->phone }}" readonly>
@@ -105,7 +105,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Shop Name:</label>
+                                    <label class="col-form-label">Shop Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->shopname }}" readonly>
@@ -115,7 +115,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Type of Supplier:</label>
+                                    <label class="col-form-label">Type of Supplier</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->type }}" readonly>
@@ -125,7 +125,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Account Holder:</label>
+                                    <label class="col-form-label">Account Holder</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->account_holder }}" readonly>
@@ -135,7 +135,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Bank Name:</label>
+                                    <label class="col-form-label">Bank Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->bank_name }}" readonly>
@@ -145,7 +145,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Account Number:</label>
+                                    <label class="col-form-label">Account Number</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->account_number }}" readonly>
@@ -155,7 +155,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Bank Branch:</label>
+                                    <label class="col-form-label">Bank Branch</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->bank_branch }}" readonly>
@@ -165,7 +165,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">City:</label>
+                                    <label class="col-form-label">City</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $supplier->city }}" readonly>
@@ -175,7 +175,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Address:</label>
+                                    <label class="col-form-label">Address</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <textarea class="form-control bg-white" readonly>{{ $supplier->address }}</textarea>

@@ -75,7 +75,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Name:</label>
+                                    <label class="col-form-label">Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->name }}" readonly>
@@ -85,7 +85,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Email:</label>
+                                    <label class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->email }}" readonly>
@@ -95,7 +95,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Phone:</label>
+                                    <label class="col-form-label">Phone</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->phone }}" readonly>
@@ -105,7 +105,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Shop Name:</label>
+                                    <label class="col-form-label">Shop Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->shopname }}" readonly>
@@ -115,7 +115,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Account Holder:</label>
+                                    <label class="col-form-label">Account Holder</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->account_holder }}" readonly>
@@ -125,7 +125,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Bank Name:</label>
+                                    <label class="col-form-label">Bank Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->bank_name }}" readonly>
@@ -135,7 +135,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Account Number:</label>
+                                    <label class="col-form-label">Account Number</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->account_number }}" readonly>
@@ -145,7 +145,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Bank Branch:</label>
+                                    <label class="col-form-label">Bank Branch</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->bank_branch }}" readonly>
@@ -155,7 +155,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">City:</label>
+                                    <label class="col-form-label">City</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $customer->city }}" readonly>
@@ -165,7 +165,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Address:</label>
+                                    <label class="col-form-label">Address</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <textarea class="form-control bg-white" readonly>{{ $customer->address }}</textarea>

@@ -20,15 +20,15 @@
     </div>
     <div class=" row align-items-center">
         <div class="form-group col-md-12">
-            <label for="fname">Full Name:</label>
+            <label for="fname">Full Name</label>
             <input type="text" class="form-control bg-white" id="fname" value="{{ $user->name }}" readonly>
         </div>
         <div class="form-group col-md-6">
-            <label for="uname">Username:</label>
+            <label for="uname">Username</label>
             <input type="text" class="form-control bg-white" id="uname" value="{{ $user->username }}" readonly>
         </div>
         <div class="form-group col-md-6">
-            <label for="email">Email:</label>
+            <label for="email">Email</label>
             <input type="text" class="form-control bg-white" id="email" value="{{ $user->email }}" readonly>
         </div>
     </div>

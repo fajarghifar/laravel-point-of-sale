@@ -33,7 +33,7 @@
         <!-- begin: Input Data -->
         <div class=" row align-items-center">
             <div class="form-group col-md-12">
-                <label for="name">Full Name:</label>
+                <label for="name">Full Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $user->name) }}" required>
                 @error('name')
                 <div class="invalid-feedback">
@@ -42,7 +42,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="username">Username:</label>
+                <label for="username">Username <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username', $user->username) }}" required>
                 @error('username')
                 <div class="invalid-feedback">
@@ -51,7 +51,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="email">Email:</label>
+                <label for="email">Email <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $user->email) }}" required>
                 @error('email')
                 <div class="invalid-feedback">

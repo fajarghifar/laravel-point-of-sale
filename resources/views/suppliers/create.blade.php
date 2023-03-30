@@ -42,7 +42,7 @@
                         <!-- begin: Input Data -->
                         <div class=" row align-items-center">
                             <div class="form-group col-md-6">
-                                <label for="name">Supplier Name *</label>
+                                <label for="name">Supplier Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                                 @error('name')
                                 <div class="invalid-feedback">
@@ -51,7 +51,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="shopname">Shop Name *</label>
+                                <label for="shopname">Shop Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('shopname') is-invalid @enderror" id="shopname" name="shopname" value="{{ old('shopname') }}" required>
                                 @error('shopname')
                                 <div class="invalid-feedback">
@@ -60,7 +60,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="email">Supplier Email *</label>
+                                <label for="email">Supplier Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
                                 @error('email')
                                 <div class="invalid-feedback">
@@ -69,7 +69,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="phone">Supplier Phone *</label>
+                                <label for="phone">Supplier Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone') }}" required>
                                 @error('phone')
                                 <div class="invalid-feedback">
@@ -121,7 +121,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="city">Supplier City *</label>
+                                <label for="city">Supplier City <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city') }}" required>
                                 @error('city')
                                 <div class="invalid-feedback">
@@ -130,7 +130,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="type">Type of Supllier *</label>
+                                <label for="type">Type of Supplier <span class="text-danger">*</span></label>
                                 <select class="form-control @error('type') is-invalid @enderror" name="type">
                                     <option value=" ">Select Type..</option>
                                     <option value="1">1</option>
@@ -148,7 +148,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="address">Supplier Address *</label>
+                                <label for="address">Supplier Address <span class="text-danger">*</span></label>
                                 <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address') }}</textarea>
                                 @error('address')
                                 <div class="invalid-feedback">

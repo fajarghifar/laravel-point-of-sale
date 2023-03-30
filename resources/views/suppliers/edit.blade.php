@@ -43,7 +43,7 @@
                         <!-- begin: Input Data -->
                         <div class=" row align-items-center">
                             <div class="form-group col-md-6">
-                                <label for="name">Supplier Name *</label>
+                                <label for="name">Supplier Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $supplier->name) }}" required>
                                 @error('name')
                                 <div class="invalid-feedback">
@@ -52,7 +52,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="shopname">Shop Name *</label>
+                                <label for="shopname">Shop Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('shopname') is-invalid @enderror" id="shopname" name="shopname" value="{{ old('shopname', $supplier->shopname) }}" required>
                                 @error('shopname')
                                 <div class="invalid-feedback">
@@ -61,7 +61,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="email">Supplier Email *</label>
+                                <label for="email">Supplier Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $supplier->email) }}" required>
                                 @error('email')
                                 <div class="invalid-feedback">
@@ -70,7 +70,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="phone">Supplier Phone *</label>
+                                <label for="phone">Supplier Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $supplier->phone) }}" required>
                                 @error('phone')
                                 <div class="invalid-feedback">
@@ -122,7 +122,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="city">Supplier City *</label>
+                                <label for="city">Supplier City <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city', $supplier->city) }}" required>
                                 @error('city')
                                 <div class="invalid-feedback">
@@ -131,16 +131,11 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="type">Type of Supplier *</label>
+                                <label for="type">Type of Supplier <span class="text-danger">*</span></label>
                                 <select class="form-control @error('type') is-invalid @enderror" name="type">
                                     <option value="">Select Year..</option>
                                     <option value="1" @if(old('type', $supplier->type) == '1')selected="selected"@endif>1</option>
                                     <option value="2" @if(old('type', $supplier->type) == '2')selected="selected"@endif>2</option>
-                                    <option value="3" @if(old('type', $supplier->type) == '3')selected="selected"@endif>3</option>
-                                    <option value="4" @if(old('type', $supplier->type) == '4')selected="selected"@endif>4</option>
-                                    <option value="5" @if(old('type', $supplier->type) == '5')selected="selected"@endif>5</option>
-                                    <option value="6" @if(old('type', $supplier->type) == '6')selected="selected"@endif>6</option>
-                                    <option value="7" @if(old('type', $supplier->type) == '7')selected="selected"@endif>7</option>
                                 </select>
                                 @error('bank_name')
                                 <div class="invalid-feedback">
@@ -149,7 +144,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="address">Supplier Address *</label>
+                                <label for="address">Supplier Address <span class="text-danger">*</span></label>
                                 <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address', $supplier->address) }}</textarea>
                                 @error('address')
                                 <div class="invalid-feedback">

@@ -75,7 +75,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Name:</label>
+                                    <label class="col-form-label">Name</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $employee->name }}" readonly>
@@ -85,7 +85,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Email:</label>
+                                    <label class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $employee->email }}" readonly>
@@ -95,7 +95,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Phone:</label>
+                                    <label class="col-form-label">Phone</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $employee->phone }}" readonly>
@@ -105,7 +105,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Experience:</label>
+                                    <label class="col-form-label">Experience</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $employee->experience }}" readonly>
@@ -116,7 +116,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Salary:</label>
+                                    <label class="col-form-label">Salary</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="${{ $employee->salary }}" readonly>
@@ -126,7 +126,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Vacation:</label>
+                                    <label class="col-form-label">Vacation</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $employee->vacation }}" readonly>
@@ -136,7 +136,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">City:</label>
+                                    <label class="col-form-label">City</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <input type="text" class="form-control bg-white" value="{{ $employee->city }}" readonly>
@@ -146,7 +146,7 @@
                         <li class="col-lg-12">
                             <div class="form-group row">
                                 <div class="col-sm-3 col-4">
-                                    <label class="col-form-label">Address:</label>
+                                    <label class="col-form-label">Address</label>
                                 </div>
                                 <div class="col-sm-9 col-8">
                                     <textarea class="form-control bg-white" readonly>{{ $employee->address }}</textarea>

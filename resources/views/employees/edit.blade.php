@@ -4,17 +4,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-            <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
-                <div>
-                    <h4 class="mb-3">Edit Employee</h4>
-                    <p class="mb-0">A employee dashboard lets you easily gather and visualize employee data from optimizing <br>
-                        the employee experience, ensuring employee retention.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12">
             <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h4 class="card-title">Edit Employee</h4>
+                    </div>
+                </div>
+
                 <div class="card-body">
                     <form action="{{ route('employees.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -47,7 +43,7 @@
                         <!-- begin: Input Data -->
                         <div class=" row align-items-center">
                             <div class="form-group col-md-12">
-                                <label for="name">Employee Name:</label>
+                                <label for="name">Employee Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $employee->name) }}" required>
                                 @error('name')
                                 <div class="invalid-feedback">
@@ -56,7 +52,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="email">Employee Email:</label>
+                                <label for="email">Employee Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email', $employee->email) }}" required>
                                 @error('email')
                                 <div class="invalid-feedback">
@@ -65,7 +61,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="phone">Employee Phone:</label>
+                                <label for="phone">Employee Phone <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ old('phone', $employee->phone) }}" required>
                                 @error('phone')
                                 <div class="invalid-feedback">
@@ -74,7 +70,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="experience">Employee Experience:</label>
+                                <label for="experience">Employee Experience</label>
                                 <select class="form-control" name="experience">
                                     <option value="">Select Year..</option>
                                     <option value="1 Year" @if(old('experience', $employee->experience) == '1 Year')selected="selected"@endif>1 Year</option>
@@ -85,7 +81,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="salary">Employee Salary:</label>
+                                <label for="salary">Employee Salary <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ old('salary', $employee->salary) }}" required>
                                 @error('salary')
                                 <div class="invalid-feedback">
@@ -94,7 +90,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="vacation">Employee Vacation:</label>
+                                <label for="vacation">Employee Vacation</label>
                                 <input type="text" class="form-control @error('vacation') is-invalid @enderror" id="vacation" name="vacation" value="{{ old('vacation') }}">
                                 @error('vacation')
                                 <div class="invalid-feedback">
@@ -103,7 +99,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="city">Employee City:</label>
+                                <label for="city">Employee City <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" value="{{ old('city', $employee->city) }}" required>
                                 @error('city')
                                 <div class="invalid-feedback">
@@ -112,7 +108,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="address">Employee Address:</label>
+                                <label for="address">Employee Address <span class="text-danger">*</span></label>
                                 <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address',$employee->address) }}</textarea>
                                 @error('address')
                                 <div class="invalid-feedback">

@@ -11,7 +11,7 @@
         <!-- begin: Input Data -->
         <div class=" row align-items-center">
             <div class="form-group col-md-12">
-                <label for="current_password">Current Password:</label>
+                <label for="current_password">Current Password <span class="text-danger">*</span></label>
                 <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" name="current_password" required>
                 @error('current_password')
                 <div class="invalid-feedback">
@@ -20,7 +20,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="password">New Password:</label>
+                <label for="password">New Password <span class="text-danger">*</span></label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
                 @error('password')
                 <div class="invalid-feedback">
@@ -29,7 +29,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="password_confirmation">Confirm Password:</label>
+                <label for="password_confirmation">Confirm Password <span class="text-danger">*</span></label>
                 <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" required>
                 @error('password_confirmation')
                 <div class="invalid-feedback">
