@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\Supplier;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,8 +30,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@gmail.com',
         ]);
 
-        Employee::factory(15)->create();
-
-        Customer::factory(15)->create();
+        Employee::factory(25)->create();
+        Customer::factory(25)->create();
+        Supplier::factory(25)->create();
     }
 }
