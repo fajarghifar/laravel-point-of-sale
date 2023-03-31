@@ -19,7 +19,9 @@
                         <span class="ml-4">Dashboards</span>
                     </a>
                 </li>
+
                 <hr>
+
                 <li class="{{ Request::is(['employees*','customers*','suppliers*']) ? 'active' : '' }}">
                     <a href="#people" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <svg class="svg-icon" id="p-dash8" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -34,17 +36,40 @@
 
                         <li class="{{ Request::is('employees*') ? 'active' : '' }}">
                             <a href="{{ route('employees.index') }}">
-                                <i class="las la-minus"></i><span>Employees</span>
+                                <i class="fal fa-minus"></i><span>Employees</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('customers*') ? 'active' : '' }}">
                             <a href="{{ route('customers.index') }}">
-                                <i class="las la-minus"></i><span>Customers</span>
+                                <i class="fal fa-minus"></i><span>Customers</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
                             <a href="{{ route('suppliers.index') }}">
-                                <i class="las la-minus"></i><span>Suppliers</span>
+                                <i class="fal fa-minus"></i><span>Suppliers</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="{{ Request::is(['advance-salary*']) ? 'active' : '' }}">
+                    <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                        <i class="fal fa-hand-holding-usd"></i>
+                        <span class="ml-3">Advance Salary</span>
+                        <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                        </svg>
+                    </a>
+                    <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+
+                        <li class="{{ Request::is('advance-salary') ? 'active' : '' }}">
+                            <a href="{{ route('advance-salary.index') }}">
+                                <i class="fal fa-minus"></i><span>All Advance Salary</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('advance-salary/create*') ? 'active' : '' }}">
+                            <a href="{{ route('advance-salary.create') }}">
+                                <i class="fal fa-minus"></i><span>Create Advance Salary</span>
                             </a>
                         </li>
                     </ul>
