@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\AdvanceSalary;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Supplier;
@@ -30,7 +31,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@gmail.com',
         ]);
 
-        Employee::factory(25)->create();
+        Employee::factory(5)->create();
+        AdvanceSalary::factory(5)->create();
+
         Customer::factory(25)->create();
         Supplier::factory(25)->create();
     }
