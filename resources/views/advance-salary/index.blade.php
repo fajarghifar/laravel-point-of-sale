@@ -19,7 +19,7 @@
                         the advance salary experience, ensuring advance salary retention. </p>
                 </div>
                 <div>
-                <a href="{{ route('advance-salary.create') }}" class="btn btn-primary add-list"><i class="fas fa-plus mr-3"></i></i>Add Employee</a>
+                <a href="{{ route('advance-salary.create') }}" class="btn btn-primary add-list"><i class="fas fa-plus mr-3"></i></i>Add Advance Salary</a>
                 <a href="{{ route('advance-salary.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                             </td>
                             <td>{{ $advance_salary->employee->name }}</td>
                             <td>{{ Carbon\Carbon::parse($advance_salary->date)->format('M/Y') }}</td>
-                            <td>${{ $advance_salary->advance_salary }}</td>
+                            <td>{{ $advance_salary->advance_salary ? '$'.$advance_salary->advance_salary : 'No Advance' }}</td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"

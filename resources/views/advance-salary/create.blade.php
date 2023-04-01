@@ -66,8 +66,8 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="advance_salary">Advance Salary <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('advance_salary') is-invalid @enderror" id="advance_salary" name="advance_salary" value="{{ old('advance_salary') }}" required>
+                                <label for="advance_salary">Advance Salary</label>
+                                <input type="text" class="form-control @error('advance_salary') is-invalid @enderror" id="advance_salary" name="advance_salary" value="{{ old('advance_salary') }}">
                                 @error('advance_salary')
                                 <div class="invalid-feedback">
                                     {{ $message }}

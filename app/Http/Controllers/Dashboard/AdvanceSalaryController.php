@@ -29,6 +29,7 @@ class AdvanceSalaryController extends Controller
         return view('advance-salary.index', [
             'user' => auth()->user(),
             'advance_salaries' => AdvanceSalary::with(['employee'])
+                ->orderByDesc('date')
                 ->filter(request(['search']))
                 ->sortable()
                 ->paginate($row)
@@ -55,7 +56,7 @@ class AdvanceSalaryController extends Controller
         $rules = [
             'employee_id' => 'required',
             'date' => 'required|date_format:Y-m-d|max:10',
-            'advance_salary' => 'required|numeric'
+            'advance_salary' => 'numeric|nullable'
         ];
 
         // format date only shows the year and month
@@ -102,24 +103,25 @@ class AdvanceSalaryController extends Controller
     {
         $rules = [
             'employee_id' => 'required',
-            'date' => 'required|date_format:Y-m-d|max:10',
+            'date' => 'required|date_format:Y-m-d|max:10|',
             'advance_salary' => 'required|numeric'
         ];
 
-        // format date only shows the year and month
-        $getYm = Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m');
+        // format date only shows the YM (year and month)
+        $newYm = Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m');
+        $oldYm = Carbon::createFromFormat('Y-m-d', $advanceSalary->date)->format('Y-m');
 
-        $advanced = AdvanceSalary::where('employee_id', $request->employee_id)
-            ->whereDate('date', 'LIKE',  $getYm . '%')
-            ->get();
+        $advanced = AdvanceSalary::where('employee_id', $request->id)
+            ->whereDate('date', 'LIKE',  $newYm . '%')
+            ->first();
 
-        if ($advanced->isEmpty()) {
+        if (!$advanced && $newYm == $oldYm) {
             $validatedData = $request->validate($rules);
             AdvanceSalary::where('id', $advanceSalary->id)->update($validatedData);
 
-            return Redirect::route('advance-salary.edit', $request->employee_id)->with('success', 'Advance Salary Updated Successfully!');
+            return Redirect::route('advance-salary.edit', $advanceSalary->id)->with('success', 'Advance Salary Updated Successfully!');
         } else {
-            return Redirect::route('advance-salary.edit', $request->employee_id)->with('warning', 'Advance Salary Already Paid!');
+            return Redirect::route('advance-salary.edit', $advanceSalary->id)->with('warning', 'Advance Salary Already Paid!');
         }
     }
 
