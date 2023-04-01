@@ -15,6 +15,7 @@ class AdvanceSalary extends Model
         'date',
         'advance_salary',
     ];
+
     public $sortable = [
         'employee_id',
         'date',
@@ -25,7 +26,18 @@ class AdvanceSalary extends Model
         'id',
     ];
 
+    protected $with = ['employee'];
+
     public function employee(){
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->whereHas('employee', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        });
     }
 }

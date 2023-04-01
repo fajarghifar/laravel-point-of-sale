@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Employee::factory(5)->create();
-        AdvanceSalary::factory(5)->create();
+        AdvanceSalary::factory(25)->create();
 
         Customer::factory(25)->create();
         Supplier::factory(25)->create();

@@ -41,4 +41,9 @@ class Employee extends Model
             return $query->where('name', 'like', '%' . $search . '%');
         });
     }
+
+    public function advance_salaries()
+    {
+        return $this->hasMany(AdvanceSalary::class);
+    }
 }
