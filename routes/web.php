@@ -27,12 +27,16 @@ Route::get('/', function () {
 // Dashboard
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-    Route::resource('/employees', EmployeeController::class);
-    Route::resource('/pay-salary', PaySalaryController::class);
-    Route::resource('/advance-salary', AdvanceSalaryController::class)->except(['show']);
-
     Route::resource('/customers', CustomerController::class);
     Route::resource('/suppliers', SupplierController::class);
+    Route::resource('/employees', EmployeeController::class);
+    Route::resource('/advance-salary', AdvanceSalaryController::class)->except(['show']);
+
+    // PaySalary
+    Route::resource('/pay-salary', PaySalaryController::class)->except(['show', 'create', 'edit', 'update']);
+    Route::get('/pay-salary/history', [PaySalaryController::class, 'payHistory'])->name('pay-salary.payHistory');
+    Route::get('/pay-salary/history/{id}', [PaySalaryController::class, 'payHistoryDetail'])->name('pay-salary.payHistoryDetail');
+    Route::get('/pay-salary/{id}', [PaySalaryController::class, 'paySalary'])->name('pay-salary.paySalary');
 });
 
 // Profile

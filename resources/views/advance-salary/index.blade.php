@@ -19,7 +19,7 @@
                         the advance salary experience, ensuring advance salary retention. </p>
                 </div>
                 <div>
-                <a href="{{ route('advance-salary.create') }}" class="btn btn-primary add-list"><i class="fas fa-plus mr-3"></i></i>Add Advance Salary</a>
+                <a href="{{ route('advance-salary.create') }}" class="btn btn-primary add-list"><i class="fas fa-plus mr-3"></i></i>Create Advance Salary</a>
                 <a href="{{ route('advance-salary.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
                 </div>
             </div>
@@ -79,16 +79,18 @@
                             <td>{{ Carbon\Carbon::parse($advance_salary->date)->format('M/Y') }}</td>
                             <td>{{ $advance_salary->advance_salary ? '$'.$advance_salary->advance_salary : 'No Advance' }}</td>
                             <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="{{ route('advance-salary.edit', $advance_salary->id) }}""><i class="ri-pencil-line mr-0"></i>
-                                    </a>
-                                    <form action="{{ route('advance-salary.destroy', $advance_salary->id) }}" method="POST" style="margin-bottom: 5px">
-                                        @method('delete')
-                                        @csrf
-                                        <button type="submit" class="badge bg-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
-                                    </form>
-                                </div>
+                                <form action="{{ route('advance-salary.destroy', $advance_salary->id) }}" method="POST" style="margin-bottom: 5px">
+                                    @method('delete')
+                                    @csrf
+                                    <div class="d-flex align-items-center list-action">
+                                        <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                            href="{{ route('advance-salary.edit', $advance_salary->id) }}""><i class="ri-pencil-line mr-0"></i>
+                                        </a>
+                                        <button type="submit" class="btn btn-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                            <i class="ri-delete-bin-line mr-0"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </td>
                         </tr>
 

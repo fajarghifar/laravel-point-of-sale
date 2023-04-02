@@ -14,9 +14,9 @@
             @endif
             <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div>
-                    <h4 class="mb-3">Pay Salary List</h4>
-                    <p class="mb-0">A pay salary dashboard lets you easily gather and visualize pay salary data from optimizing <br>
-                        the pay salary experience, ensuring pay salary retention. </p>
+                    <h4 class="mb-3">History Pay Salary List</h4>
+                    <p class="mb-0">A history pay salary dashboard lets you easily gather and visualize history pay salary data from optimizing <br>
+                        the history pay salary experience, ensuring history pay salary retention. </p>
                 </div>
                 <div>
                 <a href="{{ route('advance-salary.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
@@ -63,30 +63,37 @@
                             <th>Photo</th>
                             <th>@sortablelink('employee.name', 'name')</th>
                             <th>@sortablelink('date')</th>
-                            <th>@sortablelink('employee.salary', 'salary')</th>
-                            <th>@sortablelink('advance_salary', 'advance salary')</th>
-                            <th>Due</th>
+                            <th>@sortablelink('paid_amount', 'Paid Amount')</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                        @forelse ($advanceSalaries as $advanceSalary)
+                        @forelse ($paySalaries as $paySalary)
                         <tr>
-                            <td>{{ (($advanceSalaries->currentPage() * 10) - 10) + $loop->iteration  }}</td>
+                            <td>{{ (($paySalaries->currentPage() * 10) - 10) + $loop->iteration  }}</td>
                             <td>
-                                <img class="avatar-60 rounded" src="{{ $advanceSalary->employee->photo ? asset('storage/employees/'.$advanceSalary->employee->photo) : asset('assets/images/user/1.png') }}">
+                                <img class="avatar-60 rounded" src="{{ $paySalary->employee->photo ? asset('storage/employees/'.$paySalary->employee->photo) : asset('assets/images/user/1.png') }}">
                             </td>
-                            <td>{{ $advanceSalary->employee->name }}</td>
-                            <td>{{ Carbon\Carbon::parse($advanceSalary->date)->format('M/Y') }}</td>
-                            <td>${{ $advanceSalary->employee->salary }}</td>
-                            <td>{{ $advanceSalary->advance_salary ? '$'.$advanceSalary->advance_salary : 'No Advance' }}</td>
-                            <td>${{ $advanceSalary->employee->salary - $advanceSalary->advance_salary }}</td>
+                            <td>{{ $paySalary->employee->name }}</td>
+                            <td>{{ Carbon\Carbon::parse($paySalary->date)->format('M/Y') }}</td>
+                            <td>${{ $paySalary->paid_amount }}</td>
                             <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pay Now"
-                                        href="{{ route('pay-salary.paySalary', $advanceSalary->id) }}">Pay Now</i>
-                                    </a>
-                                </div>
+                                <span class="btn btn-success text-white mr-2">Full Paid</span>
+                            </td>
+                            <td>
+                                <form action="{{ route('pay-salary.destroy', $paySalary->id) }}" method="POST">
+                                    @method('delete')
+                                    @csrf
+                                    <div class="d-flex align-items-center list-action">
+                                        <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="History" href="{{ route('pay-salary.payHistoryDetail', $paySalary->id) }}">
+                                            <i class="ri-eye-line mr-0"></i>
+                                        </a>
+                                        <button type="submit" class="btn btn-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                            <i class="ri-delete-bin-line mr-0"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </td>
                         </tr>
 
@@ -101,7 +108,7 @@
                     </tbody>
                 </table>
             </div>
-            {{ $advanceSalaries->links() }}
+            {{ $paySalaries->links() }}
         </div>
     </div>
     <!-- Page end  -->

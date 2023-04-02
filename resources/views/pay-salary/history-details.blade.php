@@ -31,44 +31,39 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Pay Salary</h4>
+                        <h4 class="card-title">History Pay Salary</h4>
                     </div>
                 </div>
 
                 <div class="card-body">
                     <!-- begin: Input Data -->
                     <div class=" row align-items-center">
-
-                        <div class="form-group col-md-1">
-                            <label for="name_employee">Name Employee <span class="text-danger">*</span></label>
-                            {{-- <input type="text" class="form-control" id="name_employee" name="name_employee" value="{{ $paySalary->employee->name }}" required> --}}
+                        <div class="form-group col-md-6">
+                            <label>Employee Name</label>
+                            <input class="form-control bg-white" value="{{ $paySalary->employee->name }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="datepicker">Date <span class="text-danger">*</span></label>
-                            <input id="datepicker" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date', $paySalary->date) }}" />
+                            <label>Date</label>
+                            <input class="form-control bg-white" value="{{ $paySalary->date }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="advance_salary">Advance Salary <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('advance_salary') is-invalid @enderror" id="advance_salary" name="advance_salary" value="{{ $paySalary->advance_salary }}" required>
+                            <label>Salary</label>
+                            <input class="form-control bg-white" value="{{ $paySalary->paid_amount }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Advance Salary</label>
+                            <input class="form-control bg-white" value="{{ $paySalary->advance_salary ? $paySalary->advance_salary : 'No Advance' }}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Due Salary</label>
+                            <input class="form-control bg-white" value="{{ $paySalary->due_salary }}" readonly>
                         </div>
                     </div>
                     <!-- end: Input Data -->
-                    <div class="mt-2">
-                        <button type="submit" class="btn btn-primary mr-2">Save</button>
-                        <a class="btn bg-danger" href="{{ route('pay-salary.index') }}">Cancel</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Page end  -->
 </div>
-
-<script>
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd'
-        // https://gijgo.com/datetimepicker/configuration/format
-    });
-</script>
 @endsection

@@ -55,26 +55,31 @@
                 <li class="{{ Request::is(['/salary/advance-salary*', '/salary/pay-salary*']) ? 'active' : '' }}">
                     <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fal fa-hand-holding-usd"></i>
-                        <span class="ml-3">Advance Salary</span>
+                        <span class="ml-3">Salary</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                         </svg>
                     </a>
                     <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
 
-                        <li class="{{ Request::is(['salary/advance-salary', 'salary/advance-salary/*/edit']) ? 'active' : '' }}">
+                        <li class="{{ Request::is(['advance-salary', 'advance-salary/*/edit']) ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.index') }}">
                                 <i class="fal fa-minus"></i><span>All Advance Salary</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is('salary/advance-salary/create*') ? 'active' : '' }}">
+                        <li class="{{ Request::is('advance-salary/create*') ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.create') }}">
                                 <i class="fal fa-minus"></i><span>Create Advance Salary</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is('salary/pay-salary*') ? 'active' : '' }}">
+                        <li class="{{ Request::is('pay-salary') ? 'active' : '' }}">
                             <a href="{{ route('pay-salary.index') }}">
                                 <i class="fal fa-minus"></i><span>Pay Salary</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('pay-salary/history*') ? 'active' : '' }}">
+                            <a href="{{ route('pay-salary.payHistory') }}">
+                                <i class="fal fa-minus"></i><span>History Pay Salary</span>
                             </a>
                         </li>
                     </ul>

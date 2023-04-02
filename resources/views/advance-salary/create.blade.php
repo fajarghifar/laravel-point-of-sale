@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Add Advance Salary</h4>
+                        <h4 class="card-title">Create Advance Salary</h4>
                     </div>
                 </div>
 

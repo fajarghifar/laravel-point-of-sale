@@ -7,6 +7,7 @@ use App\Models\PaySalary;
 use Illuminate\Http\Request;
 use App\Models\AdvanceSalary;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class PaySalaryController extends Controller
 {
@@ -18,7 +19,7 @@ class PaySalaryController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The row parameter must be an integer between 1 and 100.');
         }
 
         if(request('search')){
@@ -27,12 +28,58 @@ class PaySalaryController extends Controller
 
         return view('pay-salary.index', [
             'user' => auth()->user(),
-            'advance_salaries' => AdvanceSalary::with(['employee'])
+            'advanceSalaries' => AdvanceSalary::with(['employee'])
                 ->orderByDesc('date')
                 ->filter(request(['search']))
                 ->sortable()
                 ->paginate($row)
                 ->appends(request()->query()),
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function paySalary(String $id)
+    {
+        return view('pay-salary.create', [
+            'user' => auth()->user(),
+            'advanceSalary' => AdvanceSalary::with(['employee'])
+                ->where('id', $id)
+                ->first(),
+        ]);
+    }
+
+    public function payHistory()
+    {
+        $row = (int) request('row', 10);
+
+        if ($row < 1 || $row > 100) {
+            abort(400, 'The row parameter must be an integer between 1 and 100.');
+        }
+
+        if(request('search')){
+            Employee::firstWhere('name', request('search'));
+        }
+
+        return view('pay-salary.history', [
+            'user' => auth()->user(),
+            'paySalaries' => PaySalary::with(['employee'])
+            ->orderByDesc('date')
+            ->filter(request(['search']))
+            ->sortable()
+            ->paginate($row)
+            ->appends(request()->query()),
+        ]);
+    }
+
+    public function payHistoryDetail(String $id)
+    {
+        return view('pay-salary.history-details', [
+            'user' => auth()->user(),
+            'paySalary' => PaySalary::with(['employee'])
+            ->where('id', $id)
+            ->first(),
         ]);
     }
 
@@ -49,21 +96,32 @@ class PaySalaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'date' => 'required|date_format:Y-m-d|max:10',
+        ];
+
+        $paySalary = AdvanceSalary::with(['employee'])
+            ->where('id', $request->id)
+            ->first();
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['employee_id'] = $paySalary->employee_id;
+        $validatedData['paid_amount'] = $paySalary->employee->salary;
+        $validatedData['advance_salary'] = $paySalary->advance_salary;
+        $validatedData['due_salary'] = $paySalary->employee->salary - $paySalary->advance_salary;
+
+        PaySalary::create($validatedData);
+
+        return Redirect::route('pay-salary.payHistory')->with('success', 'Employee Salary Paid Successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(AdvanceSalary $advanceSalary)
+    public function show(PaySalary $paySalary)
     {
-        dd($advanceSalary);
-
-        return view('pay-salary.show', [
-            'user' => auth()->user(),
-            'paySalary' => AdvanceSalary::with(['employee'])
-                ->where('id', $advanceSalary->id)
-        ]);
+        //
     }
 
     /**
@@ -87,6 +145,8 @@ class PaySalaryController extends Controller
      */
     public function destroy(PaySalary $paySalary)
     {
-        //
+        PaySalary::destroy($paySalary->id);
+
+        return Redirect::route('pay-salary.payHistory')->with('success', 'Employee History Pay Salary has been deleted!');
     }
 }
