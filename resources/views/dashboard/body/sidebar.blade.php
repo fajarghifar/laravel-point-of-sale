@@ -52,7 +52,7 @@
                     </ul>
                 </li>
 
-                <li class="{{ Request::is(['advance-salary*']) ? 'active' : '' }}">
+                <li class="{{ Request::is(['/salary/advance-salary*', '/salary/pay-salary*']) ? 'active' : '' }}">
                     <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fal fa-hand-holding-usd"></i>
                         <span class="ml-3">Advance Salary</span>
@@ -62,14 +62,19 @@
                     </a>
                     <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
 
-                        <li class="{{ Request::is('advance-salary') ? 'active' : '' }}">
+                        <li class="{{ Request::is(['salary/advance-salary', 'salary/advance-salary/*/edit']) ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.index') }}">
                                 <i class="fal fa-minus"></i><span>All Advance Salary</span>
                             </a>
                         </li>
-                        <li class="{{ Request::is('advance-salary/create*') ? 'active' : '' }}">
+                        <li class="{{ Request::is('salary/advance-salary/create*') ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.create') }}">
                                 <i class="fal fa-minus"></i><span>Create Advance Salary</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('salary/pay-salary*') ? 'active' : '' }}">
+                            <a href="{{ route('pay-salary.index') }}">
+                                <i class="fal fa-minus"></i><span>Pay Salary</span>
                             </a>
                         </li>
                     </ul>

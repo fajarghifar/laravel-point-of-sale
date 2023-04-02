@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
+use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -27,6 +28,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
     Route::resource('/employees', EmployeeController::class);
+    Route::resource('/pay-salary', PaySalaryController::class);
     Route::resource('/advance-salary', AdvanceSalaryController::class)->except(['show']);
 
     Route::resource('/customers', CustomerController::class);
