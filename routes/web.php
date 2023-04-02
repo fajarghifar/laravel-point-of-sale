@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
+use App\Http\Controllers\Dashboard\AttendenceController;
 use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -37,6 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pay-salary/history', [PaySalaryController::class, 'payHistory'])->name('pay-salary.payHistory');
     Route::get('/pay-salary/history/{id}', [PaySalaryController::class, 'payHistoryDetail'])->name('pay-salary.payHistoryDetail');
     Route::get('/pay-salary/{id}', [PaySalaryController::class, 'paySalary'])->name('pay-salary.paySalary');
+
+    // Employee Attendence
+    Route::resource('/employee/attendence', AttendenceController::class);
 });
 
 // Profile
