@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Create Employee Attendence</h4>
+                        <h4 class="card-title">Edit Employee Attendence</h4>
                     </div>
                 </div>
 
@@ -25,7 +25,7 @@
                         <div class="row align-items-center">
                             <div class="form-group col-md-6">
                                 <label for="datepicker">Date <span class="text-danger">*</span></label>
-                                <input id="datepicker" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}" />
+                                <input id="datepicker" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date', $date) }}" />
                                 @error('date')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -44,29 +44,29 @@
                                             </tr>
                                         </thead>
                                         <tbody class="ligth-body">
-                                            @foreach ($employees as $employee)
+                                            @foreach ($attendences as $attendence)
                                             <tr>
                                                 <th scope="row">{{ $key = $loop->iteration  }}</th>
-                                                <td>{{ $employee->name }}</td>
+                                                <td>{{ $attendence->employee->name}}</td>
                                                 <td>
-                                                    <input type="hidden" name="employee_id[{{ $key }}]" value="{{ $employee->id }}">
+                                                    <input type="hidden" name="employee_id[{{ $key }}]" value="{{ $attendence->employee_id }}">
                                                     <div class="input-group">
                                                         <div class="input-group justify-content-center">
                                                             <div class="input-group-text">
                                                                 <div class="custom-radio">
-                                                                    <input type="radio" id="present{{ $key }}" name="status{{ $key }}" class="custom-control-input position-relative" style="height: 20px" value="present">
+                                                                    <input type="radio" id="present{{ $key }}" name="status{{ $key }}" class="custom-control-input position-relative" style="height: 20px" value="present" {{ $attendence->status == 'present' ? 'checked' : '' }}>
                                                                     <label class="custom-control-label" for="present{{ $key }}"> Present </label>
                                                                 </div>
                                                             </div>
                                                             <div class="input-group-text mx-2">
                                                                 <div class="custom-radio">
-                                                                    <input type="radio" id="leave{{ $key }}" name="status{{ $key }}" class="custom-control-input position-relative" style="height: 20px" value="leave">
+                                                                    <input type="radio" id="leave{{ $key }}" name="status{{ $key }}" class="custom-control-input position-relative" style="height: 20px" value="leave" {{ $attendence->status == 'leave' ? 'checked' : '' }}>
                                                                     <label class="custom-control-label" for="leave{{ $key }}"> Leave </label>
                                                                 </div>
                                                             </div>
                                                             <div class="input-group-text">
                                                                 <div class="custom-radio">
-                                                                    <input type="radio" id="absent{{ $key }}" name="status{{ $key }}" class="custom-control-input position-relative" style="height: 20px" value="absent">
+                                                                    <input type="radio" id="absent{{ $key }}" name="status{{ $key }}" class="custom-control-input position-relative" style="height: 20px" value="absent" {{ $attendence->status == 'absent' ? 'checked' : '' }}>
                                                                     <label class="custom-control-label" for="absent{{ $key }}"> Absent </label>
                                                                 </div>
                                                             </div>
@@ -82,7 +82,7 @@
                         </div>
                         <!-- end: Input Data -->
                         <div class="mt-2">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('attendence.index') }}" class="btn btn-danger">Cancel</a>
                         </div>
                     </form>

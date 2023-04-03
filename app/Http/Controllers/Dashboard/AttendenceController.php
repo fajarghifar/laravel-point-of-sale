@@ -6,15 +6,16 @@ use App\Models\Employee;
 use App\Models\Attendence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class AttendenceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $row = (int) $request->query('row', 10);
+        $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
             abort(400, 'The per_page parameter must be an integer between 1 and 100.');
@@ -22,11 +23,12 @@ class AttendenceController extends Controller
 
         return view('attendence.index', [
             'user' => auth()->user(),
-            'attendences' => Attendence::with(['employee'])
-                ->sortable()
+            'attendences' => Attendence::sortable()
+                ->select('date')
+                ->groupBy('date')
+                ->orderBy('date', 'desc')
                 ->paginate($row)
-                ->appends(request()
-                ->query()),
+                ->appends(request()->query()),
         ]);
     }
 
@@ -46,7 +48,28 @@ class AttendenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $countEmployee = count($request->employee_id);
+        $rules = [
+            'date' => 'required|date_format:Y-m-d|max:10',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        // Delete if the date is already created (it is just for updating new attendance). If not it will create new attendance
+        Attendence::where('date', $validatedData['date'])->delete();
+
+        for ($i=1; $i <= $countEmployee; $i++) {
+            $status = 'status' . $i;
+            $attend = new Attendence();
+
+            $attend->date = $validatedData['date'];
+            $attend->employee_id = $request->employee_id[$i];
+            $attend->status = $request->$status;
+
+            $attend->save();
+        }
+
+        return Redirect::route('attendence.index')->with('success', 'Attendence has been Created!');
     }
 
     /**
@@ -62,7 +85,11 @@ class AttendenceController extends Controller
      */
     public function edit(Attendence $attendence)
     {
-        //
+        return view('attendence.edit', [
+            'user' => auth()->user(),
+            'attendences' => Attendence::with(['employee'])->where('date', $attendence->date)->get(),
+            'date' => $attendence->date
+        ]);
     }
 
     /**

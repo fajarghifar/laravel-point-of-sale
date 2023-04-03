@@ -40,17 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="control-label col-sm-3 align-self-center" for="search">Search:</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input type="text" id="search" class="form-control" name="search" placeholder="Search customer" value="{{ request('search') }}">
-                                <div class="input-group-append">
-                                    <button type="submit" class="input-group-text bg-primary"><i class="fa-solid fa-magnifying-glass font-size-20"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="submit" class="input-group-text bg-primary"><i class="fa-solid fa-magnifying-glass font-size-20"></i></button>
                 </div>
             </form>
         </div>
@@ -72,17 +62,12 @@
                             <td>{{ $attendence->date }}</td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
-                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                        href="{{ route('attendence.show', $attendence->id) }}"><i class="ri-eye-line mr-0"></i>
+                                    <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                        href="{{ route('attendence.edit', $attendence->date) }}"><i class="ri-pencil-line mr-0"></i>
                                     </a>
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="{{ route('attendence.edit', $attendence->id) }}""><i class="ri-pencil-line mr-0"></i>
-                                    </a>
-                                    <form action="{{ route('attendence.destroy', $attendence->id) }}" method="POST" style="margin-bottom: 5px">
-                                        @method('delete')
-                                        @csrf
-                                        <button type="submit" class="badge bg-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
-                                    </form>
+                                    {{-- <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
+                                        href="{{ route('attendence.show', $attendence->date) }}"><i class="ri-eye-line mr-0"></i>
+                                    </a> --}}
                                 </div>
                             </td>
                         </tr>

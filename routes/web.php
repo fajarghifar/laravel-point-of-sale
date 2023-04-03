@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pay-salary/{id}', [PaySalaryController::class, 'paySalary'])->name('pay-salary.paySalary');
 
     // Employee Attendence
-    Route::resource('/employee/attendence', AttendenceController::class);
+    Route::resource('/employee/attendence', AttendenceController::class)->except(['show', 'update', 'destroy']);
 });
 
 // Profile
