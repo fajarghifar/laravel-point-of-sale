@@ -4,10 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\AdvanceSalary;
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Supplier;
+use App\Models\AdvanceSalary;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -36,5 +37,7 @@ class DatabaseSeeder extends Seeder
 
         Customer::factory(25)->create();
         Supplier::factory(25)->create();
+
+        Category::factory(5)->create();
     }
 }

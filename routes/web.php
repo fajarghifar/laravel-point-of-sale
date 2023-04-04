@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 use App\Http\Controllers\Dashboard\AttendenceController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
 
     // Employee Attendence
     Route::resource('/employee/attendence', AttendenceController::class)->except(['show', 'update', 'destroy']);
+
+    // Category Product
+    Route::resource('/categories', CategoryController::class);
 });
 
 // Profile
