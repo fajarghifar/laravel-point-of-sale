@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/employee/attendence', AttendenceController::class)->except(['show', 'update', 'destroy']);
 
     // Category Product
+    Route::resource('/products', ProductController::class);
     Route::resource('/categories', CategoryController::class);
 });
 

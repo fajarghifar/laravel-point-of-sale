@@ -110,14 +110,23 @@
 
                 <li class="{{ Request::is(['categories*']) ? 'active' : '' }}">
                     <a href="#products" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fal fa-calendar-alt"></i>
+                        <i class="fal fa-shopping-cart"></i>
                         <span class="ml-3">Products</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                         </svg>
                     </a>
                     <ul id="products" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
-
+                        <li class="{{ Request::is(['products']) ? 'active' : '' }}">
+                            <a href="{{ route('products.index') }}">
+                                <i class="fal fa-minus"></i><span>Products</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is(['products/create']) ? 'active' : '' }}">
+                            <a href="{{ route('products.create') }}">
+                                <i class="fal fa-minus"></i><span>Add Product</span>
+                            </a>
+                        </li>
                         <li class="{{ Request::is(['categories*']) ? 'active' : '' }}">
                             <a href="{{ route('categories.index') }}">
                                 <i class="fal fa-minus"></i><span>Categories</span>
