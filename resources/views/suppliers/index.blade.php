@@ -19,7 +19,7 @@
                         the supplier experience, ensuring supplier retention. </p>
                 </div>
                 <div>
-                    <a href="{{ route('suppliers.create') }}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Supplier</a>
+                    <a href="{{ route('suppliers.create') }}" class="btn btn-primary add-list"><i class="fa-solid fa-plus mr-3"></i>Add Supplier</a>
                     <a href="{{ route('suppliers.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
                 </div>
             </div>

@@ -19,7 +19,7 @@
                         the customer experience, ensuring customer retention. </p>
                 </div>
                 <div>
-                    <a href="{{ route('customers.create') }}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Customer</a>
+                    <a href="{{ route('customers.create') }}" class="btn btn-primary add-list"><i class="fa-solid fa-plus mr-3"></i>Add Customer</a>
                     <a href="{{ route('customers.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
                 </div>
             </div>

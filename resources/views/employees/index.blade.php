@@ -19,7 +19,7 @@
                         the employee experience, ensuring employee retention. </p>
                 </div>
                 <div>
-                <a href="{{ route('employees.create') }}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Employee</a>
+                <a href="{{ route('employees.create') }}" class="btn btn-primary add-list"><i class="fa-solid fa-plus mr-3"></i>Add Employee</a>
                 <a href="{{ route('employees.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
                 </div>
             </div>
