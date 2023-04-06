@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use Picqer\Barcode\BarcodeGeneratorHTML;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductController extends Controller
 {
@@ -51,12 +53,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $product_code = IdGenerator::generate([
+            'table' => 'products',
+            'field' => 'product_code',
+            'length' => 4,
+            'prefix' => 'PC'
+        ]);
+
         $rules = [
             'product_image' => 'image|file|max:1024',
             'product_name' => 'required|string',
             'category_id' => 'required|integer',
             'supplier_id' => 'required|integer',
-            'product_code' => 'string|nullable',
             'product_garage' => 'string|nullable',
             'product_store' => 'string|nullable',
             'buying_date' => 'date_format:Y-m-d|max:10|nullable',
@@ -66,6 +74,9 @@ class ProductController extends Controller
         ];
 
         $validatedData = $request->validate($rules);
+
+        // save product code value
+        $validatedData['product_code'] = $product_code;
 
         /**
          * Handle upload image with Storage.
@@ -96,9 +107,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        // Barcode Generator
+        $generator = new BarcodeGeneratorHTML();
+
+        $barcode = $generator->getBarcode($product->product_code, $generator::TYPE_CODE_128);
+
         return view('products.show', [
             'user' => auth()->user(),
-            'product' => $product
+            'product' => $product,
+            'barcode' => $barcode,
         ]);
     }
 
@@ -125,7 +142,6 @@ class ProductController extends Controller
             'product_name' => 'required|string',
             'category_id' => 'required|integer',
             'supplier_id' => 'required|integer',
-            'product_code' => 'string|nullable',
             'product_garage' => 'string|nullable',
             'product_store' => 'string|nullable',
             'buying_date' => 'date_format:Y-m-d|max:10|nullable',
