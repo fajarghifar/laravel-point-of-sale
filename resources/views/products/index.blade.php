@@ -12,6 +12,14 @@
                     </button>
                 </div>
             @endif
+            @if (session()->has('error'))
+                <div class="alert text-white bg-danger" role="alert">
+                    <div class="iq-alert-text">{{ session('success') }}</div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ri-close-line"></i>
+                    </button>
+                </div>
+            @endif
             <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div>
                     <h4 class="mb-3">Product List</h4>
@@ -19,8 +27,9 @@
                         the product experience, ensuring product retention. </p>
                 </div>
                 <div>
-                <a href="{{ route('products.create') }}" class="btn btn-primary add-list"><i class="fas fa-plus mr-3"></i>Add Product</a>
-                <a href="{{ route('products.index') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
+                <a href="{{ route('products.importView') }}" class="btn btn-success add-list">Import</a>
+                <a href="{{ route('products.exportData') }}" class="btn btn-warning add-list">Export</a>
+                <a href="{{ route('products.create') }}" class="btn btn-primary add-list">Add Product</a>
                 </div>
             </div>
         </div>
@@ -42,14 +51,13 @@
 
                     <div class="form-group row">
                         <label class="control-label col-sm-3 align-self-center" for="search">Search:</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
+                            <div class="input-group col-sm-8">
                                 <input type="text" id="search" class="form-control" name="search" placeholder="Search product" value="{{ request('search') }}">
                                 <div class="input-group-append">
                                     <button type="submit" class="input-group-text bg-primary"><i class="fa-solid fa-magnifying-glass font-size-20"></i></button>
+                                    <a href="{{ route('products.index') }}" class="input-group-text bg-danger"><i class="fa-solid fa-trash"></i></a>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </form>

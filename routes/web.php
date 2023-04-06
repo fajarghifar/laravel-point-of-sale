@@ -45,6 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/employee/attendence', AttendenceController::class)->except(['show', 'update', 'destroy']);
 
     // Category Product
+    Route::get('/products/import', [ProductController::class, 'importView'])->name('products.importView');
+    Route::post('/products/import', [ProductController::class, 'importStore'])->name('products.importStore');
+    Route::get('/products/export', [ProductController::class, 'exportData'])->name('products.exportData');
     Route::resource('/products', ProductController::class);
     Route::resource('/categories', CategoryController::class);
 });
