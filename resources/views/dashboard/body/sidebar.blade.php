@@ -19,6 +19,12 @@
                         <span class="ml-4">Dashboards</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('pos') ? 'active' : '' }}">
+                    <a href="{{ route('pos') }}" class="svg-icon">
+                        <i class="fal fa-bags-shopping"></i>
+                        <span class="ml-3">POS</span>
+                    </a>
+                </li>
 
                 <hr>
 

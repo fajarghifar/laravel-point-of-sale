@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\Dashboard\AdvanceSalaryController;
-use App\Http\Controllers\Dashboard\AttendenceController;
-use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\Dashboard\PaySalaryController;
-use App\Http\Controllers\Dashboard\CustomerController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\ProfileController;
-use App\Http\Controllers\Dashboard\EmployeeController;
-use App\Http\Controllers\Dashboard\ProductController;
-use App\Http\Controllers\Dashboard\SupplierController;
+use App\Models\Product;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\Dashboard\EmployeeController;
+use App\Http\Controllers\Dashboard\SupplierController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\PaySalaryController;
+use App\Http\Controllers\Dashboard\AttendenceController;
+use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/pos', function () {
+    $row = (int) request('row', 10);
+
+    if ($row < 1 || $row > 100) {
+        abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+    }
+
+    return view('pos.index', [
+        'user' => auth()->user(),
+        'customers' => Customer::all()->sortBy('name'),
+        'products' => Product::filter(request(['search']))
+            ->sortable()
+            ->paginate($row)
+            ->appends(request()->query()),
+    ]);
+})->name('pos');
 
 // Dashboard
 Route::middleware('auth')->group(function () {

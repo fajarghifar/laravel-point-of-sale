@@ -287,7 +287,7 @@ class ProductController extends Controller
 
         $product_array [] = array(
             'Product Name',
-            'category Id',
+            'Category Id',
             'Supplier Id',
             'Product Code',
             'Product Garage',
@@ -303,7 +303,7 @@ class ProductController extends Controller
         {
             $product_array[] = array(
                 'Product Name' => $product->product_name,
-                'category Id' => $product->category_id,
+                'Category Id' => $product->category_id,
                 'Supplier Id' => $product->supplier_id,
                 'Product Code' => $product->product_code,
                 'Product Garage' => $product->product_garage,
