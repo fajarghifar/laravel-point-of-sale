@@ -5,12 +5,20 @@
 
     <div class="row">
         <div class="col-lg-12">
+            @if (session()->has('success'))
+                <div class="alert text-white bg-success" role="alert">
+                    <div class="iq-alert-text">{{ session('success') }}</div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="ri-close-line"></i>
+                    </button>
+                </div>
+            @endif
             <div>
                 <h4 class="mb-3">Point of Sale</h4>
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-md-12 mb-3">
             <table class="table">
                 <thead>
                     <tr class="ligth">
@@ -22,57 +30,66 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($productItem as $item)
                     <tr>
-                        <td>Laptop</td>
-                        <td><input type="email" class="form-control"></td>
-                        <td>2200</td>
-                        <td>4400</td>
+                        <td>{{ $item->name }}</td>
+                        <td style="min-width: 140px;">
+                            <form action="{{ route('pos.updateCart', $item->rowId) }}" method="POST">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="qty" required value="{{ old('qty', $item->qty) }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-success border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sumbit"><i class="fas fa-check"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td>{{ $item->price }}</td>
+                        <td>{{ $item->subtotal }}</td>
                         <td>
-                            <button type="submit" class="btn btn-danger border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa-solid fa-trash mr-0"></i></button>
+                            <a href="{{ route('pos.deleteCart', $item->rowId) }}" class="btn btn-danger border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa-solid fa-trash mr-0"></i></a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
 
-            <div class="container row">
-                <div class="form-group col-md-6">
-                    <p class="h4 text-black">Quantity: 123</p>
+            <div class="container row text-center">
+                <div class="form-group col-sm-6">
+                    <p class="h4 text-primary">Quantity: {{ Cart::count() }}</p>
                 </div>
-                <div class="form-group col-md-6">
-                    <p class="h4 text-black">Subtotal: 123</p>
+                <div class="form-group col-sm-6">
+                    <p class="h4 text-primary">Subtotal: {{ Cart::subtotal() }}</p>
                 </div>
-                <div class="form-group col-md-6">
-                    <p class="h4 text-black">Vat: 123</p>
+                <div class="form-group col-sm-6">
+                    <p class="h4 text-primary">Vat: {{ Cart::tax() }}</p>
                 </div>
-                <div class="form-group col-md-6">
-                    <p class="h4 text-black">Total: 123</p>
+                <div class="form-group col-sm-6">
+                    <p class="h4 text-primary">Total: {{ Cart::total() }}</p>
                 </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center">
-                        <a href="{{ route('customers.create') }}" class="btn btn-primary add-list">Add Customers</a>
+                    <div class="input-group">
+                        <select class="form-control" id="employee_id" name="employee_id" required="">
+                            <option selected="" disabled="">-- Select Customer --</option>
+                            @foreach ($customers as $customer)
+                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                <div class="form-group col-md-12">
-                    <label for="employee_id">Select Customer <span class="text-danger">*</span></label>
-                    <select class="form-control mb-3" id="employee_id" name="employee_id" required="">
-                        <option selected="" disabled="">-- Select Employee --</option>
-                        @foreach ($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-12">
+                <div class="col-md-12 mt-4">
                     <div class="d-flex flex-wrap align-items-center justify-content-center">
-                        <button type="submit" class="btn btn-success add-list">Create Invoice</button>
+                        <a href="{{ route('customers.create') }}" class="btn btn-primary add-list mx-1">Add Customer</a>
+                        <button type="submit" class="btn btn-success add-list mx-1">Create Invoice</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-md-12">
             <div class="card card-block card-stretch card-height">
                 <div class="card-body">
                     <form action="#" method="get">
@@ -124,9 +141,13 @@
                                     <td>{{ $product->product_name }}</td>
                                     <td>{{ $product->selling_price }}</td>
                                     <td>
-                                        <form action="#" method="POST" style="margin-bottom: 5px">
+                                        <form action="{{ route('pos.addCart') }}" method="POST"  style="margin-bottom: 5px">
                                             @csrf
-                                                <button type="submit" class="btn btn-primary border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add"><i class="far fa-plus mr-0"></i></button>
+                                            <input type="hidden" name="id" value="{{ $product->id }}">
+                                            <input type="hidden" name="name" value="{{ $product->product_name }}">
+                                            <input type="hidden" name="price" value="{{ $product->selling_price }}">
+
+                                            <button type="submit" class="btn btn-primary border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add"><i class="far fa-plus mr-0"></i></button>
                                         </form>
                                     </td>
                                 </tr>

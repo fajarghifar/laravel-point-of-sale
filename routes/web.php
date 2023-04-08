@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\AttendenceController;
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
+use App\Http\Controllers\Dashboard\PosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,23 +29,6 @@ use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/pos', function () {
-    $row = (int) request('row', 10);
-
-    if ($row < 1 || $row > 100) {
-        abort(400, 'The per_page parameter must be an integer between 1 and 100.');
-    }
-
-    return view('pos.index', [
-        'user' => auth()->user(),
-        'customers' => Customer::all()->sortBy('name'),
-        'products' => Product::filter(request(['search']))
-            ->sortable()
-            ->paginate($row)
-            ->appends(request()->query()),
-    ]);
-})->name('pos');
 
 // Dashboard
 Route::middleware('auth')->group(function () {
@@ -69,6 +53,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/products/export', [ProductController::class, 'exportData'])->name('products.exportData');
     Route::resource('/products', ProductController::class);
     Route::resource('/categories', CategoryController::class);
+
+    // POS
+    Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+    Route::post('/pos/add-cart', [PosController::class, 'addCart'])->name('pos.addCart');
+    Route::post('/pos/update-cart/{rowId}', [PosController::class, 'updateCart'])->name('pos.updateCart');
+    Route::get('/pos/delete-cart/{rowId}', [PosController::class, 'deleteCart'])->name('pos.deleteCart');
+    Route::get('/pos/all-item', [PosController::class, 'allItem'])->name('pos.allItem');
+
 });
 
 // Profile
