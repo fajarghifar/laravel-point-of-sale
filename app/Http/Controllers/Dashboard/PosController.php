@@ -80,4 +80,38 @@ class PosController extends Controller
             'productItem' => $productItem
         ]);
     }
+
+    public function createInvoice(Request $request)
+    {
+        $rules = [
+            'customer_id' => 'required'
+        ];
+
+        $validatedData = $request->validate($rules);
+        $customer = Customer::where('id', $validatedData['customer_id'])->first();
+        $content = Cart::content();
+
+        return view('pos.create-invoice', [
+            'user' => auth()->user(),
+            'customer' => $customer,
+            'content' => $content
+        ]);
+    }
+
+    public function printInvoice(Request $request)
+    {
+        $rules = [
+            'customer_id' => 'required'
+        ];
+
+        $validatedData = $request->validate($rules);
+        $customer = Customer::where('id', $validatedData['customer_id'])->first();
+        $content = Cart::content();
+
+        return view('pos.print-invoice', [
+            'user' => auth()->user(),
+            'customer' => $customer,
+            'content' => $content
+        ]);
+    }
 }

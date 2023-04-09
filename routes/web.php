@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Product;
-use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -60,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/pos/update-cart/{rowId}', [PosController::class, 'updateCart'])->name('pos.updateCart');
     Route::get('/pos/delete-cart/{rowId}', [PosController::class, 'deleteCart'])->name('pos.deleteCart');
     Route::get('/pos/all-item', [PosController::class, 'allItem'])->name('pos.allItem');
+    Route::post('/pos/create-invoice', [PosController::class, 'createInvoice'])->name('pos.createInvoice');
+    Route::post('/pos/print-invoice', [PosController::class, 'printInvoice'])->name('pos.printInvoice');
 
 });
 
