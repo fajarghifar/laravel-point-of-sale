@@ -59,8 +59,13 @@ class AdvanceSalaryController extends Controller
             'advance_salary' => 'numeric|nullable'
         ];
 
-        // format date only shows the year and month
-        $getYm = Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m');
+        if ($request->date) {
+            // format date only shows the year and month
+            $getYm = Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m');
+        } else {
+            $validatedData = $request->validate($rules);
+        }
+
 
         $advanced = AdvanceSalary::where('employee_id', $request->employee_id)
             ->whereDate('date', 'LIKE',  $getYm . '%')

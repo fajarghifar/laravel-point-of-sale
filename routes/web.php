@@ -11,7 +11,12 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\AttendenceController;
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PosController;
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +65,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pos/all-item', [PosController::class, 'allItem'])->name('pos.allItem');
     Route::post('/pos/create-invoice', [PosController::class, 'createInvoice'])->name('pos.createInvoice');
     Route::post('/pos/print-invoice', [PosController::class, 'printInvoice'])->name('pos.printInvoice');
+
+    // Create Order
+    Route::post('/pos/order', [OrderController::class, 'store'])->name('pos.store');
 
 });
 

@@ -7,7 +7,7 @@
             <div class="card card-block">
                 <div class="card-header d-flex justify-content-between bg-primary">
                     <div class="iq-header-title">
-                        <h4 class="card-title mb-0">Invoice#1234567</h4>
+                        <h4 class="card-title mb-0">Invoice</h4>
                     </div>
                     <div class="invoice-btn d-flex">
                         <form action="{{ route('pos.printInvoice') }}" method="post">
@@ -15,59 +15,64 @@
                             <input type="hidden" name="customer_id" value="{{ $customer->id }}">
                             <button type="submit" class="btn btn-primary-dark mr-2"><i class="las la-print"></i> Print</button>
                         </form>
-                        <button type="button" class="btn btn-primary-dark mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">Submit</button>
+                        <button type="button" class="btn btn-primary-dark mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">Create</button>
                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
                             <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title mx-auto">Invoice of {{ $customer->name }}</h5>
-                                    <h5 class="modal-title mx-auto">Total Amount ${{ Cart::total() }}</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="bank_name">Payment</label>
-                                            <select class="form-control @error('bank_name') is-invalid @enderror" name="bank_name">
-                                                <option selected="" disabled="">-- Select Payment --</option>
-                                                <option value="HandCash">HandCash</option>
-                                                <option value="Cheque">Cheque</option>
-                                                <option value="Due">Due</option>
-                                            </select>
-                                            @error('bank_name')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mx-auto">Invoice of {{ $customer->name }}</h5>
+                                        <h5 class="modal-title mx-auto">Total Amount ${{ Cart::total() }}</h5>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="account_holder">Pay Now</label>
-                                            <input type="text" class="form-control @error('account_holder') is-invalid @enderror" id="account_holder" name="account_holder" value="{{ old('account_holder') }}">
-                                            @error('account_holder')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
+                                    <form action="{{ route('pos.store') }}" method="post">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="payment_status">Payment</label>
+                                                    <select class="form-control @error('payment_status') is-invalid @enderror" name="payment_status">
+                                                        <option selected="" disabled="">-- Select Payment --</option>
+                                                        <option value="HandCash">HandCash</option>
+                                                        <option value="Cheque">Cheque</option>
+                                                        <option value="Due">Due</option>
+                                                    </select>
+                                                    @error('payment_status')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="account_holder">Due Amount</label>
-                                            <input type="text" class="form-control @error('account_holder') is-invalid @enderror" id="account_holder" name="account_holder" value="{{ old('account_holder') }}">
-                                            @error('account_holder')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="pay">Pay Now</label>
+                                                    <input type="text" class="form-control @error('pay') is-invalid @enderror" id="pay" name="pay" value="{{ old('pay') }}">
+                                                    @error('pay')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                            @enderror
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="due">Due Amount</label>
+                                                    <input type="text" class="form-control @error('due') is-invalid @enderror" id="due" name="due" value="{{ old('due') }}">
+                                                    @error('due')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
                             </div>
                         </div>
                     </div>
