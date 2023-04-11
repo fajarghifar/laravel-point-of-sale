@@ -14,10 +14,6 @@ use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PosController;
 
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,6 +64,8 @@ Route::middleware('auth')->group(function () {
 
     // Create Order
     Route::post('/pos/order', [OrderController::class, 'store'])->name('pos.store');
+    Route::get('/orders/pending', [OrderController::class, 'pendingOrder'])->name('order.pending');
+    Route::get('/orders/complete', [OrderController::class, 'completeOrder'])->name('order.complete');
 
 });
 

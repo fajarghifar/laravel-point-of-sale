@@ -17,9 +17,20 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function pendingOrder()
     {
-        //
+        $row = (int) request('row', 10);
+
+        if ($row < 1 || $row > 100) {
+            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+        }
+
+        $orders = Order::where('order_status', 'pending')->sortable()->paginate($row);
+
+        return view('orders.pending-orders', [
+            'user' => auth()->user(),
+            'orders' => $orders
+        ]);
     }
 
     /**
