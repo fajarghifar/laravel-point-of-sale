@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Customer;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -78,7 +78,7 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeOrder(Request $request)
     {
         $rules = [
             'customer_id' => 'required|numeric',
@@ -133,7 +133,7 @@ class OrderController extends Controller
     public function orderDetails(Int $order_id)
     {
         $order = Order::where('id', $order_id)->first();
-        $orderDetais = OrderDetails::with('product')
+        $orderDetails = OrderDetails::with('product')
                         ->where('order_id', $order_id)
                         ->orderBy('id', 'DESC')
                         ->get();
@@ -141,7 +141,7 @@ class OrderController extends Controller
         return view('orders.details-order', [
             'user' => auth()->user(),
             'order' => $order,
-            'orderDetais' => $orderDetais,
+            'orderDetails' => $orderDetails,
         ]);
     }
 
@@ -165,27 +165,18 @@ class OrderController extends Controller
         return Redirect::route('order.pendingOrders')->with('success', 'Order has been completed!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
+    public function invoiceDownload(Int $order_id)
     {
-        //
-    }
+        $order = Order::where('id', $order_id)->first();
+        $orderDetails = OrderDetails::with('product')
+                        ->where('order_id', $order_id)
+                        ->orderBy('id', 'DESC')
+                        ->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
+        // show data (only for debugging)
+        return view('orders.invoice-order', [
+            'order' => $order,
+            'orderDetails' => $orderDetails,
+        ]);
     }
 }

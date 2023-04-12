@@ -83,8 +83,11 @@
                             </td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
-                                    <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"
-                                        href="{{ route('order.orderDetails', $order->id) }}"><i class="ri-eye-line mr-0"></i>
+                                    <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Details" href="{{ route('order.orderDetails', $order->id) }}">
+                                        <i class="ri-eye-line mr-0"></i>
+                                    </a>
+                                    <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Print" href="{{ route('order.invoiceDownload', $order->id) }}">
+                                        <i class="fal fa-print mr-0"></i>
                                     </a>
                                 </div>
                             </td>

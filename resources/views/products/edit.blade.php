@@ -76,7 +76,7 @@
                                 <select class="form-control" name="supplier_id" required>
                                     <option selected="" disabled>-- Select Supplier --</option>
                                     @foreach ($suppliers as $supplier)
-                                        <option value="{{ $supplier->id }}" {{ old('supplier_id', $product->supplier_id) == $supplier->id ? 'selected' : '' }} }}>{{ $supplier->name }}</option>
+                                        <option value="{{ $supplier->id }}" {{ old('supplier_id', $product->supplier_id) == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('supplier_id')

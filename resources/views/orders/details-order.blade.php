@@ -97,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                        @foreach ($orderDetais as $item)
+                        @foreach ($orderDetails as $item)
                         <tr>
                             <td>{{ $loop->iteration  }}</td>
                             <td>

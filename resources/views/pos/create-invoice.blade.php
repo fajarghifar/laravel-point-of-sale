@@ -9,13 +9,17 @@
                     <div class="iq-header-title">
                         <h4 class="card-title mb-0">Invoice</h4>
                     </div>
+
                     <div class="invoice-btn d-flex">
                         <form action="{{ route('pos.printInvoice') }}" method="post">
                             @csrf
                             <input type="hidden" name="customer_id" value="{{ $customer->id }}">
                             <button type="submit" class="btn btn-primary-dark mr-2"><i class="las la-print"></i> Print</button>
                         </form>
+
                         <button type="button" class="btn btn-primary-dark mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">Create</button>
+
+                        {{-- Modal --}}
                         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -23,7 +27,7 @@
                                         <h5 class="modal-title mx-auto">Invoice of {{ $customer->name }}</h5>
                                         <h5 class="modal-title mx-auto">Total Amount ${{ Cart::total() }}</h5>
                                     </div>
-                                    <form action="{{ route('pos.store') }}" method="post">
+                                    <form action="{{ route('pos.orderStore') }}" method="post">
                                         @csrf
                                         <div class="modal-body">
                                             <input type="hidden" name="customer_id" value="{{ $customer->id }}">
@@ -77,6 +81,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12">
@@ -84,6 +89,7 @@
                             <h5 class="mb-3">Hello, {{ $customer->name }}</h5>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive-sm">
@@ -114,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <h5 class="mb-3">Order Summary</h5>
@@ -146,6 +153,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <b class="text-danger">Notes:</b>
@@ -155,6 +163,7 @@
                                 as opposed to using 'Content here, content here', making it look like readable English.</p>
                         </div>
                     </div>
+
                     <div class="row mt-4 mb-3">
                         <div class="offset-lg-8 col-lg-4">
                             <div class="or-detail rounded">

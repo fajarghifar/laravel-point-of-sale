@@ -63,12 +63,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/pos/print-invoice', [PosController::class, 'printInvoice'])->name('pos.printInvoice');
 
     // Create Order
-    Route::post('/pos/order', [OrderController::class, 'store'])->name('pos.store');
+    Route::post('/pos/order', [OrderController::class, 'orderStore'])->name('pos.orderStore');
     Route::get('/orders/pending', [OrderController::class, 'pendingOrders'])->name('order.pendingOrders');
     Route::get('/orders/complete', [OrderController::class, 'completeOrders'])->name('order.completeOrders');
     Route::get('/orders/details/{order_id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
-    Route::get('/orders/details/{order_id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
-    Route::put('/orders/update', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+    Route::put('/orders/update/status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+    Route::get('/order/invoice-download/{order_id}', [OrderController::class, 'invoiceDownload'])->name('order.invoiceDownload');
 
     // Stock Management
     Route::get('/stock', [OrderController::class, 'stockManage'])->name('order.stockManage');
