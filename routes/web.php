@@ -64,8 +64,10 @@ Route::middleware('auth')->group(function () {
 
     // Create Order
     Route::post('/pos/order', [OrderController::class, 'store'])->name('pos.store');
-    Route::get('/orders/pending', [OrderController::class, 'pendingOrder'])->name('order.pending');
-    Route::get('/orders/complete', [OrderController::class, 'completeOrder'])->name('order.complete');
+    Route::get('/orders/pending', [OrderController::class, 'pendingOrders'])->name('order.pendingOrders');
+    Route::get('/orders/complete', [OrderController::class, 'completeOrders'])->name('order.completeOrders');
+    Route::get('/orders/details/{order_id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
+    Route::put('/orders/status/update', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
 
 });
 

@@ -17,7 +17,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function pendingOrder()
+    public function pendingOrders()
     {
         $row = (int) request('row', 10);
 
@@ -28,6 +28,22 @@ class OrderController extends Controller
         $orders = Order::where('order_status', 'pending')->sortable()->paginate($row);
 
         return view('orders.pending-orders', [
+            'user' => auth()->user(),
+            'orders' => $orders
+        ]);
+    }
+
+    public function completeOrders()
+    {
+        $row = (int) request('row', 10);
+
+        if ($row < 1 || $row > 100) {
+            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+        }
+
+        $orders = Order::where('order_status', 'complete')->sortable()->paginate($row);
+
+        return view('orders.complete-orders', [
             'user' => auth()->user(),
             'orders' => $orders
         ]);
@@ -56,8 +72,8 @@ class OrderController extends Controller
         $invoice_no = IdGenerator::generate([
             'table' => 'orders',
             'field' => 'invoice_no',
-            'length' => 7,
-            'prefix' => 'Inv-'
+            'length' => 10,
+            'prefix' => 'INV-'
         ]);
 
         $validatedData = $request->validate($rules);
@@ -96,9 +112,31 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function orderDetails(Int $order_id)
     {
-        //
+        $order = Order::where('id', $order_id)->first();
+        $orderDetais = OrderDetails::with('product')
+                        ->where('order_id', $order_id)
+                        ->orderBy('id', 'DESC')
+                        ->get();
+
+        return view('orders.details-order', [
+            'user' => auth()->user(),
+            'order' => $order,
+            'orderDetais' => $orderDetais,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateStatus(Request $request)
+    {
+        $order_id = $request->id;
+
+        Order::findOrFail($order_id)->update(['order_status' => 'complete']);
+
+        return Redirect::route('order.pendingOrders')->with('success', 'Order has been completed!');
     }
 
     /**

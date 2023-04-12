@@ -79,7 +79,7 @@
                             <td>{{ $order->pay }}</td>
                             <td>{{ $order->payment_status }}</td>
                             <td>
-                                <span class="badge badge-danger">{{ $order->order_status }}</span>
+                                <span class="badge badge-success">{{ $order->order_status }}</span>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center list-action">

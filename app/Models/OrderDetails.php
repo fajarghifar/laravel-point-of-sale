@@ -20,4 +20,10 @@ class OrderDetails extends Model
     protected $guarded = [
         'id',
     ];
+    protected $with = ['product'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

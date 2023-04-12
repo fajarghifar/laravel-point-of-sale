@@ -39,12 +39,12 @@
                     <ul id="orders" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
 
                         <li class="{{ Request::is('orders/pending*') ? 'active' : '' }}">
-                            <a href="{{ route('order.pending') }}">
+                            <a href="{{ route('order.pendingOrders') }}">
                                 <i class="fal fa-minus"></i><span>Pending Orders</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('orders/complete*') ? 'active' : '' }}">
-                            <a href="{{ route('order.complete') }}">
+                            <a href="{{ route('order.completeOrders') }}">
                                 <i class="fal fa-minus"></i><span>Complete Orders</span>
                             </a>
                         </li>
