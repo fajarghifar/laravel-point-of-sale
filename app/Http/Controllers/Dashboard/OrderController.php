@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Customer;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -33,6 +35,9 @@ class OrderController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     */
     public function completeOrders()
     {
         $row = (int) request('row', 10);
@@ -50,11 +55,24 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function stockManage()
     {
-        //
+        $row = (int) request('row', 10);
+
+        if ($row < 1 || $row > 100) {
+            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+        }
+
+        return view('stock.index', [
+            'user' => auth()->user(),
+            'products' => Product::with(['category', 'supplier'])
+                ->filter(request(['search']))
+                ->sortable()
+                ->paginate($row)
+                ->appends(request()->query()),
+        ]);
     }
 
     /**
@@ -133,6 +151,14 @@ class OrderController extends Controller
     public function updateStatus(Request $request)
     {
         $order_id = $request->id;
+
+        // Reduce the stock
+        $products = OrderDetails::where('order_id', $order_id)->get();
+
+        foreach ($products as $product) {
+            Product::where('id', $product->id)
+                    ->update(['product_store' => DB::raw('product_store-'.$product->quantity)]);
+        }
 
         Order::findOrFail($order_id)->update(['order_status' => 'complete']);
 

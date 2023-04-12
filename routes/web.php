@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     // Employee Attendence
     Route::resource('/employee/attendence', AttendenceController::class)->except(['show', 'update', 'destroy']);
 
-    // Category Product
+    // Products
     Route::get('/products/import', [ProductController::class, 'importView'])->name('products.importView');
     Route::post('/products/import', [ProductController::class, 'importStore'])->name('products.importStore');
     Route::get('/products/export', [ProductController::class, 'exportData'])->name('products.exportData');
@@ -67,8 +67,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/pending', [OrderController::class, 'pendingOrders'])->name('order.pendingOrders');
     Route::get('/orders/complete', [OrderController::class, 'completeOrders'])->name('order.completeOrders');
     Route::get('/orders/details/{order_id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
-    Route::put('/orders/status/update', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+    Route::get('/orders/details/{order_id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
+    Route::put('/orders/update', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
 
+    // Stock Management
+    Route::get('/stock', [OrderController::class, 'stockManage'])->name('order.stockManage');
 });
 
 // Profile

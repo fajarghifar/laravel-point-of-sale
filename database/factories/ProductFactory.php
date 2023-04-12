@@ -29,6 +29,8 @@ class ProductFactory extends Factory
             'category_id' => fake()->randomElement([1, 2, 3, 4, 5]),
             'supplier_id' => fake()->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
             'product_code' => $product_code,
+            'product_garage' => fake()->randomElement(['A', 'B', 'C', 'D']),
+            'product_store' => fake()->randomNumber(3),
             'buying_price' => fake()->randomNumber(2),
             'selling_price' => fake()->randomNumber(2),
         ];

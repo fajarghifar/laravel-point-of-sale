@@ -3,29 +3,6 @@
 @section('container')
 <div class="container-fluid">
     <div class="row">
-        {{-- <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="header-title">
-                        <h4 class="card-title">Barcode</h4>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class=" row align-items-center">
-                        <div class="form-group col-md-6">
-                            <label>Product Code</label>
-                            <input type="text" class="form-control bg-white" value="{{  $product->product_code }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Product Barcode</label>
-                            {!! $barcode !!}
-                        </div>
-                    </div>
-                    <!-- end: Show Data -->
-                </div>
-            </div>
-        </div> --}}
 
         <div class="col-lg-12">
             <div class="card">
