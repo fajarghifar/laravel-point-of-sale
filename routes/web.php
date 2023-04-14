@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\AttendenceController;
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PosController;
+use App\Http\Controllers\Dashboard\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +73,35 @@ Route::middleware('auth')->group(function () {
 
     // Stock Management
     Route::get('/stock', [OrderController::class, 'stockManage'])->name('order.stockManage');
+});
+
+Route::controller(RoleController::class)->middleware('auth')->group(function () {
+    // Permissions
+    Route::get('/permission', 'permissionIndex')->name('permission.index');
+    Route::get('/permission/create', 'permissionCreate')->name('permission.create');
+    Route::post('/permission', 'permissionStore')->name('permission.store');
+    Route::get('/permission/edit/{id}', 'permissionEdit')->name('permission.edit');
+    Route::put('/permission/{id}', 'permissionUpdate')->name('permission.update');
+    Route::delete('/permission/{id}', 'permissionDestroy')->name('permission.destroy');
+
+    // Roles
+    Route::get('/role', 'roleIndex')->name('role.index');
+    Route::get('/role/create', 'roleCreate')->name('role.create');
+    Route::post('/role', 'roleStore')->name('role.store');
+    Route::get('/role/edit/{id}', 'roleEdit')->name('role.edit');
+    Route::put('/role/{id}', 'roleUpdate')->name('role.update');
+    Route::delete('/role/{id}', 'roleDestroy')->name('role.destroy');
+
+    // Role Permissions
+    Route::get('/role/permission/create', 'rolePermissionCreate')->name('rolePermission.create');
+    Route::post('/role/permission', 'rolePermissionStore')->name('rolePermission.store');
+
+    // Route::get('/role/permission', 'rolePermissionIndex')->name('rolePermission.index');
+    // Route::get('/role/permission/create', 'rolePermissionCreate')->name('rolePermission.create');
+    // Route::post('/role/permission', 'rolePermissionStore')->name('rolePermission.store');
+    // Route::get('/role/permission/{id}', 'rolePermissionEdit')->name('rolePermission.edit');
+    // Route::put('/role/permission/{id}', 'rolePermissionUpdate')->name('rolePermission.update');
+    // Route::delete('/role/permission/{id}', 'rolePermissionDestroy')->name('rolePermission.destroy');
 });
 
 // Profile

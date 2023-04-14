@@ -180,12 +180,20 @@
                         </svg>
                     </a>
                     <ul id="permission" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
-
-                        <li class="{{ Request::is(['all/permission*']) ? 'active' : '' }}">
+                        <li class="{{ Request::is(['permission', 'permission/create', 'permission/edit/*']) ? 'active' : '' }}">
                             <a href="{{ route('permission.index') }}">
                                 <i class="fa-solid fa-arrow-right"></i><span>All Permission</span>
                             </a>
                         </li>
+                        <li class="{{ Request::is(['role', 'role/create', 'role/edit/*']) ? 'active' : '' }}">
+                            <a href="{{ route('role.index') }}">
+                                <i class="fa-solid fa-arrow-right"></i><span>All Role</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::is(['role/permission*']) ? 'active' : '' }}">
+                            <a href="{{ route('rolePermission.create') }}">
+                                <i class="fa-solid fa-arrow-right"></i><span>Role in Permission</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
