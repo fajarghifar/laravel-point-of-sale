@@ -187,6 +187,7 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
