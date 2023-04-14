@@ -9,7 +9,6 @@
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}"/>
         <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=1.0.0') }}">
-        <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{ asset('assets/vendor/remixicon/fonts/remixicon.css') }}">
 
         @yield('specificpagestyles')

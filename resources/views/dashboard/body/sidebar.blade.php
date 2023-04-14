@@ -21,7 +21,7 @@
                 </li>
                 <li class="{{ Request::is('pos*') ? 'active' : '' }}">
                     <a href="{{ route('pos.index') }}" class="svg-icon">
-                        <i class="fal fa-bags-shopping"></i>
+                        <i class="fa-solid fa-cart-shopping"></i>
                         <span class="ml-3">POS</span>
                     </a>
                 </li>
@@ -30,7 +30,7 @@
 
                 <li>
                     <a href="#orders" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fal fa-shopping-cart"></i>
+                        <i class="fa-solid fa-basket-shopping"></i>
                         <span class="ml-3">Orders</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
@@ -40,17 +40,17 @@
 
                         <li class="{{ Request::is('orders/pending*') ? 'active' : '' }}">
                             <a href="{{ route('order.pendingOrders') }}">
-                                <i class="fal fa-minus"></i><span>Pending Orders</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Pending Orders</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('orders/complete*') ? 'active' : '' }}">
                             <a href="{{ route('order.completeOrders') }}">
-                                <i class="fal fa-minus"></i><span>Complete Orders</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Complete Orders</span>
                             </a>
                         </li>
                         <li class="{{ Request::is(['stock*']) ? 'active' : '' }}">
                             <a href="{{ route('order.stockManage') }}">
-                                <i class="fal fa-minus"></i><span>Stock Management</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Stock Management</span>
                             </a>
                         </li>
                     </ul>
@@ -58,7 +58,7 @@
 
                 <li>
                     <a href="#products" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fal fa-boxes"></i>
+                        <i class="fa-solid fa-boxes-stacked"></i>
                         <span class="ml-3">Products</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
@@ -67,17 +67,17 @@
                     <ul id="products" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
                         <li class="{{ Request::is(['products']) ? 'active' : '' }}">
                             <a href="{{ route('products.index') }}">
-                                <i class="fal fa-minus"></i><span>Products</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Products</span>
                             </a>
                         </li>
                         <li class="{{ Request::is(['products/create']) ? 'active' : '' }}">
                             <a href="{{ route('products.create') }}">
-                                <i class="fal fa-minus"></i><span>Add Product</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Add Product</span>
                             </a>
                         </li>
                         <li class="{{ Request::is(['categories*']) ? 'active' : '' }}">
                             <a href="{{ route('categories.index') }}">
-                                <i class="fal fa-minus"></i><span>Categories</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Categories</span>
                             </a>
                         </li>
                     </ul>
@@ -87,7 +87,7 @@
 
                 <li>
                     <a href="#people" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fal fa-users"></i>
+                        <i class="fa-solid fa-users"></i>
                         <span class="ml-3">People</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
@@ -97,17 +97,17 @@
 
                         <li class="{{ Request::is('employees*') ? 'active' : '' }}">
                             <a href="{{ route('employees.index') }}">
-                                <i class="fal fa-minus"></i><span>Employees</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Employees</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('customers*') ? 'active' : '' }}">
                             <a href="{{ route('customers.index') }}">
-                                <i class="fal fa-minus"></i><span>Customers</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Customers</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
                             <a href="{{ route('suppliers.index') }}">
-                                <i class="fal fa-minus"></i><span>Suppliers</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Suppliers</span>
                             </a>
                         </li>
                     </ul>
@@ -115,7 +115,7 @@
 
                 <li>
                     <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fal fa-hand-holding-usd"></i>
+                    <i class="fa-solid fa-cash-register"></i>
                         <span class="ml-3">Salary</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
@@ -125,22 +125,22 @@
 
                         <li class="{{ Request::is(['advance-salary', 'advance-salary/*/edit']) ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.index') }}">
-                                <i class="fal fa-minus"></i><span>All Advance Salary</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>All Advance Salary</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('advance-salary/create*') ? 'active' : '' }}">
                             <a href="{{ route('advance-salary.create') }}">
-                                <i class="fal fa-minus"></i><span>Create Advance Salary</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Create Advance Salary</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('pay-salary') ? 'active' : '' }}">
                             <a href="{{ route('pay-salary.index') }}">
-                                <i class="fal fa-minus"></i><span>Pay Salary</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Pay Salary</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('pay-salary/history*') ? 'active' : '' }}">
                             <a href="{{ route('pay-salary.payHistory') }}">
-                                <i class="fal fa-minus"></i><span>History Pay Salary</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>History Pay Salary</span>
                             </a>
                         </li>
                     </ul>
@@ -148,7 +148,7 @@
 
                 <li>
                     <a href="#attendence" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                        <i class="fal fa-calendar-alt"></i>
+                        <i class="fa-solid fa-calendar-days"></i>
                         <span class="ml-3">Attendence</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
@@ -158,13 +158,34 @@
 
                         <li class="{{ Request::is(['employee/attendence']) ? 'active' : '' }}">
                             <a href="{{ route('attendence.index') }}">
-                                <i class="fal fa-minus"></i><span>All Attedence</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>All Attedence</span>
                             </a>
                         </li>
                         <li class="{{ Request::is('employee/attendence/*') ? 'active' : '' }}">
                             <a href="{{ route('attendence.create') }}">
-                                <i class="fal fa-minus"></i><span>Create Attendence</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Create Attendence</span>
                             </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <hr>
+
+                <li>
+                    <a href="#permission" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                        <i class="fa-solid fa-key"></i>
+                        <span class="ml-3">Roles & Permission</span>
+                        <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                        </svg>
+                    </a>
+                    <ul id="permission" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+
+                        <li class="{{ Request::is(['all/permission*']) ? 'active' : '' }}">
+                            <a href="{{ route('permission.index') }}">
+                                <i class="fa-solid fa-arrow-right"></i><span>All Permission</span>
+                            </a>
+                        </li>
                         </li>
                     </ul>
                 </li>
