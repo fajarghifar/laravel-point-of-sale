@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -136,6 +137,16 @@ class RoleController extends Controller
         return Redirect::route('role.index')->with('success', 'Role has been deleted!');
     }
 
+    public function rolePermissionIndex()
+    {
+        $roles = QueryBuilder::for(Role::class)->paginate();
+
+        return view('role.role-permission-index', [
+            'user' => auth()->user(),
+            'roles' => $roles,
+        ]);
+    }
+
 
     // Role has Permissions
     public function rolePermissionCreate()
@@ -154,14 +165,54 @@ class RoleController extends Controller
 
     public function rolePermissionStore(Request $request)
     {
-        $rules = [
-            'name' => 'required|string',
-        ];
+        $data = [];
 
-        $validatedData = $request->validate($rules);
+        $permissions = $request->permission_id;
 
-        Role::create($validatedData);
+        foreach ($permissions as $permission) {
+            $data['role_id'] = $request->role_id;
+            $data['permission_id'] = $permission;
 
-        return Redirect::route('role.index')->with('success', 'Role has been created!');
+            DB::table('role_has_permissions')->insert($data);
+        }
+
+        return Redirect::route('rolePermission.index')->with('success', 'Role Permission has been created!');
+    }
+
+    public function rolePermissionEdit(Int $id)
+    {
+        $role = Role::findOrFail($id);
+        $permissions = Permission::all();
+        $permission_groups = User::getPermissionGroups();
+
+        return view('role.role-permission-edit', [
+            'user' => auth()->user(),
+            'role' => $role,
+            'permissions' => $permissions,
+            'permission_groups' => $permission_groups
+        ]);
+    }
+
+    public function rolePermissionUpdate(Request $request, Int $id)
+    {
+        $role = Role::findOrFail($id);
+        $permissions = $request->permission_id;
+
+        if(!empty($permissions)) {
+            $role->syncPermissions($permissions);
+        }
+
+        return Redirect::route('rolePermission.index')->with('success', 'Role Permission has been updated!');
+    }
+
+    public function rolePermissionDestroy(Int $id)
+    {
+        $role = Role::findOrFail($id);
+
+        if(!is_null($role)) {
+            $role->delete();
+        }
+
+        return Redirect::route('rolePermission.index')->with('success', 'Role Permission has been deleted!');
     }
 }

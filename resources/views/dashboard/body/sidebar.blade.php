@@ -174,7 +174,7 @@
                 <li>
                     <a href="#permission" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-key"></i>
-                        <span class="ml-3">Roles & Permission</span>
+                        <span class="ml-3">Role & Permission</span>
                         <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                         </svg>
@@ -182,17 +182,17 @@
                     <ul id="permission" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
                         <li class="{{ Request::is(['permission', 'permission/create', 'permission/edit/*']) ? 'active' : '' }}">
                             <a href="{{ route('permission.index') }}">
-                                <i class="fa-solid fa-arrow-right"></i><span>All Permission</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Permissions</span>
                             </a>
                         </li>
                         <li class="{{ Request::is(['role', 'role/create', 'role/edit/*']) ? 'active' : '' }}">
                             <a href="{{ route('role.index') }}">
-                                <i class="fa-solid fa-arrow-right"></i><span>All Role</span>
+                                <i class="fa-solid fa-arrow-right"></i><span>Roles</span>
                             </a>
                         </li>
                         <li class="{{ Request::is(['role/permission*']) ? 'active' : '' }}">
-                            <a href="{{ route('rolePermission.create') }}">
-                                <i class="fa-solid fa-arrow-right"></i><span>Role in Permission</span>
+                            <a href="{{ route('rolePermission.index') }}">
+                                <i class="fa-solid fa-arrow-right"></i><span>Role in Permissions</span>
                             </a>
                         </li>
                     </ul>

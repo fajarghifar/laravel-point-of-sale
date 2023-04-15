@@ -93,15 +93,12 @@ Route::controller(RoleController::class)->middleware('auth')->group(function () 
     Route::delete('/role/{id}', 'roleDestroy')->name('role.destroy');
 
     // Role Permissions
+    Route::get('/role/permission', 'rolePermissionIndex')->name('rolePermission.index');
     Route::get('/role/permission/create', 'rolePermissionCreate')->name('rolePermission.create');
     Route::post('/role/permission', 'rolePermissionStore')->name('rolePermission.store');
-
-    // Route::get('/role/permission', 'rolePermissionIndex')->name('rolePermission.index');
-    // Route::get('/role/permission/create', 'rolePermissionCreate')->name('rolePermission.create');
-    // Route::post('/role/permission', 'rolePermissionStore')->name('rolePermission.store');
-    // Route::get('/role/permission/{id}', 'rolePermissionEdit')->name('rolePermission.edit');
-    // Route::put('/role/permission/{id}', 'rolePermissionUpdate')->name('rolePermission.update');
-    // Route::delete('/role/permission/{id}', 'rolePermissionDestroy')->name('rolePermission.destroy');
+    Route::get('/role/permission/{id}', 'rolePermissionEdit')->name('rolePermission.edit');
+    Route::put('/role/permission/{id}', 'rolePermissionUpdate')->name('rolePermission.update');
+    Route::delete('/role/permission/{id}', 'rolePermissionDestroy')->name('rolePermission.destroy');
 });
 
 // Profile
