@@ -1,5 +1,5 @@
 /*
-Template: ProX - Responsive Bootstrap 4 Admin Dashboard Template
+Template: POSDash - Responsive Bootstrap 4 Admin Dashboard Template
 Author: iqonicthemes.in
 Design and Developed by: iqonicthemes.in
 NOTE: This file contains the styling for responsive Template.
@@ -370,12 +370,13 @@ Index Of Script
     });
   }
 
-  /*---------------------------------------------------------------------
-        Data tables
-        -----------------------------------------------------------------------*/
-  if ($.fn.DataTable) {
-    $(".data-table").DataTable();
-  }
+    /*---------------------------------------------------------------------
+        Datatables
+    -----------------------------------------------------------------------*/
+    if(jQuery('.data-tables').length)
+    {
+      $('.data-tables').DataTable();
+    }
 
   /*---------------------------------------------------------------------
         Form Validation
