@@ -198,6 +198,12 @@
                     </ul>
                 </li>
 
+                <li class="{{ Request::is('users*') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class="svg-icon">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="ml-3">Users</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div class="p-3"></div>

@@ -10684,7 +10684,7 @@ body.tab-horizontal .iq-footer {
     opacity: 1; } }
 
 /*
- * Background color 
+ * Background color
  */
 .bg-blue {
   color: #fff !important;
@@ -14798,7 +14798,7 @@ label {
   vertical-align: middle; }
 
 .form-control {
-  height: 45px;
+  height: 55px;
   line-height: 45px;
   background: #ffffff;
   border: 1px solid #DCDFE8;
