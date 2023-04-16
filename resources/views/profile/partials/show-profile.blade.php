@@ -15,7 +15,7 @@
 <div class="card-body">
     <div class="form-group row align-items-center">
         <div class="col-md-12">
-            <img class="crm-profile-pic rounded-circle avatar-100" src="{{ $user->photo ? asset('storage/images/' . $user->photo) : asset('assets/images/user/1.png') }}" alt="profile-pic">
+            <img class="crm-profile-pic rounded-circle avatar-100" src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/images/user/1.png') }}" alt="profile-pic">
         </div>
     </div>
     <div class=" row align-items-center">

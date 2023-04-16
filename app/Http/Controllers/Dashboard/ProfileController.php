@@ -64,20 +64,12 @@ class ProfileController extends Controller
             $validatedData['email_verified_at'] = null;
         }
 
-            /**
+        /**
          * Handle upload image with Storage.
          */
-        if($file = $request->file('photo'))
-        {
-            $fileName = 'profile-'.date('YmdHi').'-'.$file->getClientOriginalName();
-            $path = 'public/images/';
-
-            /**
-             * Delete photo if exists.
-             */
-            if($user->photo){
-                Storage::delete($path . $user->photo);
-            }
+        if ($file = $request->file('photo')) {
+            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $path = 'public/profile/';
 
             /**
              * Rezise and Compress the photo.
