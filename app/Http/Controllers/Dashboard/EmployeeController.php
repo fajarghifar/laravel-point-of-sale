@@ -48,9 +48,9 @@ class EmployeeController extends Controller
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50|unique:employees,email',
             'phone' => 'required|string|max:15|unique:employees,phone',
-            'experience' => 'max:6',
+            'experience' => 'max:6|nullable',
             'salary' => 'required|numeric',
-            'vacation' => 'max:50',
+            'vacation' => 'max:50|nullable',
             'city' => 'requried|max:50',
             'address' => 'required|max:100',
         ];
@@ -113,9 +113,9 @@ class EmployeeController extends Controller
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50|unique:employees,email,'.$employee->id,
             'phone' => 'required|string|max:20|unique:employees,phone,'.$employee->id,
-            'experience' => 'string|max:6',
+            'experience' => 'string|max:6|nullable',
             'salary' => 'numeric',
-            'vacation' => 'max:50',
+            'vacation' => 'max:50|nullable',
             'city' => 'max:50',
             'address' => 'required|max:100',
         ];
