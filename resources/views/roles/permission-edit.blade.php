@@ -1,6 +1,7 @@
 @extends('dashboard.body.main')
 
 @section('container')
+
 @php
     $group_names = [
         [
@@ -51,6 +52,10 @@
             'slug' => 'user',
             'name' => 'User'
         ],
+        [
+            'slug' => 'database',
+            'name' => 'Database'
+        ],
     ]
 @endphp
 
@@ -60,18 +65,19 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Create Permission</h4>
+                        <h4 class="card-title">Edit Permission</h4>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('permission.store') }}" method="POST">
+                    <form action="{{ route('permission.update', $permission->id) }}" method="POST">
+                    @method('put')
                     @csrf
                         <!-- begin: Input Data -->
                         <div class=" row align-items-center">
                             <div class="form-group col-md-6">
                                 <label for="name">Permission Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required autocomplete="off">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $permission->name) }}" required autocomplete="off">
                                 @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -82,9 +88,9 @@
                             <div class="form-group col-md-6">
                                 <label for="group_name">Group Name <span class="text-danger">*</span></label>
                                 <select class="form-control @error('group_name') is-invalid @enderror" name="group_name" required>
-                                    <option selected="" disabled>-- Select Group --</option>
+                                    <option disabled>-- Select Group --</option>
                                     @foreach ($group_names as $item)
-                                        <option value="{{ $item['slug'] }}">{{ $item['name'] }}</option>
+                                        <option value="{{ $item['slug'] }}" {{ $permission->group_name == $item['slug'] ? 'selected' : '' }}>{{ $item['name'] }}</option>
                                     @endforeach
                                 </select>
                                 @error('group_name')

@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
         $permissions = QueryBuilder::for(Permission::class)->paginate();
 
-        return view('role.permission-index', [
+        return view('roles.permission-index', [
             'user' => auth()->user(),
             'permissions' => $permissions,
         ]);
@@ -26,7 +26,7 @@ class RoleController extends Controller
 
     public function permissionCreate()
     {
-        return view('role.permission-create', [
+        return view('roles.permission-create', [
             'user' => auth()->user(),
         ]);
     }
@@ -49,7 +49,7 @@ class RoleController extends Controller
     {
         $permission = Permission::findById($id);
 
-        return view('role.permission-edit', [
+        return view('roles.permission-edit', [
             'user' => auth()->user(),
             'permission' => $permission,
         ]);
@@ -81,7 +81,7 @@ class RoleController extends Controller
     {
         $roles = QueryBuilder::for(Role::class)->paginate();
 
-        return view('role.role-index', [
+        return view('roles.role-index', [
             'user' => auth()->user(),
             'roles' => $roles,
         ]);
@@ -89,7 +89,7 @@ class RoleController extends Controller
 
     public function roleCreate()
     {
-        return view('role.role-create', [
+        return view('roles.role-create', [
             'user' => auth()->user(),
         ]);
     }
@@ -104,14 +104,14 @@ class RoleController extends Controller
 
         Role::create($validatedData);
 
-        return Redirect::route('role.index')->with('success', 'Role has been created!');
+        return Redirect::route('roles.index')->with('success', 'Role has been created!');
     }
 
     public function roleEdit(Int $id)
     {
         $role = Role::findById($id);
 
-        return view('role.role-edit', [
+        return view('roles.role-edit', [
             'user' => auth()->user(),
             'role' => $role,
         ]);
@@ -127,21 +127,21 @@ class RoleController extends Controller
 
         Role::findOrFail($id)->update($validatedData);
 
-        return Redirect::route('role.index')->with('success', 'Role has been updated!');
+        return Redirect::route('roles.index')->with('success', 'Role has been updated!');
     }
 
     public function roleDestroy(Int $id)
     {
         Role::destroy($id);
 
-        return Redirect::route('role.index')->with('success', 'Role has been deleted!');
+        return Redirect::route('roles.index')->with('success', 'Role has been deleted!');
     }
 
     public function rolePermissionIndex()
     {
         $roles = QueryBuilder::for(Role::class)->paginate();
 
-        return view('role.role-permission-index', [
+        return view('roles.role-permission-index', [
             'user' => auth()->user(),
             'roles' => $roles,
         ]);
@@ -155,7 +155,7 @@ class RoleController extends Controller
         $permissions = Permission::all();
         $permission_groups = User::getPermissionGroups();
 
-        return view('role.role-permission-create', [
+        return view('roles.role-permission-create', [
             'user' => auth()->user(),
             'roles' => $roles,
             'permissions' => $permissions,
@@ -185,7 +185,7 @@ class RoleController extends Controller
         $permissions = Permission::all();
         $permission_groups = User::getPermissionGroups();
 
-        return view('role.role-permission-edit', [
+        return view('roles.role-permission-edit', [
             'user' => auth()->user(),
             'role' => $role,
             'permissions' => $permissions,
