@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.8",
         "phpoffice/phpspreadsheet": "^1.28",
         "picqer/php-barcode-generator": "^2.2",
+        "spatie/laravel-backup": "^8.1",
         "spatie/laravel-permission": "^5.10",
         "spatie/laravel-query-builder": "^5.2"
     },
