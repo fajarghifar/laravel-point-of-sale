@@ -47,6 +47,10 @@
             'slug' => 'roles',
             'name' => 'Roles'
         ],
+        [
+            'slug' => 'user',
+            'name' => 'User'
+        ],
     ]
 @endphp
 

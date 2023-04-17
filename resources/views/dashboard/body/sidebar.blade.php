@@ -19,15 +19,19 @@
                         <span class="ml-4">Dashboards</span>
                     </a>
                 </li>
+
+                @if ($user->can('pos.menu'))
                 <li class="{{ Request::is('pos*') ? 'active' : '' }}">
                     <a href="{{ route('pos.index') }}" class="svg-icon">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span class="ml-3">POS</span>
                     </a>
                 </li>
+                @endif
 
                 <hr>
 
+                @if ($user->can('orders.menu'))
                 <li>
                     <a href="#orders" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-basket-shopping"></i>
@@ -55,7 +59,9 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
+                @if ($user->can('product.menu'))
                 <li>
                     <a href="#products" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-boxes-stacked"></i>
@@ -82,37 +88,38 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
                 <hr>
 
-                <li>
-                    <a href="#people" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                @if ($user->can('employee.menu'))
+                <li class="{{ Request::is('employees*') ? 'active' : '' }}">
+                    <a href="{{ route('employees.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
-                        <span class="ml-3">People</span>
-                        <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-                        </svg>
+                        <span class="ml-3">Employees</span>
                     </a>
-                    <ul id="people" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
-
-                        <li class="{{ Request::is('employees*') ? 'active' : '' }}">
-                            <a href="{{ route('employees.index') }}">
-                                <i class="fa-solid fa-arrow-right"></i><span>Employees</span>
-                            </a>
-                        </li>
-                        <li class="{{ Request::is('customers*') ? 'active' : '' }}">
-                            <a href="{{ route('customers.index') }}">
-                                <i class="fa-solid fa-arrow-right"></i><span>Customers</span>
-                            </a>
-                        </li>
-                        <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
-                            <a href="{{ route('suppliers.index') }}">
-                                <i class="fa-solid fa-arrow-right"></i><span>Suppliers</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
+                @endif
 
+                @if ($user->can('customer.menu'))
+                <li class="{{ Request::is('customers*') ? 'active' : '' }}">
+                    <a href="{{ route('customers.index') }}" class="svg-icon">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="ml-3">Customers</span>
+                    </a>
+                </li>
+                @endif
+
+                @if ($user->can('supplier.menu'))
+                <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
+                    <a href="{{ route('suppliers.index') }}" class="svg-icon">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="ml-3">Suppliers</span>
+                    </a>
+                </li>
+                @endif
+
+                @if ($user->can('salary.menu'))
                 <li>
                     <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
                     <i class="fa-solid fa-cash-register"></i>
@@ -145,7 +152,9 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
+                @if ($user->can('attendence.menu'))
                 <li>
                     <a href="#attendence" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-calendar-days"></i>
@@ -168,9 +177,12 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
                 <hr>
 
+
+                @if ($user->can('roles.menu'))
                 <li>
                     <a href="#permission" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-key"></i>
@@ -197,13 +209,16 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
+                @if ($user->can('user.menu'))
                 <li class="{{ Request::is('users*') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
                         <span class="ml-3">Users</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
         <div class="p-3"></div>
