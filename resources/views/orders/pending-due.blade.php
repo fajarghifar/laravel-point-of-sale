@@ -14,16 +14,16 @@
             @endif
             <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div>
-                    <h4 class="mb-3">Complete Order List</h4>
+                    <h4 class="mb-3">Pending Order List</h4>
                 </div>
                 <div>
-                    <a href="{{ route('order.pendingOrders') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
+                    <a href="{{ route('order.pendingDue') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-12">
-            <form action="{{ route('order.completeOrders') }}" method="get">
+            <form action="{{ route('order.pendingDue') }}" method="get">
                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                     <div class="form-group row">
                         <label for="row" class="col-sm-3 align-self-center">Row:</label>
@@ -61,9 +61,9 @@
                             <th>Invoice No</th>
                             <th>@sortablelink('customer.name', 'name')</th>
                             <th>@sortablelink('order_date', 'order date')</th>
-                            <th>@sortablelink('pay')</th>
                             <th>Payment</th>
-                            <th>Status</th>
+                            <th>@sortablelink('pay')</th>
+                            <th>@sortablelink('due')</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,20 +73,24 @@
                             <td>{{ (($orders->currentPage() * 10) - 10) + $loop->iteration  }}</td>
                             <td>{{ $order->invoice_no }}</td>
                             <td>{{ $order->customer->name }}</td>
-                            <td>{{ $order->order_date }}</td>
-                            <td>{{ $order->pay }}</td>
+                            <td>{{ Carbon\Carbon::parse($order->order_date)->format('Y m, d') }}</td>
                             <td>{{ $order->payment_status }}</td>
                             <td>
-                                <span class="badge badge-success">{{ $order->order_status }}</span>
+                                <span class="btn btn-warning text-white">
+                                    {{ $order->pay }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="btn btn-danger text-white">
+                                    {{ $order->due }}
+                                </span>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Details" href="{{ route('order.orderDetails', $order->id) }}">
                                         Details
                                     </a>
-                                    <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Print" href="{{ route('order.invoiceDownload', $order->id) }}">
-                                        Print
-                                    </a>
+                                    <button type="button" class="btn btn-primary-dark mr-2" data-toggle="modal" data-target=".bd-example-modal-lg" id="{{ $order->id }}" onclick="payDue(this.id)">Pay Due</button>
                                 </div>
                             </td>
                         </tr>
@@ -99,5 +103,48 @@
     </div>
     <!-- Page end  -->
 </div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="{{ route('order.updateDue') }}" method="post">
+                @csrf
+                <input type="hidden" name="order_id" id="order_id">
+                <div class="modal-body">
+                    <h3 class="modal-title text-center mx-auto">Pay Due</h3>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="due">Pay Now</label>
+                            <input type="text" class="form-control bg-white @error('due') is-invalid @enderror" id="due" name="due">
+                            @error('due')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Pay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function payDue(id){
+        $.ajax({
+            type: 'GET',
+            url : '/order/due/' + id,
+            dataType: 'json',
+            success: function(data) {
+                $('#due').val(data.due);
+                $('#order_id').val(data.id);
+            }
+        });
+    }
+</script>
 
 @endsection

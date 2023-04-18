@@ -15,8 +15,6 @@
             <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div>
                     <h4 class="mb-3">Pending Order List</h4>
-                    <p class="mb-0">A pending order dashboard lets you easily gather and visualize pending order data from optimizing <br>
-                        the pending order experience, ensuring pending order retention. </p>
                 </div>
                 <div>
                     <a href="{{ route('order.pendingOrders') }}" class="btn btn-danger add-list"><i class="fa-solid fa-trash mr-3"></i>Clear Search</a>
@@ -63,8 +61,8 @@
                             <th>Invoice No</th>
                             <th>@sortablelink('customer.name', 'name')</th>
                             <th>@sortablelink('order_date', 'order date')</th>
-                            <th>@sortablelink('pay')</th>
                             <th>Payment</th>
+                            <th>@sortablelink('total')</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -76,15 +74,15 @@
                             <td>{{ $order->invoice_no }}</td>
                             <td>{{ $order->customer->name }}</td>
                             <td>{{ $order->order_date }}</td>
-                            <td>{{ $order->pay }}</td>
                             <td>{{ $order->payment_status }}</td>
+                            <td>{{ $order->total }}</td>
                             <td>
                                 <span class="badge badge-danger">{{ $order->order_status }}</span>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center list-action">
                                     <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Details"
-                                        href="{{ route('order.orderDetails', $order->id) }}"><i class="ri-eye-line mr-0"></i>
+                                        href="{{ route('order.orderDetails', $order->id) }}">Details
                                     </a>
                                 </div>
                             </td>

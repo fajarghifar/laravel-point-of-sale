@@ -35,9 +35,6 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function completeOrders()
     {
         $row = (int) request('row', 10);
@@ -54,9 +51,6 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function stockManage()
     {
         $row = (int) request('row', 10);
@@ -95,13 +89,14 @@ class OrderController extends Controller
         ]);
 
         $validatedData = $request->validate($rules);
-        $validatedData['order_date'] = Carbon::now()->isoFormat('YYYY-MM-DD');
+        $validatedData['order_date'] = Carbon::now()->format('Y-m-d');
         $validatedData['order_status'] = 'pending';
         $validatedData['total_products'] = Cart::count();
         $validatedData['sub_total'] = Cart::subtotal();
         $validatedData['vat'] = Cart::tax();
         $validatedData['invoice_no'] = $invoice_no;
         $validatedData['total'] = Cart::total();
+        $validatedData['due'] = Cart::total() - $validatedData['pay'];
         $validatedData['created_at'] = Carbon::now();
 
         $order_id = Order::insertGetId($validatedData);
@@ -178,5 +173,54 @@ class OrderController extends Controller
             'order' => $order,
             'orderDetails' => $orderDetails,
         ]);
+    }
+
+    public function pendingDue()
+    {
+        $row = (int) request('row', 10);
+
+        if ($row < 1 || $row > 100) {
+            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+        }
+
+        $orders = Order::where('due', '>', '0')
+            ->sortable()
+            ->paginate($row);
+
+        return view('orders.pending-due', [
+            'user' => auth()->user(),
+            'orders' => $orders
+        ]);
+    }
+
+    public function orderDueAjax(Int $id)
+    {
+        $order = Order::findOrFail($id);
+
+        return response()->json($order);
+    }
+
+    public function updateDue(Request $request)
+    {
+        $rules = [
+            'order_id' => 'required|numeric',
+            'due' => 'required|numeric',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        $order = Order::findOrFail($request->order_id);
+        $mainPay = $order->pay;
+        $mainDue = $order->due;
+
+        $paid_due = $mainDue - $validatedData['due'];
+        $paid_pay = $mainPay + $validatedData['due'];
+
+        Order::findOrFail($request->order_id)->update([
+            'due' => $paid_due,
+            'pay' => $paid_pay,
+        ]);
+
+        return Redirect::route('order.pendingDue')->with('success', 'Due Amount Updated Successfully!');
     }
 }

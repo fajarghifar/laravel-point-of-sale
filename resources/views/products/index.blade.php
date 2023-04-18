@@ -74,6 +74,7 @@
                             <th>@sortablelink('category.name', 'category')</th>
                             <th>@sortablelink('supplier.name', 'supplier')</th>
                             <th>@sortablelink('selling_price', 'price')</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -88,6 +89,13 @@
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->supplier->name }}</td>
                             <td>{{ $product->selling_price }}</td>
+                            <td>
+                                @if ($product->expire_date > Carbon\Carbon::now()->format('Y-m-d'))
+                                    <span class="badge rounded-pill bg-success">Valid</span>
+                                @else
+                                    <span class="badge rounded-pill bg-danger">Invalid</span>
+                                @endif
+                            </td>
                             <td>
                                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="margin-bottom: 5px">
                                     @method('delete')

@@ -28,6 +28,8 @@ class Order extends Model
         'customer_id',
         'order_date',
         'pay',
+        'due',
+        'total',
     ];
 
     protected $guarded = [

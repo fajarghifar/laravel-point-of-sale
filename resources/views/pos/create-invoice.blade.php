@@ -19,15 +19,13 @@
 
                         <button type="button" class="btn btn-primary-dark mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">Create</button>
 
-                        {{-- Modal --}}
-                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title mx-auto">Invoice of {{ $customer->name }}</h5>
-                                        <h5 class="modal-title mx-auto">Total Amount ${{ Cart::total() }}</h5>
+                                    <div class="modal-header bg-white">
+                                        <h3 class="modal-title text-center mx-auto">Invoice of {{ $customer->name }}<br/>Total Amount ${{ Cart::total() }}</h3>
                                     </div>
-                                    <form action="{{ route('pos.orderStore') }}" method="post">
+                                    <form action="{{ route('pos.storeOrder') }}" method="post">
                                         @csrf
                                         <div class="modal-body">
                                             <input type="hidden" name="customer_id" value="{{ $customer->id }}">
@@ -53,17 +51,6 @@
                                                     <label for="pay">Pay Now</label>
                                                     <input type="text" class="form-control @error('pay') is-invalid @enderror" id="pay" name="pay" value="{{ old('pay') }}">
                                                     @error('pay')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="due">Due Amount</label>
-                                                    <input type="text" class="form-control @error('due') is-invalid @enderror" id="due" name="due" value="{{ old('due') }}">
-                                                    @error('due')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -98,15 +85,13 @@
                                         <tr>
                                             <th scope="col">Order Date</th>
                                             <th scope="col">Order Status</th>
-                                            <th scope="col">Invoice No</th>
                                             <th scope="col">Billing Address</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Jan 17, 2016</td>
+                                            <td>{{ Carbon\Carbon::now()->format('M d, Y') }}</td>
                                             <td><span class="badge badge-danger">Unpaid</span></td>
-                                            <td>250028</td>
                                             <td>
                                                 <p class="mb-0">{{ $customer->address }}<br>
                                                     Shop Name: {{ $customer->shopname ? $customer->shopname : '-' }}<br>
@@ -169,18 +154,6 @@
                             <div class="or-detail rounded">
                                 <div class="p-3">
                                     <h5 class="mb-3">Order Details</h5>
-                                    <div class="mb-2">
-                                        <h6>Bank</h6>
-                                        <p>{{ $customer->bank_name }}</p>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h6>Acc. No</h6>
-                                        <p>{{ $customer->account_number }}</p>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h6>Due Date</h6>
-                                        <p>12 August 2020</p>
-                                    </div>
                                     <div class="mb-2">
                                         <h6>Sub Total</h6>
                                         <p>${{ Cart::subtotal() }}</p>

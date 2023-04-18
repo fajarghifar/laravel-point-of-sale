@@ -1,6 +1,5 @@
 /.phpunit.cache
 /node_modules
-/version_old_theme
 /public/build
 /public/hot
 /public/storage

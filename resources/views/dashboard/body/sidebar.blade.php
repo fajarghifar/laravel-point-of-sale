@@ -52,6 +52,11 @@
                                 <i class="fa-solid fa-arrow-right"></i><span>Complete Orders</span>
                             </a>
                         </li>
+                        <li class="{{ Request::is('pending/due*') ? 'active' : '' }}">
+                            <a href="{{ route('order.pendingDue') }}">
+                                <i class="fa-solid fa-arrow-right"></i><span>Pending Due</span>
+                            </a>
+                        </li>
                         <li class="{{ Request::is(['stock*']) ? 'active' : '' }}">
                             <a href="{{ route('order.stockManage') }}">
                                 <i class="fa-solid fa-arrow-right"></i><span>Stock Management</span>

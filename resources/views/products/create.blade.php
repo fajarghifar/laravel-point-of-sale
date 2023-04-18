@@ -112,7 +112,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="expire_date">Buying Date</label>
+                                <label for="expire_date">Expire Date</label>
                                 <input id="expire_date" class="form-control @error('expire_date') is-invalid @enderror" name="expire_date" value="{{ old('expire_date') }}" />
                                 @error('expire_date')
                                 <div class="invalid-feedback">
