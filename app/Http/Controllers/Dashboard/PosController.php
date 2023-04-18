@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -13,8 +14,8 @@ class PosController extends Controller
 {
     public function index()
     {
-        $row = (int) request('row',
-        10);
+        $todayDate = Carbon::now();
+        $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
             abort(400, 'The per_page parameter must be an integer between 1 and 100.');
@@ -24,7 +25,7 @@ class PosController extends Controller
             'user' => auth()->user(),
             'customers' => Customer::all()->sortBy('name'),
             'productItem' => Cart::content(),
-            'products' => Product::filter(request(['search']))
+            'products' => Product::where('expire_date', '>', $todayDate)->filter(request(['search']))
                 ->sortable()
                 ->paginate($row)
                 ->appends(request()->query()),
@@ -70,15 +71,6 @@ class PosController extends Controller
         Cart::remove($rowId);
 
         return Redirect::back()->with('success', 'Cart has been deleted!');
-    }
-
-    public function allItem()
-    {
-        $productItem = Cart::content();
-
-        return view('pos.text-item', [
-            'productItem' => $productItem
-        ]);
     }
 
     public function createInvoice(Request $request)
