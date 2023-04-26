@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -33,6 +34,8 @@ class ProductFactory extends Factory
             'product_store' => fake()->randomNumber(3),
             'buying_price' => fake()->randomNumber(2),
             'selling_price' => fake()->randomNumber(2),
+            'buying_date' => Carbon::now(),
+            'expire_date' => Carbon::now()->addYears(2),
         ];
     }
 }
