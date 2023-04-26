@@ -1,66 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## ✨ Laravel Point of Sale
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Point of Sale Management and Invoice build with Laravel 10 and MySql.
 
-## About Laravel
+![Dashboard](https://user-images.githubusercontent.com/71541409/234483153-38816efd-c261-4585-bb93-28639508f5e3.jpg)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 😎 Features
+- POS
+- Orders
+  - Pending Orders
+  - Complete Orders
+  - Pending Due
+- Stock Management
+- Products
+  - Products
+  - Categories
+- Employees
+- Customers
+- Suppliers
+- Salary
+  - Advance Salary
+  - Pay Salary
+  - History Pay Salary
+- Attendence
+- Role and Permission
+- Users Management
+- Backup Database
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 How to Use
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1.  **Clone Repository or Download**
 
-## Learning Laravel
+    ```bash
+    $ git clone https://github.com/fajarghifar/laravel-point-of-sale
+    ```
+1. **Setup**
+    ```bash
+    # Go into the repository
+    $ cd laravel-point-of-sale
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    # Install dependencies
+    $ composer install
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    # Open with your text editor
+    $ code .
+    ```
+1. **Config File**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    Rename or copy `.env.example` file to `.env`
+    ```bash
+    # Generate app key
+    $ php artisan key:generate
+    ```
 
-## Laravel Sponsors
+    Additional setting to set Faker Locale, add this line of code to the `.env` file.
+    ```bash
+    # In this case the locale set to Indonesia
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    FAKER_LOCALE="id_ID"
+    ```
 
-### Premium Partners
+    Setup your database credentials in your `.env` file.
+    ```bash
+    $ php artisan:migrate:fresh --seed
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+    # Note: If showing an error, please try to run this command again.
+    ```
+1. **Create Storage Link**
 
-## Contributing
+    ```bash
+    $ php artisan storage:link
+    ```
+1. **Run Server**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    $ php artisan serve
+    ```
+1. **Login**
 
-## Code of Conduct
+    Try login with username : `admin` and password : `password`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    or username : `user` and password : `password`
 
-## Security Vulnerabilities
+## 📸 Screenshot
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### POS
+![pos](https://user-images.githubusercontent.com/71541409/234483450-92e3d8fd-c729-4709-bdd3-9bec2b4cf909.jpg)
+#### Products
+![products](https://user-images.githubusercontent.com/71541409/234483453-c3e355f0-c7a3-441d-88ae-f1d983e5b267.jpg)
+#### Employees
+![employees](https://user-images.githubusercontent.com/71541409/234483444-87097f5d-ae41-407a-b9b0-cd0724c83edb.jpg)
+#### Suppliers
+![suppliers](https://user-images.githubusercontent.com/71541409/234483408-a66f3a86-ba05-404f-8819-b6760807486d.jpg)
+#### Customers
+![customers](https://user-images.githubusercontent.com/71541409/234483436-0ddbe384-2755-4ba5-a8ae-617eb2527fd9.jpg)
+#### Salary
+![salary](https://user-images.githubusercontent.com/71541409/234483463-650ca4d7-76a7-44f1-8c56-5d3be651476f.jpg)
+#### Backup Database
+![database](https://user-images.githubusercontent.com/71541409/234483441-ea356666-5f19-4f62-8b6d-dc5e06bbbf8e.jpg)
+#### Role and Permission
+![roles](https://user-images.githubusercontent.com/71541409/234483460-604b6e7d-2213-464e-98bb-4820c1791b82.jpg)
+![permissions](https://user-images.githubusercontent.com/71541409/234483445-9c6f3447-704d-4fbf-b046-23aaa91166d4.jpg)
+![role_in_permission](https://user-images.githubusercontent.com/71541409/234483454-69610edb-b996-4850-a826-3a1745da2cf9.jpg)
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📝 Contributing
+
+If you have any idea to make it more interesting, feel free to send a PR, or create an issue for a feature request.
+
+# 🤝 License
+
+### [MIT](LICENSE)
+
+> Github [@fajarghifar](https://github.com/fajarghifar) &nbsp;&middot;&nbsp;
+> Instagram [@fajarghifar](https://instagram.com/fajarghifar)
