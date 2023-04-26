@@ -68,29 +68,29 @@
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                        @forelse ($users as $user)
+                        @forelse ($users as $item)
                         <tr>
                             <td>{{ (($users->currentPage() * 10) - 10) + $loop->iteration  }}</td>
                             <td>
-                                <img class="avatar-60 rounded" src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/images/user/1.png') }}">
+                                <img class="avatar-60 rounded" src="{{ $item->photo ? asset('storage/profile/'.$item->photo) : asset('assets/images/user/1.png') }}">
                             </td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->username }}</td>
+                            <td>{{ $item->email }}</td>
                             <td>
-                                @foreach ($user->roles as $role)
+                                @foreach ($item->roles as $role)
                                     <span class="badge bg-danger">{{ $role->name }}</span>
                                 @endforeach
                             </td>
                             <td>
-                                <form action="{{ route('users.destroy', $user->username) }}" method="POST" style="margin-bottom: 5px">
+                                <form action="{{ route('users.destroy', $item->username) }}" method="POST" style="margin-bottom: 5px">
                                     @method('delete')
                                     @csrf
                                     <div class="d-flex align-items-center list-action">
                                         {{-- <a class="btn btn-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                            href="{{ route('users.show', $user->username) }}"><i class="ri-eye-line mr-0"></i>
+                                            href="{{ route('users.show', $item->username) }}"><i class="ri-eye-line mr-0"></i>
                                         </a> --}}
-                                        <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="{{ route('users.edit', $user->username) }}"><i class="ri-pencil-line mr-0"></i>
+                                        <a class="btn btn-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="{{ route('users.edit', $item->username) }}"><i class="ri-pencil-line mr-0"></i>
                                         </a>
                                         <button type="submit" class="btn btn-warning mr-2 border-none" onclick="return confirm('Are you sure you want to delete this record?')" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="ri-delete-bin-line mr-0"></i></button>
                                     </div>
