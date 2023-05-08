@@ -13,6 +13,7 @@ use App\Models\AdvanceSalary;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class DatabaseSeeder extends Seeder
 {
@@ -41,7 +42,16 @@ class DatabaseSeeder extends Seeder
         Customer::factory(25)->create();
         Supplier::factory(10)->create();
 
-        Product::factory(5)->create();
+        for ($i=0; $i < 10; $i++) {
+            Product::factory()->create([
+                'product_code' => IdGenerator::generate([
+                    'table' => 'products',
+                    'field' => 'product_code',
+                    'length' => 4,
+                    'prefix' => 'PC'
+                ])
+            ]);
+        }
         Category::factory(5)->create();
 
         Permission::create(['name' => 'pos.menu', 'group_name' => 'pos']);
