@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('experience')->nullable();
             $table->string('photo')->nullable();
-            $table->string('salary')->nullable();
+            $table->integer('salary')->nullable();
             $table->string('vacation')->nullable();
             $table->string('city')->nullable();
             $table->timestamps();

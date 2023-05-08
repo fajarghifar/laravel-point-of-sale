@@ -16,14 +16,14 @@ return new class extends Migration
             $table->string('customer_id');
             $table->string('order_date');
             $table->string('order_status');
-            $table->string('total_products');
-            $table->string('sub_total')->nullable();
-            $table->string('vat')->nullable();
+            $table->integer('total_products');
+            $table->integer('sub_total')->nullable();
+            $table->integer('vat')->nullable();
             $table->string('invoice_no')->nullable();
-            $table->string('total')->nullable();
+            $table->integer('total')->nullable();
             $table->string('payment_status')->nullable();
-            $table->string('pay')->nullable();
-            $table->string('due')->nullable();
+            $table->integer('pay')->nullable();
+            $table->integer('due')->nullable();
             $table->timestamps();
         });
     }
