@@ -18,11 +18,10 @@ class AttendenceController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         return view('attendence.index', [
-            'user' => auth()->user(),
             'attendences' => Attendence::sortable()
                 ->select('date')
                 ->groupBy('date')
@@ -38,7 +37,6 @@ class AttendenceController extends Controller
     public function create()
     {
         return view('attendence.create', [
-            'user' => auth()->user(),
             'employees' => Employee::all()->sortBy('name'),
         ]);
     }
@@ -86,7 +84,6 @@ class AttendenceController extends Controller
     public function edit(Attendence $attendence)
     {
         return view('attendence.edit', [
-            'user' => auth()->user(),
             'attendences' => Attendence::with(['employee'])->where('date', $attendence->date)->get(),
             'date' => $attendence->date
         ]);

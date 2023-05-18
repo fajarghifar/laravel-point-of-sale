@@ -12,7 +12,6 @@ class DatabaseBackupController extends Controller
 {    public function index()
     {
         return view('database.index', [
-            'user' => auth()->user(),
             'files' => File::allFiles(storage_path('/app/POS'))
         ]);
     }

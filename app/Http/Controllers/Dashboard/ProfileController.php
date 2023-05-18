@@ -71,14 +71,6 @@ class ProfileController extends Controller
             $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
             $path = 'public/profile/';
 
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
             $file->storeAs($path, $fileName);
             $validatedData['photo'] = $fileName;
         }

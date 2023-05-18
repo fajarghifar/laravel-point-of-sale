@@ -20,7 +20,7 @@
                     </a>
                 </li>
 
-                @if ($user->can('pos.menu'))
+                @if (auth()->user()->can('pos.menu'))
                 <li class="{{ Request::is('pos*') ? 'active' : '' }}">
                     <a href="{{ route('pos.index') }}" class="svg-icon">
                         <i class="fa-solid fa-cart-shopping"></i>
@@ -31,7 +31,7 @@
 
                 <hr>
 
-                @if ($user->can('orders.menu'))
+                @if (auth()->user()->can('orders.menu'))
                 <li>
                     <a href="#orders" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-basket-shopping"></i>
@@ -66,7 +66,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('product.menu'))
+                @if (auth()->user()->can('product.menu'))
                 <li>
                     <a href="#products" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-boxes-stacked"></i>
@@ -97,7 +97,7 @@
 
                 <hr>
 
-                @if ($user->can('employee.menu'))
+                @if (auth()->user()->can('employee.menu'))
                 <li class="{{ Request::is('employees*') ? 'active' : '' }}">
                     <a href="{{ route('employees.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
@@ -106,7 +106,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('customer.menu'))
+                @if (auth()->user()->can('customer.menu'))
                 <li class="{{ Request::is('customers*') ? 'active' : '' }}">
                     <a href="{{ route('customers.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
@@ -115,7 +115,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('supplier.menu'))
+                @if (auth()->user()->can('supplier.menu'))
                 <li class="{{ Request::is('suppliers*') ? 'active' : '' }}">
                     <a href="{{ route('suppliers.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
@@ -124,7 +124,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('salary.menu'))
+                @if (auth()->user()->can('salary.menu'))
                 <li>
                     <a href="#advance-salary" class="collapsed" data-toggle="collapse" aria-expanded="false">
                     <i class="fa-solid fa-cash-register"></i>
@@ -159,7 +159,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('attendence.menu'))
+                @if (auth()->user()->can('attendence.menu'))
                 <li>
                     <a href="#attendence" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-calendar-days"></i>
@@ -187,7 +187,7 @@
                 <hr>
 
 
-                @if ($user->can('roles.menu'))
+                @if (auth()->user()->can('roles.menu'))
                 <li>
                     <a href="#permission" class="collapsed" data-toggle="collapse" aria-expanded="false">
                         <i class="fa-solid fa-key"></i>
@@ -216,7 +216,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('user.menu'))
+                @if (auth()->user()->can('user.menu'))
                 <li class="{{ Request::is('users*') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class="svg-icon">
                         <i class="fa-solid fa-users"></i>
@@ -225,7 +225,7 @@
                 </li>
                 @endif
 
-                @if ($user->can('database.menu'))
+                @if (auth()->user()->can('database.menu'))
                 <li class="{{ Request::is('database/backup*') ? 'active' : '' }}">
                     <a href="{{ route('backup.index') }}" class="svg-icon">
                         <i class="fa-solid fa-database"></i>

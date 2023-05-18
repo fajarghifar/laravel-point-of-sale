@@ -17,11 +17,10 @@ class CategoryController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         return view('categories.index', [
-            'user' => auth()->user(),
             'categories' => Category::filter(request(['search']))
                 ->sortable()
                 ->paginate($row)
@@ -34,9 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create', [
-            'user' => auth()->user(),
-        ]);
+        return view('categories.create');
     }
 
     /**
@@ -70,7 +67,6 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         return view('categories.edit', [
-            'user' => auth()->user(),
             'category' => $category
         ]);
     }

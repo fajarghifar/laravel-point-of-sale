@@ -24,13 +24,12 @@ class OrderController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         $orders = Order::where('order_status', 'pending')->sortable()->paginate($row);
 
         return view('orders.pending-orders', [
-            'user' => auth()->user(),
             'orders' => $orders
         ]);
     }
@@ -40,13 +39,12 @@ class OrderController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         $orders = Order::where('order_status', 'complete')->sortable()->paginate($row);
 
         return view('orders.complete-orders', [
-            'user' => auth()->user(),
             'orders' => $orders
         ]);
     }
@@ -56,11 +54,10 @@ class OrderController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         return view('stock.index', [
-            'user' => auth()->user(),
             'products' => Product::with(['category', 'supplier'])
                 ->filter(request(['search']))
                 ->sortable()
@@ -134,7 +131,6 @@ class OrderController extends Controller
                         ->get();
 
         return view('orders.details-order', [
-            'user' => auth()->user(),
             'order' => $order,
             'orderDetails' => $orderDetails,
         ]);
@@ -180,7 +176,7 @@ class OrderController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         $orders = Order::where('due', '>', '0')
@@ -188,7 +184,6 @@ class OrderController extends Controller
             ->paginate($row);
 
         return view('orders.pending-due', [
-            'user' => auth()->user(),
             'orders' => $orders
         ]);
     }

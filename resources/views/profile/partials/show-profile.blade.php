@@ -15,21 +15,21 @@
 <div class="card-body">
     <div class="form-group row align-items-center">
         <div class="col-md-12">
-            <img class="crm-profile-pic rounded-circle avatar-100" src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/images/user/1.png') }}" alt="profile-pic">
+            <img class="crm-profile-pic rounded-circle avatar-100" src="{{  auth()->user()->photo ? asset('storage/profile/'. auth()->user()->photo) : asset('assets/images/user/1.png') }}" alt="profile-pic">
         </div>
     </div>
     <div class=" row align-items-center">
         <div class="form-group col-md-12">
             <label for="fname">Full Name</label>
-            <input type="text" class="form-control bg-white" id="fname" value="{{ $user->name }}" readonly>
+            <input type="text" class="form-control bg-white" id="fname" value="{{  auth()->user()->name }}" readonly>
         </div>
         <div class="form-group col-md-6">
             <label for="uname">Username</label>
-            <input type="text" class="form-control bg-white" id="uname" value="{{ $user->username }}" readonly>
+            <input type="text" class="form-control bg-white" id="uname" value="{{  auth()->user()->username }}" readonly>
         </div>
         <div class="form-group col-md-6">
             <label for="email">Email</label>
-            <input type="text" class="form-control bg-white" id="email" value="{{ $user->email }}" readonly>
+            <input type="text" class="form-control bg-white" id="email" value="{{  auth()->user()->email }}" readonly>
         </div>
     </div>
 </div>

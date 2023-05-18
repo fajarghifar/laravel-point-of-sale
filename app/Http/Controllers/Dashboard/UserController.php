@@ -21,11 +21,10 @@ class UserController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         return view('users.index', [
-            'user' => auth()->user(),
             'users' => User::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
         ]);
     }
@@ -36,7 +35,6 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create', [
-            'user' => auth()->user(),
             'roles' => Role::all(),
         ]);
     }
@@ -92,7 +90,6 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return view('users.edit', [
-            'user' => auth()->user(), // 'user' to get data current user login
             'userData' => $user,
             'roles' => Role::all(),
         ]);

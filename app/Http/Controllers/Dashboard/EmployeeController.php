@@ -19,11 +19,10 @@ class EmployeeController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         return view('employees.index', [
-            'user' => auth()->user(),
             'employees' => Employee::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
         ]);
     }
@@ -33,9 +32,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create', [
-            'user' => auth()->user(),
-        ]);
+        return view('employees.create');
     }
 
     /**
@@ -64,14 +61,6 @@ class EmployeeController extends Controller
             $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
             $path = 'public/employees/';
 
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
             $file->storeAs($path, $fileName);
             $validatedData['photo'] = $fileName;
         }
@@ -87,7 +76,6 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         return view('employees.show', [
-            'user' => auth()->user(),
             'employee' => $employee,
         ]);
     }
@@ -98,7 +86,6 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         return view('employees.edit', [
-            'user' => auth()->user(),
             'employee' => $employee,
         ]);
     }
@@ -135,14 +122,6 @@ class EmployeeController extends Controller
             if($employee->photo){
                 Storage::delete($path . $employee->photo);
             }
-
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
 
             $file->storeAs($path, $fileName);
             $validatedData['photo'] = $fileName;

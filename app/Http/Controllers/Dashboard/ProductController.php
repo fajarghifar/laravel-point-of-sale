@@ -28,11 +28,10 @@ class ProductController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         return view('products.index', [
-            'user' => auth()->user(),
             'products' => Product::with(['category', 'supplier'])
                 ->filter(request(['search']))
                 ->sortable()
@@ -47,7 +46,6 @@ class ProductController extends Controller
     public function create()
     {
         return view('products.create', [
-            'user' => auth()->user(),
             'categories' => Category::all(),
             'suppliers' => Supplier::all(),
         ]);
@@ -90,14 +88,6 @@ class ProductController extends Controller
             $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
             $path = 'public/products/';
 
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
             $file->storeAs($path, $fileName);
             $validatedData['product_image'] = $fileName;
         }
@@ -118,7 +108,6 @@ class ProductController extends Controller
         $barcode = $generator->getBarcode($product->product_code, $generator::TYPE_CODE_128);
 
         return view('products.show', [
-            'user' => auth()->user(),
             'product' => $product,
             'barcode' => $barcode,
         ]);
@@ -130,7 +119,6 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return view('products.edit', [
-            'user' => auth()->user(),
             'categories' => Category::all(),
             'suppliers' => Supplier::all(),
             'product' => $product
@@ -171,14 +159,6 @@ class ProductController extends Controller
                 Storage::delete($path . $product->product_image);
             }
 
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
             $file->storeAs($path, $fileName);
             $validatedData['product_image'] = $fileName;
         }
@@ -210,9 +190,7 @@ class ProductController extends Controller
      */
     public function importView()
     {
-        return view('products.import', [
-            'user' => auth()->user()
-        ]);
+        return view('products.import');
     }
 
     public function importStore(Request $request)

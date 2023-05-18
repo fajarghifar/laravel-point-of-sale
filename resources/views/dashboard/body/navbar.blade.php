@@ -41,7 +41,7 @@
                         <li class="nav-item nav-icon dropdown caption-content">
                             <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton4"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/images/user/1.png') }}" class="img-fluid rounded" alt="user">
+                                <img src="{{ auth()->user()->photo ? asset('storage/profile/'.auth()->user()->photo) : asset('assets/images/user/1.png') }}" class="img-fluid rounded" alt="user">
                             </a>
                             <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="card shadow-none m-0">
@@ -49,12 +49,12 @@
                                         <div class="media-body profile-detail text-center">
                                             <img src="{{ asset('assets/images/page-img/profile-bg.jpg') }}" alt="profile-bg"
                                                 class="rounded-top img-fluid mb-4">
-                                            <img src="{{ $user->photo ? asset('storage/profile/'.$user->photo) : asset('assets/images/user/1.png') }}" alt="profile-img"
+                                            <img src="{{ auth()->user()->photo ? asset('storage/profile/'.auth()->user()->photo) : asset('assets/images/user/1.png') }}" alt="profile-img"
                                                 class="rounded profile-img img-fluid avatar-70">
                                         </div>
                                         <div class="p-3">
-                                            <h5 class="mb-1">{{ $user->name }}</h5>
-                                            <p class="mb-0">Since {{ date('d M, Y', strtotime($user->created_at)) }}</p>
+                                            <h5 class="mb-1">{{  auth()->user()->name }}</h5>
+                                            <p class="mb-0">Since {{ date('d M, Y', strtotime(auth()->user()->created_at)) }}</p>
                                             <div class="d-flex align-items-center justify-content-center mt-3">
                                                 <a href="{{ route('profile') }}" class="btn border mr-2">Profile</a>
                                                 <form action="{{ route('logout') }}" method="POST">

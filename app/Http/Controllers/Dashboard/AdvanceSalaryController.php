@@ -19,7 +19,7 @@ class AdvanceSalaryController extends Controller
         $row = (int) request('row', 10);
 
         if ($row < 1 || $row > 100) {
-            abort(400, 'The per_page parameter must be an integer between 1 and 100.');
+            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
         if(request('search')){
@@ -27,7 +27,6 @@ class AdvanceSalaryController extends Controller
         }
 
         return view('advance-salary.index', [
-            'user' => auth()->user(),
             'advance_salaries' => AdvanceSalary::with(['employee'])
                 ->orderByDesc('date')
                 ->filter(request(['search']))
@@ -43,7 +42,6 @@ class AdvanceSalaryController extends Controller
     public function create()
     {
         return view('advance-salary.create', [
-            'user' => auth()->user(),
             'employees' => Employee::all()->sortBy('name'),
         ]);
     }
@@ -95,7 +93,6 @@ class AdvanceSalaryController extends Controller
     public function edit(AdvanceSalary $advanceSalary)
     {
         return view('advance-salary.edit', [
-            'user' => auth()->user(),
             'employees' => Employee::all()->sortBy('name'),
             'advance_salary' => $advanceSalary,
         ]);

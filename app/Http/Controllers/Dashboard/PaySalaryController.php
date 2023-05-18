@@ -27,7 +27,6 @@ class PaySalaryController extends Controller
         }
 
         return view('pay-salary.index', [
-            'user' => auth()->user(),
             'advanceSalaries' => AdvanceSalary::with(['employee'])
                 ->orderByDesc('date')
                 ->filter(request(['search']))
@@ -43,7 +42,6 @@ class PaySalaryController extends Controller
     public function paySalary(String $id)
     {
         return view('pay-salary.create', [
-            'user' => auth()->user(),
             'advanceSalary' => AdvanceSalary::with(['employee'])
                 ->where('id', $id)
                 ->first(),
@@ -63,7 +61,6 @@ class PaySalaryController extends Controller
         }
 
         return view('pay-salary.history', [
-            'user' => auth()->user(),
             'paySalaries' => PaySalary::with(['employee'])
             ->orderByDesc('date')
             ->filter(request(['search']))
@@ -76,7 +73,6 @@ class PaySalaryController extends Controller
     public function payHistoryDetail(String $id)
     {
         return view('pay-salary.history-details', [
-            'user' => auth()->user(),
             'paySalary' => PaySalary::with(['employee'])
             ->where('id', $id)
             ->first(),
