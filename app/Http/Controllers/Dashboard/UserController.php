@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules\Password;
@@ -66,14 +65,6 @@ class UserController extends Controller
             $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
             $path = 'public/profile/';
 
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
             $file->storeAs($path, $fileName);
             $validatedData['photo'] = $fileName;
         }
@@ -125,6 +116,7 @@ class UserController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+        $validatedData['password'] = Hash::make($request->password);
 
         /**
          * Handle upload image with Storage.
@@ -139,14 +131,6 @@ class UserController extends Controller
             if($user->photo){
                 Storage::delete($path . $user->photo);
             }
-
-            /**
-             * Rezise and Compress the photo.
-             */
-            Image::make($file)
-                ->resize(360, 360, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
 
             $file->storeAs($path, $fileName);
             $validatedData['photo'] = $fileName;
