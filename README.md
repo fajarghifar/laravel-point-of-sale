@@ -1,117 +1,157 @@
 ## ✨ Laravel Point of Sale
 
-Point of Sale Management and Invoice build with Laravel 10 and MySql.
+A simple and powerful Point of Sale (POS) management system with invoice generation, built with **Laravel 10** and **MySQL**.
 
 ![Dashboard](https://user-images.githubusercontent.com/71541409/234483153-38816efd-c261-4585-bb93-28639508f5e3.jpg)
 
 ## 😎 Features
-- POS
-- Orders
+
+- **Point of Sale (POS)**
+- **Order Management**
   - Pending Orders
-  - Complete Orders
-  - Pending Due
-- Stock Management
-- Products
+  - Completed Orders
+  - Pending Due Payments
+- **Stock Management**
+- **Product Management**
   - Products
   - Categories
-- Employees
-- Customers
-- Suppliers
-- Salary
+- **Employee Management**
+- **Customer Management**
+- **Supplier Management**
+- **Salary Management**
   - Advance Salary
   - Pay Salary
-  - History Pay Salary
-- Attendance
-- Role and Permission
-- Users Management
-- Backup Database
+  - Salary History
+- **Attendance Management**
+- **Role & Permission System**
+- **User Management**
+- **Database Backup**
 
 ## 🚀 How to Use
 
-1.  **Clone Repository or Download**
+#### 1. Clone the Repository
+To get started, clone or download the repository:
 
-    ```bash
-    $ git clone https://github.com/fajarghifar/laravel-point-of-sale
-    ```
-1. **Setup**
-    ```bash
-    # Go into the repository
-    $ cd laravel-point-of-sale
+```bash
+git clone https://github.com/fajarghifar/laravel-point-of-sale
+```
 
-    # Install dependencies
-    $ composer install
+#### 2. Set Up the Project
 
-    # Open with your text editor
-    $ code .
-    ```
-1. **.ENV**
+Once you’ve cloned the repository, navigate to the project directory and install dependencies:
 
-    Rename or copy the `.env.example` file to `.env`
-    ```bash
-    # Generate app key
-    $ php artisan key:generate
-    ```
-1. **Custom Faker Locale**
+```bash
+cd laravel-point-of-sale
+composer install
+```
 
-    To set Faker Locale, add this line of code to the end `.env` file.
-    ```bash
-    # In this case, the locale is set to Indonesian
+Open the project in your preferred code editor:
 
-    FAKER_LOCALE="id_ID"
-    ```
+```bash
+code .
+```
 
-1. **Setup Database**
+#### 3. Configure the Environment
 
-    Setup your database credentials in your `.env` file.
+Rename the `.env.example` file to `.env`:
 
-1. **Seed Database**
-    ```bash
-    $ php artisan:migrate:fresh --seed
+```bash
+cp .env.example .env
+```
 
-    # Note: If showing an error, please try to rerun this command.
-    ```
-1. **Create Storage Link**
+Generate the application key:
 
-    ```bash
-    $ php artisan storage:link
-    ```
-1. **Run Server**
+```bash
+php artisan key:generate
+```
 
-    ```bash
-    $ php artisan serve
-    ```
-1. **Login**
+#### 4. Set Faker Locale (Optional)
 
-    Try login with username: `admin` and password: `password`
+To set the Faker locale (for example, to Indonesian), add the following line at the end of your `.env` file:
 
-## 🚀 Config
-1. **Config Chart**
+```bash
+FAKER_LOCALE="id_ID"
+```
 
-    Open file `./config/cart.php`. You can set a tax, format number, etc.
-    > For More details, visit this link [hardevine/shoppingcart](https://packagist.org/packages/hardevine/shoppingcart).
-1. **Create Storage Link**
+#### 5. Set Up the Database
 
-    ```bash
-    $ php artisan storage:link
-    ```
-1. **Run Server**
+Configure your database credentials in the `.env` file.
 
-    ```bash
-    $ php artisan serve
-    ```
-1. **Login**
+#### 6. Seed the Database
 
-    Try login with username: `admin` and password: `password`
+Run the following command to migrate and seed the database:
 
-    or username: `user` and password: `password`
+```bash
+php artisan migrate:fresh --seed
+```
 
-## 📝 Contributing
+**Note**: If you encounter any errors, try rerunning the command.
 
-If you have any ideas to make it more interesting, please send a PR, or create an issue for a feature request.
+#### 7. Create Storage Link
 
-# 🤝 License
+Create a symbolic link for storage:
 
-### [MIT](LICENSE)
+```bash
+php artisan storage:link
+```
 
-> Github [@fajarghifar](https://github.com/fajarghifar) &nbsp;&middot;&nbsp;
-> Instagram [@fajarghifar](https://instagram.com/fajarghifar)
+#### 8. Start the Server
+
+To run the application locally, start the Laravel development server:
+
+```bash
+php artisan serve
+```
+
+#### 9. Log In
+
+Use the following credentials to log in:
+
+- **Username**: `admin`
+- **Password**: `password`
+
+## 🚀 Configuration
+
+#### 1. Configure Cart Settings
+
+Open the `./config/cart.php` file to configure settings like tax rates, number formats, and more.
+
+For more details, check out the [hardevine/shoppingcart documentation](https://packagist.org/packages/hardevine/shoppingcart).
+
+#### 2. Storage Link
+
+If you haven't already, run this command to create the storage link:
+
+```bash
+php artisan storage:link
+```
+
+#### 3. Start the Server
+
+Run the development server:
+
+```bash
+php artisan serve
+```
+
+#### 4. Log In
+
+Try logging in with:
+
+- **Username**: `admin`
+- **Password**: `password`
+
+## 💡 Contributing
+
+Have suggestions or want to contribute? Here’s how:
+
+- Submit a **Pull Request (PR)**
+- Report issues or request features by creating an **Issue**
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+> Connect with me on [GitHub](https://github.com/fajarghifar) &nbsp;&middot;&nbsp; [YouTube](https://www.youtube.com/@fajarghifar) &nbsp;&middot;&nbsp; [Instagram](https://instagram.com/fajarghifar) &nbsp;&middot;&nbsp; [LinkedIn](https://www.linkedin.com/in/fajarghifar/)
