@@ -69,7 +69,7 @@ class ProductController extends Controller
             'category_id' => 'required|integer',
             'supplier_id' => 'required|integer',
             'product_garage' => 'string|nullable',
-            'product_store' => 'string|nullable',
+            'product_store' => 'integer|nullable',
             'buying_date' => 'date_format:Y-m-d|max:10|nullable',
             'expire_date' => 'date_format:Y-m-d|max:10|nullable',
             'buying_price' => 'required|integer',
