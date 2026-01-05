@@ -2,34 +2,18 @@
 
 namespace App\Models;
 
-use Kyslik\ColumnSortable\Sortable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory;
 
     protected $fillable = [
         'name',
         'email',
         'phone',
         'address',
-        'shopname',
-        'photo',
-        'type',
-        'account_holder',
-        'account_number',
-        'bank_name',
-        'bank_branch',
-        'city',
-    ];
-    public $sortable = [
-        'name',
-        'email',
-        'phone',
-        'shopname',
-        'type',
         'city',
     ];
 
@@ -40,7 +24,7 @@ class Supplier extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%')->orWhere('shopname', 'like', '%' . $search . '%');
+            return $query->where('name', 'like', '%' . $search . '%');
         });
     }
 }
