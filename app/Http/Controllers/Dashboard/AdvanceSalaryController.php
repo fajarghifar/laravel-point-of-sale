@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\AdvanceSalary\StoreAdvanceSalaryRequest;
+use App\Http\Requests\AdvanceSalary\UpdateAdvanceSalaryRequest;
 use App\Models\Employee;
-use Illuminate\Http\Request;
 use App\Models\AdvanceSalary;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedSort;
 
 class AdvanceSalaryController extends Controller
 {
@@ -22,17 +25,25 @@ class AdvanceSalaryController extends Controller
             abort(400, 'The per-page parameter must be an integer between 1 and 100.');
         }
 
-        if(request('search')){
-            Employee::firstWhere('name', request('search'));
-        }
+        // Fetch advance salaries with sorting, searching, and pagination
+        $advance_salaries = QueryBuilder::for(AdvanceSalary::class)
+            ->allowedSorts([
+                'date',
+                'advance_salary',
+                AllowedSort::callback('employee.name', function ($query, $descending) {
+                    $query->join('employees', 'advance_salaries.employee_id', '=', 'employees.id')
+                        ->orderBy('employees.name', $descending ? 'desc' : 'asc')
+                        ->select('advance_salaries.*');
+                })
+            ])
+            ->with(['employee'])
+            ->filter(request(['search']))
+            ->orderByDesc('date')
+            ->paginate($row)
+            ->appends(request()->query());
 
         return view('advance-salary.index', [
-            'advance_salaries' => AdvanceSalary::with(['employee'])
-                ->orderByDesc('date')
-                ->filter(request(['search']))
-                ->sortable()
-                ->paginate($row)
-                ->appends(request()->query()),
+            'advance_salaries' => $advance_salaries,
         ]);
     }
 
@@ -41,50 +52,38 @@ class AdvanceSalaryController extends Controller
      */
     public function create()
     {
+        // Fetch employees sorted by name for the dropdown
         return view('advance-salary.create', [
-            'employees' => Employee::all()->sortBy('name'),
+            'employees' => Employee::orderBy('name')->get(['id', 'name']),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAdvanceSalaryRequest $request)
     {
-        $rules = [
-            'employee_id' => 'required',
-            'date' => 'required|date_format:Y-m-d|max:10',
-            'advance_salary' => 'numeric|nullable'
-        ];
+        $validatedData = $request->validated();
+        $date = $validatedData['date'];
+        $employeeId = $validatedData['employee_id'];
 
-        if ($request->date) {
-            // format date only shows the year and month
-            $getYm = Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m');
-        } else {
-            $validatedData = $request->validate($rules);
+        // Check if advance salary for this month already exists to prevent duplicates
+        $month = Carbon::createFromFormat('Y-m-d', $date);
+
+        $exists = AdvanceSalary::where('employee_id', $employeeId)
+            ->whereYear('date', $month->year)
+            ->whereMonth('date', $month->month)
+            ->exists();
+
+        if ($exists) {
+            return Redirect::route('advance-salary.create')
+                ->with('warning', 'Advance Salary for this month already paid!');
         }
 
+        AdvanceSalary::create($validatedData);
 
-        $advanced = AdvanceSalary::where('employee_id', $request->employee_id)
-            ->whereDate('date', 'LIKE',  $getYm . '%')
-            ->get();
-
-        if ($advanced->isEmpty()) {
-            $validatedData = $request->validate($rules);
-            AdvanceSalary::create($validatedData);
-
-            return Redirect::route('advance-salary.create')->with('success', 'Advance Salary Paid Successfully!');
-        } else {
-            return Redirect::route('advance-salary.create')->with('warning', 'Advance Salary Already Paid!');
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(AdvanceSalary $advanceSalary)
-    {
-        //
+        return Redirect::route('advance-salary.create')
+            ->with('success', 'Advance Salary Paid Successfully!');
     }
 
     /**
@@ -93,7 +92,7 @@ class AdvanceSalaryController extends Controller
     public function edit(AdvanceSalary $advanceSalary)
     {
         return view('advance-salary.edit', [
-            'employees' => Employee::all()->sortBy('name'),
+            'employees' => Employee::orderBy('name')->get(['id', 'name']),
             'advance_salary' => $advanceSalary,
         ]);
     }
@@ -101,30 +100,31 @@ class AdvanceSalaryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AdvanceSalary $advanceSalary)
+    public function update(UpdateAdvanceSalaryRequest $request, AdvanceSalary $advanceSalary)
     {
-        $rules = [
-            'employee_id' => 'required',
-            'date' => 'required|date_format:Y-m-d|max:10|',
-            'advance_salary' => 'required|numeric'
-        ];
+        $validatedData = $request->validated();
 
-        // format date only shows the YM (year and month)
-        $newYm = Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m');
-        $oldYm = Carbon::createFromFormat('Y-m-d', $advanceSalary->date)->format('Y-m');
+        // Check for conflicts if changing date (prevent moving to a month that already has a record)
+        $newMonth = Carbon::createFromFormat('Y-m-d', $validatedData['date']);
+        $oldMonth = Carbon::createFromFormat('Y-m-d', $advanceSalary->date);
 
-        $advanced = AdvanceSalary::where('employee_id', $request->id)
-            ->whereDate('date', 'LIKE',  $newYm . '%')
-            ->first();
+        if ($newMonth->format('Y-m') !== $oldMonth->format('Y-m')) {
+            $exists = AdvanceSalary::where('employee_id', $validatedData['employee_id'])
+                ->whereYear('date', $newMonth->year)
+                ->whereMonth('date', $newMonth->month)
+                ->where('id', '!=', $advanceSalary->id)
+                ->exists();
 
-        if (!$advanced && $newYm == $oldYm) {
-            $validatedData = $request->validate($rules);
-            AdvanceSalary::where('id', $advanceSalary->id)->update($validatedData);
-
-            return Redirect::route('advance-salary.edit', $advanceSalary->id)->with('success', 'Advance Salary Updated Successfully!');
-        } else {
-            return Redirect::route('advance-salary.edit', $advanceSalary->id)->with('warning', 'Advance Salary Already Paid!');
+            if ($exists) {
+                return Redirect::route('advance-salary.edit', $advanceSalary->id)
+                    ->with('warning', 'Advance Salary for the selected month already exists!');
+            }
         }
+
+        $advanceSalary->update($validatedData);
+
+        return Redirect::route('advance-salary.index')
+            ->with('success', 'Advance Salary Updated Successfully!');
     }
 
     /**
@@ -132,8 +132,9 @@ class AdvanceSalaryController extends Controller
      */
     public function destroy(AdvanceSalary $advanceSalary)
     {
-        AdvanceSalary::destroy($advanceSalary->id);
+        $advanceSalary->delete();
 
-        return Redirect::route('advance-salary.index')->with('success', 'Advance Salary has been deleted!');
+        return Redirect::route('advance-salary.index')
+            ->with('success', 'Advance Salary has been deleted!');
     }
 }

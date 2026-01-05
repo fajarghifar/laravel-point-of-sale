@@ -18,7 +18,7 @@ class AdvanceSalaryFactory extends Factory
     public function definition(): array
     {
         return [
-            'employee_id' => fake()->numberBetween(1, 5),
+            'employee_id' => Employee::inRandomOrder()->first()->id ?? Employee::factory(),
             'date' => fake()->date('Y-m-d'),
             'advance_salary' => fake()->randomNumber(3, false)
         ];
