@@ -2,7 +2,9 @@
     <div class="iq-navbar-custom">
         <nav class="navbar navbar-expand-lg navbar-light p-0">
             <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
-                <i class="ri-menu-line wrapper-menu"></i>
+                <div class="iq-menu-bt-sidebar">
+                    <x-heroicon-o-bars-3 class="wrapper-menu w-8 h-8" />
+                </div>
                 <a href="{{ route('dashboard') }}" class="header-logo">
                     <img src="../assets/images/logo.png" class="img-fluid rounded-normal" alt="logo">
                     <h5 class="logo-title ml-3">POSDash</h5>
@@ -41,7 +43,7 @@
                         <li class="nav-item nav-icon dropdown caption-content">
                             <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton4"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ auth()->user()->photo ? asset('storage/profile/'.auth()->user()->photo) : asset('assets/images/user/1.png') }}" class="img-fluid rounded" alt="user">
+                                <img src="{{ auth()->user()->photo ? asset('storage/profile/' . auth()->user()->photo) : asset('assets/images/user/1.png') }}" class="img-fluid rounded" alt="user">
                             </a>
                             <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <div class="card shadow-none m-0">
@@ -49,7 +51,7 @@
                                         <div class="media-body profile-detail text-center">
                                             <img src="{{ asset('assets/images/page-img/profile-bg.jpg') }}" alt="profile-bg"
                                                 class="rounded-top img-fluid mb-4">
-                                            <img src="{{ auth()->user()->photo ? asset('storage/profile/'.auth()->user()->photo) : asset('assets/images/user/1.png') }}" alt="profile-img"
+                                            <img src="{{ auth()->user()->photo ? asset('storage/profile/' . auth()->user()->photo) : asset('assets/images/user/1.png') }}" alt="profile-img"
                                                 class="rounded profile-img img-fluid avatar-70">
                                         </div>
                                         <div class="p-3">
