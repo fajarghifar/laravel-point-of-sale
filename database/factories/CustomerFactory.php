@@ -21,11 +21,6 @@ class CustomerFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->address(),
-            'shopname' => fake()->company(),
-            'account_holder' => fake()->name(),
-            'account_number' => fake()->randomNumber(8, true),
-            'bank_name' => fake()->randomElement(['BRI', 'BNI', 'BCA', 'BSI', 'MANDIRI', 'BJB']),
-            'bank_branch' => fake()->city(),
             'city' => fake()->city(),
         ];
     }
