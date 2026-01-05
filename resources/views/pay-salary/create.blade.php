@@ -7,103 +7,109 @@
 @endsection
 
 @section('container')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-
-            @if (session()->has('success'))
-                <div class="alert text-white bg-success" role="alert">
-                    <div class="iq-alert-text">{{ session('success') }}</div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="ri-close-line"></i>
-                    </button>
-                </div>
-            @endif
-            @if (session()->has('warning'))
-                <div class="alert text-white bg-warning" role="alert">
-                    <div class="iq-alert-text">{{ session('warning') }}</div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="ri-close-line"></i>
-                    </button>
-                </div>
-            @endif
-
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="header-title">
-                        <h4 class="card-title">Pay Salary</h4>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Pay Salary</h4>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card-body">
-                    <form action="{{ route('pay-salary.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $advanceSalary->id }}">
-                        <!-- begin: Input Data -->
-                        <div class=" row align-items-center">
-                            <div class="form-group col-md-6">
-                                <label for="name">Employee Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $advanceSalary->employee->name) }}" readonly>
-                                @error('name')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                    <div class="card-body">
+                        <form action="{{ route('pay-salary.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $advanceSalary->id }}">
+
+                            <div class="row align-items-center">
+                                {{-- Section: Employee Information --}}
+                                <div class="form-group col-md-6">
+                                    <label>Employee Name</label>
+                                    <input type="text" class="form-control" value="{{ $advanceSalary->employee->name }}" readonly>
                                 </div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="datepicker">Date <span class="text-danger">*</span></label>
-                                <input id="datepicker" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}" />
-                                @error('date')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                <div class="form-group col-md-6">
+                                    <label>Month</label>
+                                    <input type="text" class="form-control" value="{{ $advanceSalary->date }}" readonly>
                                 </div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="salary">Salary <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary" value="{{ $advanceSalary->employee->salary }}" readonly>
-                                @error('salary')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                <div class="form-group col-md-6">
+                                    <label>Salary</label>
+                                    <input type="text" class="form-control" value="{{ $advanceSalary->employee->salary }}" readonly>
                                 </div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="advance_salary">Advance Salary <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('advance_salary') is-invalid @enderror" id="advance_salary" name="advance_salary" value="{{ $advanceSalary->advance_salary ? $advanceSalary->advance_salary : 'No Advance' }}" readonly>
-                                @error('advance_salary')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                <div class="form-group col-md-6">
+                                    <label>Advance Salary</label>
+                                    <input type="text" class="form-control" value="{{ $advanceSalary->advance_salary }}" readonly>
                                 </div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="due_salary">Due Salary <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('due_salary') is-invalid @enderror" id="due_salary" name="due_salary" value="{{ $advanceSalary->employee->salary - $advanceSalary->advance_salary }}" readonly>
-                                @error('due_salary')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                                <div class="form-group col-md-6">
+                                    <label>Due Salary</label>
+                                    <input type="text" class="form-control"
+                                        value="{{ $advanceSalary->employee->salary - $advanceSalary->advance_salary }}" readonly>
                                 </div>
-                                @enderror
+
+                                {{-- Section: Salary Month Selection --}}
+                                <div class="form-group col-md-4">
+                                    <label for="month">Salary Month <span class="text-danger">*</span></label>
+                                    <select class="form-control @error('month') is-invalid @enderror" name="month" required>
+                                        <option value="" disabled selected>Select Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                    @error('month')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="year">Salary Year <span class="text-danger">*</span></label>
+                                    <select class="form-control @error('year') is-invalid @enderror" name="year" required>
+                                        <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                        <option value="{{ date('Y') - 1 }}">{{ date('Y') - 1 }}</option>
+                                    </select>
+                                    @error('year')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Section: Payment Date --}}
+                                <div class="form-group col-md-4">
+                                    <label for="datepicker">Payment Date <span class="text-danger">*</span></label>
+                                    <input id="datepicker" class="form-control @error('date') is-invalid @enderror" name="date"
+                                        value="{{ old('date', date('Y-m-d')) }}" />
+                                    @error('date')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <!-- end: Input Data -->
-                        <div class="mt-2">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-money-check-alt mr-2"></i>Paid Salary</button>
-                        </div>
-                    </form>
+
+                            {{-- Section: Form Actions --}}
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary mr-2">Pay Salary</button>
+                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Page end  -->
-</div>
 
-<script>
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'yyyy-mm-dd'
-        // https://gijgo.com/datetimepicker/configuration/format
-    });
-</script>
+    {{-- Script: Datepicker Initialization --}}
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'yyyy-mm-dd'
+        });
+    </script>
 @endsection

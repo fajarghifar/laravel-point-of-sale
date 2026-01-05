@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('pay_salaries', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
-            $table->date('date')->nullable();
-            $table->integer('paid_amount');
-            $table->integer('advance_salary')->nullable();
-            $table->integer('due_salary');
+            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
+            $table->date('date')->nullable()->index();
+            $table->decimal('paid_amount', 15, 2);
+            $table->decimal('advance_salary', 15, 2)->nullable();
+            $table->decimal('due_salary', 15, 2);
+            $table->string('salary_month')->nullable();
             $table->timestamps();
         });
     }
