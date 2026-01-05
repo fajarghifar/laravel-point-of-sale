@@ -2,35 +2,45 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Employee;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\Employee\StoreEmployeeRequest;
+use App\Http\Requests\Employee\UpdateEmployeeRequest;
+use App\Models\Employee;
+use Spatie\QueryBuilder\QueryBuilder;
+use App\Services\ImageService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class EmployeeController extends Controller
 {
+    protected $imageService;
+
+    public function __construct(ImageService $imageService)
+    {
+        $this->imageService = $imageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        $row = (int) request('row', 10);
-
-        if ($row < 1 || $row > 100) {
-            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
-        }
+        $employees = QueryBuilder::for(Employee::class)
+            ->allowedSorts(['name', 'email', 'phone', 'salary', 'city'])
+            ->allowedFilters(['name', 'email'])
+            ->filter(request(['search']))
+            ->paginate(request('row', 10))
+            ->appends(request()->query());
 
         return view('employees.index', [
-            'employees' => Employee::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
+            'employees' => $employees,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('employees.create');
     }
@@ -38,42 +48,26 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request): RedirectResponse
     {
-        $rules = [
-            'photo' => 'image|file|max:1024',
-            'name' => 'required|string|max:50',
-            'email' => 'required|email|max:50|unique:employees,email',
-            'phone' => 'required|string|max:15|unique:employees,phone',
-            'experience' => 'max:6|nullable',
-            'salary' => 'required|numeric',
-            'vacation' => 'max:50|nullable',
-            'city' => 'requried|max:50',
-            'address' => 'required|max:100',
-        ];
+        $validatedData = $request->validated();
 
-        $validatedData = $request->validate($rules);
-
-        /**
-         * Handle upload image with Storage.
-         */
-        if ($file = $request->file('photo')) {
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            $path = 'public/employees/';
-
-            $file->storeAs($path, $fileName);
-            $validatedData['photo'] = $fileName;
+        if ($request->hasFile('photo')) {
+            $validatedData['photo'] = $this->imageService->upload(
+                $request->file('photo'),
+                'public/employees/'
+            );
         }
 
         Employee::create($validatedData);
 
-        return Redirect::route('employees.index')->with('success', 'Employee has been created!');
+        return redirect()->route('employees.index')->with('success', 'Employee has been created!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Employee $employee)
+    public function show(Employee $employee): View
     {
         return view('employees.show', [
             'employee' => $employee,
@@ -83,7 +77,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee $employee)
+    public function edit(Employee $employee): View
     {
         return view('employees.edit', [
             'employee' => $employee,
@@ -93,59 +87,36 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Employee $employee): RedirectResponse
     {
-        $rules = [
-            'photo' => 'image|file|max:1024',
-            'name' => 'required|string|max:50',
-            'email' => 'required|email|max:50|unique:employees,email,'.$employee->id,
-            'phone' => 'required|string|max:20|unique:employees,phone,'.$employee->id,
-            'experience' => 'string|max:6|nullable',
-            'salary' => 'numeric',
-            'vacation' => 'max:50|nullable',
-            'city' => 'max:50',
-            'address' => 'required|max:100',
-        ];
+        $validatedData = $request->validated();
 
-        $validatedData = $request->validate($rules);
+        if ($request->hasFile('photo')) {
+            $newPhoto = $this->imageService->update(
+                $request->file('photo'),
+                $employee->photo,
+                'public/employees/'
+            );
 
-        /**
-         * Handle upload image with Storage.
-         */
-        if ($file = $request->file('photo')) {
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-            $path = 'public/employees/';
-
-            /**
-             * Delete photo if exists.
-             */
-            if($employee->photo){
-                Storage::delete($path . $employee->photo);
+            if ($newPhoto) {
+                $validatedData['photo'] = $newPhoto;
             }
-
-            $file->storeAs($path, $fileName);
-            $validatedData['photo'] = $fileName;
         }
 
-        Employee::where('id', $employee->id)->update($validatedData);
+        $employee->update($validatedData);
 
-        return Redirect::route('employees.index')->with('success', 'Employee has been updated!');
+        return redirect()->route('employees.index')->with('success', 'Employee has been updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee $employee)
+    public function destroy(Employee $employee): RedirectResponse
     {
-        /**
-         * Delete photo if exists.
-         */
-        if($employee->photo){
-            Storage::delete('public/employees/' . $employee->photo);
-        }
+        $this->imageService->delete($employee->photo, 'public/employees/');
 
-        Employee::destroy($employee->id);
+        $employee->delete();
 
-        return Redirect::route('employees.index')->with('success', 'Employee has been deleted!');
+        return redirect()->route('employees.index')->with('success', 'Employee has been deleted!');
     }
 }

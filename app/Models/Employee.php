@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employee extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -23,26 +22,19 @@ class Employee extends Model
         'city',
     ];
 
-    public $sortable = [
-        'name',
-        'email',
-        'phone',
-        'salary',
-        'city',
-    ];
-
-    protected $guarded = [
-        'id'
+    protected $casts = [
+        'salary' => 'decimal:2',
     ];
 
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
+            return $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
         });
     }
 
-    public function advance_salaries()
+    public function advanceSalaries(): HasMany
     {
         return $this->hasMany(AdvanceSalary::class);
     }

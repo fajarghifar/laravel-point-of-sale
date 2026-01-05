@@ -21,8 +21,10 @@ class EmployeeFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->phoneNumber(),
             'address' => fake()->address(),
-            'experience' => fake()->randomElement(['0 Year', '1 Year', '2 Year', '3 Year', '4 Year', '5 Year']),
-            'salary' => fake()->randomNumber(3, true),
+            'experience' => fake()->numberBetween(1, 10) . ' Year',
+            'photo' => null,
+            'salary' => fake()->randomFloat(2, 3000, 10000),
+            'vacation' => fake()->numberBetween(0, 50) . ' Days',
             'city' => fake()->city(),
         ];
     }
