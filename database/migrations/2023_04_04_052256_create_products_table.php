@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name');
-            $table->integer('category_id');
-            $table->integer('supplier_id');
-            $table->string('product_code')->nullable();
-            $table->string('product_garage')->nullable();
-            $table->string('product_image')->nullable();
-            $table->integer('product_store')->nullable();
-            $table->date('buying_date')->nullable();
-            $table->string('expire_date')->nullable();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('code')->unique();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            // Stock & Pricing
+            $table->integer('stock')->default(0);
             $table->integer('buying_price')->nullable();
             $table->integer('selling_price')->nullable();
+            // Details
+            $table->string('image')->nullable();
+            $table->date('buying_date')->nullable();
+            $table->date('expire_date')->nullable();
             $table->timestamps();
         });
     }
