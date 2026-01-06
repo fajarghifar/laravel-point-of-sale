@@ -102,7 +102,9 @@ Route::middleware(['permission:pos.menu'])->group(function () {
     Route::post('/pos/add', [PosController::class, 'addCart'])->name('pos.addCart');
     Route::post('/pos/update/{rowId}', [PosController::class, 'updateCart'])->name('pos.updateCart');
     Route::get('/pos/delete/{rowId}', [PosController::class, 'deleteCart'])->name('pos.deleteCart');
-    Route::post('/pos/invoice/create', [PosController::class, 'createInvoice'])->name('pos.createInvoice');
+    Route::post('/pos/customer', [PosController::class, 'storeCustomer'])->name('pos.storeCustomer');
+    Route::get('/pos/customers-ajax', [PosController::class, 'searchCustomers'])->name('pos.customers.search');
+
     Route::post('/pos/invoice/print', [PosController::class, 'printInvoice'])->name('pos.printInvoice');
 
     // Create Order
@@ -116,6 +118,7 @@ Route::middleware(['permission:orders.menu'])->group(function () {
     Route::get('/orders/details/{order_id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
     Route::put('/orders/update/status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
     Route::get('/orders/invoice/download/{order_id}', [OrderController::class, 'invoiceDownload'])->name('order.invoiceDownload');
+    Route::get('/orders/receipt/print/{order_id}', [OrderController::class, 'printReceipt'])->name('order.printReceipt');
 
     // Pending Due
     Route::get('/pending/due', [OrderController::class, 'pendingDue'])->name('order.pendingDue');
@@ -123,7 +126,7 @@ Route::middleware(['permission:orders.menu'])->group(function () {
     Route::post('/update/due', [OrderController::class, 'updateDue'])->name('order.updateDue');
 
     // Stock Management
-    Route::get('/stock', [OrderController::class, 'stockManage'])->name('order.stockManage');
+
 });
 
 // ====== DATABASE BACKUP ======

@@ -7,8 +7,7 @@
                 <div class="card auth-card">
                     <div class="card-body p-0">
                         <div class="d-flex align-items-center auth-content">
-
-                            {{-- Section: Registration Form --}}
+                            <!-- Section: Registration Form -->
                             <div class="col-lg-7 align-self-center">
                                 <div class="p-3">
                                     <h2 class="mb-2">Register</h2>
@@ -17,11 +16,10 @@
                                     <form method="POST" action="{{ route('register') }}">
                                         @csrf
                                         <div class="row">
-                                            {{-- Input: Full Name --}}
+                                            <!-- Input: Full Name -->
                                             <div class="col-lg-12">
                                                 <div class="floating-label form-group">
-                                                    <input
-                                                        class="floating-input form-control @error('name') is-invalid @enderror"
+                                                    <input class="floating-input form-control @error('name') is-invalid @enderror"
                                                         type="text" placeholder=" " name="name" autocomplete="off"
                                                         value="{{ old('name') }}" required>
                                                     <label>Full Name</label>
@@ -33,11 +31,10 @@
                                                 @enderror
                                             </div>
 
-                                            {{-- Input: Username --}}
+                                            <!-- Input: Username -->
                                             <div class="col-lg-12">
                                                 <div class="floating-label form-group">
-                                                    <input
-                                                        class="floating-input form-control @error('username') is-invalid @enderror"
+                                                    <input class="floating-input form-control @error('username') is-invalid @enderror"
                                                         type="text" placeholder=" " name="username" autocomplete="off"
                                                         value="{{ old('username') }}" required>
                                                     <label class="mb-1">Username</label>
@@ -49,11 +46,10 @@
                                                 @enderror
                                             </div>
 
-                                            {{-- Input: Email --}}
+                                            <!-- Input: Email -->
                                             <div class="col-lg-12">
                                                 <div class="floating-label form-group">
-                                                    <input
-                                                        class="floating-input form-control @error('email') is-invalid @enderror"
+                                                    <input class="floating-input form-control @error('email') is-invalid @enderror"
                                                         type="email" placeholder=" " name="email" autocomplete="off"
                                                         value="{{ old('email') }}" required>
                                                     <label>Email</label>
@@ -65,11 +61,10 @@
                                                 @enderror
                                             </div>
 
-                                            {{-- Input: Password --}}
+                                            <!-- Input: Password -->
                                             <div class="col-lg-6">
                                                 <div class="floating-label form-group position-relative">
-                                                    <input
-                                                        class="floating-input form-control @error('password') is-invalid @enderror"
+                                                    <input class="floating-input form-control @error('password') is-invalid @enderror"
                                                         type="password" placeholder=" " name="password" autocomplete="off"
                                                         required id="reg_password">
                                                     <label>Password</label>
@@ -77,8 +72,7 @@
                                                         style="right: 15px; top: 15px; cursor: pointer; color: #6c757d;"
                                                         onclick="togglePassword('reg_password')">
                                                         <x-heroicon-o-eye class="w-6 h-6" id="eye-reg_password" />
-                                                        <x-heroicon-o-eye-slash class="w-6 h-6 d-none"
-                                                            id="eye-slash-reg_password" />
+                                                        <x-heroicon-o-eye-slash class="w-6 h-6 d-none" id="eye-slash-reg_password" />
                                                     </div>
                                                 </div>
                                                 @error('password')
@@ -88,7 +82,7 @@
                                                 @enderror
                                             </div>
 
-                                            {{-- Input: Confirm Password --}}
+                                            <!-- Input: Confirm Password -->
                                             <div class="col-lg-6">
                                                 <div class="floating-label form-group position-relative">
                                                     <input class="floating-input form-control" type="password"
@@ -107,14 +101,13 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary">Register</button>
                                         <p class="mt-3">
-                                            Already have an Account? <a href="{{ route('login') }}" class="text-primary">Log
-                                                In</a>
+                                            Already have an Account? <a href="{{ route('login') }}" class="text-primary">Log In</a>
                                         </p>
                                     </form>
                                 </div>
                             </div>
 
-                            {{-- Section: Right Side Image --}}
+                            <!-- Section: Right Side Image -->
                             <div class="col-lg-5 content-right">
                                 <img src="{{ asset('assets/images/login/01.png') }}" class="img-fluid image-right"
                                     alt="Registration Illustration">
@@ -126,7 +119,7 @@
         </div>
     </div>
 
-    {{-- Script: Password Visibility Toggle --}}
+    <!-- Script: Password Visibility Toggle -->
     <script>
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);

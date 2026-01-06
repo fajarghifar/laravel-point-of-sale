@@ -35,40 +35,43 @@
                                                     <button type="submit" class="input-group-text bg-primary text-white">
                                                         <x-heroicon-o-magnifying-glass class="w-5 h-5" />
                                                     </button>
-                                                    @if(request('search') || request('category_id'))
+                                                    @if (request('search') || request('category_id'))
                                                         <a href="{{ route('pos.index') }}" class="input-group-text bg-danger text-white">
-                                                            <x-heroicon-o-x-mark class="w-5 h-5" />
-                                                        </a>
+                                                                <x-heroicon-o-x-mark class="w-5 h-5" />
+                                                            </a>
                                                     @endif
-                                                    </div>
-                                                    </div>
+                                                </div>
+                                                </div>
                                         </div>
 
                                         <!-- Category Filter -->
                                         <div class="form-group row mb-0 col-md-4">
                                             <select class="form-control" name="category_id" onchange="this.form.submit()">
                                                 <option value="">All Categories</option>
-                                                @foreach($categories as $category)
+                                                @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                                        {{ $category->name }}
-                                                    </option>
+                                                            {{ $category->name }}
+                                                        </option>
                                                 @endforeach
                                             </select>
-                                            </div>
+                                        </div>
 
                                         <!-- Pagination Limit -->
                                         <div class="form-group row mb-0 col-md-3">
                                             <select class="form-control" name="row" onchange="this.form.submit()">
-                                                <option value="10" {{ request('row') == '10' ? 'selected' : '' }}>10 / Page</option>
-                                                <option value="20" {{ request('row') == '20' ? 'selected' : '' }}>20 / Page</option>
-                                                <option value="50" {{ request('row') == '50' ? 'selected' : '' }}>50 / Page</option>
+                                                <option value="10" {{ request('row') == '10' ? 'selected' : '' }}>10 /
+                                                    Page</option>
+                                                <option value="20" {{ request('row') == '20' ? 'selected' : '' }}>20 /
+                                                    Page</option>
+                                                <option value="50" {{ request('row') == '50' ? 'selected' : '' }}>50 /
+                                                    Page</option>
                                             </select>
                                         </div>
                                     </div>
                                 </form>
-                                </div>
+                            </div>
                         </div>
-                        </div>
+                    </div>
 
                     <!-- Product Grid -->
                     <div class="col-lg-12">
@@ -132,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
             <!-- RIGHT COLUMN: Cart System -->
             <div class="col-md-12 col-lg-4">
@@ -161,19 +164,19 @@
                                             <x-heroicon-o-plus class="w-5 h-5 mx-auto" />
                                         </button>
                                     </div>
-                                    </div>
+                                </div>
                             </div>
-                            </div>
+                        </div>
 
                         <!-- Dynamic Cart Sidebar -->
                         <div id="cart-sidebar-container">
                             @include('pos.cart-sidebar')
                         </div>
-                        </div>
-                        </div>
-                        </div>
+                    </div>
+                    </div>
+                    </div>
         </div>
-        </div>
+    </div>
 
     <!-- Payment Confirmation Modal -->
     <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -205,25 +208,27 @@
                                 </tr>
                                 <tr>
                                     <td class="text-muted font-weight-bold">Amount Paid:</td>
-                                    <td class="text-right font-weight-bold h5 text-success" id="modal_pay_amount">0.00</td>
+                                    <td class="text-right font-weight-bold h5 text-success" id="modal_pay_amount">0.00
+                                    </td>
                                 </tr>
                                 <tr class="border-top">
                                     <td class="text-muted font-weight-bold">Change:</td>
-                                    <td class="text-right font-weight-bold h5 text-danger" id="modal_change_amount">0.00</td>
+                                    <td class="text-right font-weight-bold h5 text-danger" id="modal_change_amount">0.00
+                                    </td>
                                 </tr>
-                                </table>
-                                </div>
-                                </div>
-                                <!-- Modal Actions -->
-                                <div class="modal-footer border-top-0 d-flex justify-content-between p-4 bg-light"
-                                    style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-                                    <button type="button" class="btn btn-outline-secondary px-4" data-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary px-5 shadow-sm">Confirm Payment</button>
-                                </div>
-                                </form>
-                                </div>
-                                </div>
-                                </div>
+                            </table>
+                            </div>
+                            </div>
+                            <!-- Modal Actions -->
+                            <div class="modal-footer border-top-0 d-flex justify-content-between p-4 bg-light"
+                                style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                                <button type="button" class="btn btn-outline-secondary px-4" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary px-5 shadow-sm">Confirm Payment</button>
+                            </div>
+                            </form>
+                            </div>
+                            </div>
+                            </div>
 
     <!-- Create Customer Modal -->
     <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -267,8 +272,8 @@
                     </div>
                 </form>
             </div>
-            </div>
-            </div>
+        </div>
+        </div>
 @endsection
 
 @section('specificpagescripts')
@@ -278,7 +283,7 @@
 
     <script>
         // Initialize Select2 on Load
-        window.addEventListener('load', function () {
+            window.addEventListener('load', function () {
             $('.select2').select2({
                 placeholder: "-- Search Customer --",
                 allowClear: true,
@@ -288,10 +293,14 @@
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
-                        return { term: params.term };
+                        return {
+                            term: params.term
+                        };
                     },
                     processResults: function (data) {
-                        return { results: data.results };
+                        return {
+                            results: data.results
+                        };
                     },
                     cache: true
                 }
@@ -342,7 +351,10 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         'Accept': 'application/json'
                     },
-                    body: JSON.stringify({ qty: qty, customer_id: customerId })
+                    body: JSON.stringify({
+                        qty: qty,
+                        customer_id: customerId
+                    })
                 });
                 const data = await response.json();
                 if (data.success) {
@@ -463,10 +475,12 @@
             // 3. Update Modal UI
             document.getElementById('modal_total_display').innerText = totalText;
             document.getElementById('modal_payment_method').innerText = method;
-            document.getElementById('modal_pay_amount').innerText = payAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById('modal_pay_amount').innerText = payAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,
+                ",");
 
             const change = payAmount - totalAmount;
-            document.getElementById('modal_change_amount').innerText = change.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById('modal_change_amount').innerText = change.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,
+                ",");
 
             // 4. Show Modal
             $('#paymentModal').modal('show');
@@ -513,7 +527,8 @@
 
                     // Optional: Reset Pay Input
                     if (payAmountElem) payAmountElem.value = '';
-                    if (document.getElementById('change_amount')) document.getElementById('change_amount').innerText = '0.00';
+                    if (document.getElementById('change_amount')) document.getElementById('change_amount').innerText =
+                        '0.00';
 
                     alert('Order Successful!');
 

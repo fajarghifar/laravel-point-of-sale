@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
     <title>POS Invoice #{{ $order->invoice_no }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,18 +11,20 @@
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Custom Stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{ asset('assets/invoice/css/style.css') }}">
 </head>
+
 <body>
     <div class="invoice-16 invoice-content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="invoice-inner-9" id="invoice_wrapper">
-{{-- Invoice Header --}}
+                        <!-- Invoice Header -->
                         <div class="invoice-top">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6">
@@ -36,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-{{-- Invoice Info --}}
+<!-- Invoice Info -->
                         <div class="invoice-info">
                             <div class="row">
                                 <div class="col-sm-6 mb-50">
@@ -69,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-{{-- Order Summary --}}
+<!-- Order Summary -->
                         <div class="order-summary">
                             <div class="table-outer">
                                 <table class="default-table invoice-table">
@@ -79,7 +82,7 @@
                                             <th>Price</th>
                                             <th>Quantity</th>
                                             <th>Total</th>
-                                            </tr>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($orderDetails as $item)
@@ -88,7 +91,7 @@
                                                 <td>{{ number_format($item->unit_price, 2) }}</td>
                                                 <td>{{ $item->quantity }}</td>
                                                 <td>{{ number_format($item->total, 2) }}</td>
-                                                </tr>
+                                            </tr>
                                         @endforeach
                                         <tr>
                                             <td><strong class="text-danger">Total</strong></td>
@@ -102,7 +105,7 @@
                         </div>
                     </div>
 
-                    {{-- Action Buttons --}}
+                    <!-- Action Buttons -->
                     <div class="invoice-btn-section clearfix d-print-none">
                         <a href="javascript:window.print()" class="btn btn-lg btn-print">
                             Print Invoice
@@ -123,4 +126,5 @@
     <script src="{{ asset('assets/invoice/js/html2canvas.js') }}"></script>
     <script src="{{ asset('assets/invoice/js/app.js') }}"></script>
 </body>
+
 </html>

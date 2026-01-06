@@ -15,7 +15,7 @@
                         <form action="{{ route('customers.store') }}" method="POST">
                             @csrf
                             <div class="row align-items-center">
-                                {{-- Section: Personal Information --}}
+                                <!-- Section: Personal Information -->
                                 <div class="form-group col-md-6">
                                     <label for="name">Customer Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
 
-                            {{-- Section: Form Actions --}}
+                            <!-- Section: Form Actions -->
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary mr-2">Save</button>
                                 <a class="btn btn-secondary" href="{{ route('customers.index') }}">Cancel</a>

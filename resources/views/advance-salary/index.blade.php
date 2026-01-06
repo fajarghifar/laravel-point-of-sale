@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                {{-- Alert: Session Status --}}
+                <!-- Session Status Alert -->
                 @if (session()->has('success'))
                     <div class="alert text-white bg-success" role="alert">
                         <div class="iq-alert-text">{{ session('success') }}</div>
@@ -14,7 +14,7 @@
                     </div>
                 @endif
 
-                {{-- Header: Title and Actions --}}
+                <!-- Header: Title and Actions -->
                 <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                     <div>
                         <h4 class="mb-3">Advance Salary List</h4>
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            {{-- Filter and Search Controls --}}
+            <!-- Filter and Search Controls -->
             <div class="col-lg-12">
                 <form action="{{ route('advance-salary.index') }}" method="GET">
                     <div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -41,7 +41,7 @@
                 </form>
             </div>
 
-            {{-- Main Table --}}
+            <!-- Main Table -->
             <div class="col-lg-12 mt-4">
                 <div class="table-responsive rounded mb-3">
                     <table class="table mb-0">
@@ -105,11 +105,11 @@
                                     <td colspan="6" class="text-center">No advance salary records found.</td>
                                 </tr>
                             @endforelse
-                                </tbody>
-                                </table>
-                                </div>
-                                {{ $advance_salaries->links() }}
-                                </div>
-                                </div>
+                        </tbody>
+                        </table>
+                        </div>
+                        {{ $advance_salaries->links() }}
+                        </div>
+                        </div>
     </div>
 @endsection

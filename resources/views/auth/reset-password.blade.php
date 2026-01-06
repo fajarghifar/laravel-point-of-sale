@@ -6,8 +6,7 @@
             <div class="card auth-card">
                 <div class="card-body p-0">
                     <div class="d-flex align-items-center auth-content">
-
-                        {{-- Section: Reset Password Form --}}
+                        <!-- Section: Reset Password Form -->
                         <div class="col-lg-7 align-self-center">
                             <div class="p-3">
                                 <h2 class="mb-2">New Password</h2>
@@ -19,7 +18,7 @@
                                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                                     <div class="row">
-                                        {{-- Input: Email --}}
+                                        <!-- Input: Email -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group">
                                                 <input class="floating-input form-control @error('email') is-invalid @enderror" type="email"
@@ -33,15 +32,17 @@
                                             @enderror
                                         </div>
 
-                                        {{-- Input: Password --}}
+                                        <!-- Input: Password -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group position-relative">
                                                 <input class="floating-input form-control @error('password') is-invalid @enderror"
                                                     type="password" placeholder=" " name="password" required id="password">
                                                 <label>New Password</label>
-                                                <i class="las la-eye position-absolute show-password-toggle"
-                                                    style="right: 15px; top: 15px; cursor: pointer; font-size: 20px; color: #6c757d;"
-                                                    onclick="togglePassword('password', this)"></i>
+                                                <div class="position-absolute" style="right: 15px; top: 15px; cursor: pointer; color: #6c757d;"
+                                                    onclick="togglePassword('password')">
+                                                    <x-heroicon-o-eye class="w-6 h-6" id="eye-password" />
+                                                    <x-heroicon-o-eye-slash class="w-6 h-6 d-none" id="eye-slash-password" />
+                                                </div>
                                             </div>
                                             @error('password')
                                                 <div class="mb-4" style="margin-top: -20px">
@@ -50,15 +51,17 @@
                                             @enderror
                                         </div>
 
-                                        {{-- Input: Confirm Password --}}
+                                        <!-- Input: Confirm Password -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group position-relative">
                                                 <input class="floating-input form-control" type="password" placeholder=" "
                                                     name="password_confirmation" required id="password_confirmation">
                                                 <label>Confirm Password</label>
-                                                <i class="las la-eye position-absolute show-password-toggle"
-                                                    style="right: 15px; top: 15px; cursor: pointer; font-size: 20px; color: #6c757d;"
-                                                    onclick="togglePassword('password_confirmation', this)"></i>
+                                                <div class="position-absolute" style="right: 15px; top: 15px; cursor: pointer; color: #6c757d;"
+                                                    onclick="togglePassword('password_confirmation')">
+                                                    <x-heroicon-o-eye class="w-6 h-6" id="eye-password_confirmation" />
+                                                    <x-heroicon-o-eye-slash class="w-6 h-6 d-none" id="eye-slash-password_confirmation" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -67,29 +70,32 @@
                             </div>
                         </div>
 
-                        {{-- Section: Right Side Image --}}
+                        <!-- Section: Right Side Image -->
                         <div class="col-lg-5 content-right">
                             <img src="{{ asset('assets/images/login/01.png') }}" class="img-fluid image-right"
                                 alt="Reset Password Illustration">
                         </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
 
-                        {{-- Script: Password Visibility Toggle --}}
+    <!-- Script: Password Visibility Toggle -->
     <script>
-        function togglePassword(inputId, icon) {
+            function togglePassword(inputId) {
             const input = document.getElementById(inputId);
+            const eye = document.getElementById('eye-' + inputId);
+            const eyeSlash = document.getElementById('eye-slash-' + inputId);
+
             if (input.type === "password") {
                 input.type = "text";
-                icon.classList.remove('la-eye');
-                icon.classList.add('la-eye-slash');
+                eye.classList.add('d-none');
+                eyeSlash.classList.remove('d-none');
             } else {
                 input.type = "password";
-                icon.classList.remove('la-eye-slash');
-                icon.classList.add('la-eye');
+                eye.classList.remove('d-none');
+                eyeSlash.classList.add('d-none');
             }
         }
     </script>

@@ -6,14 +6,13 @@
             <div class="card auth-card">
                 <div class="card-body p-0">
                     <div class="d-flex align-items-center auth-content">
-
-                        {{-- Section: Forgot Password Form --}}
+                        <!-- Section: Forgot Password Form -->
                         <div class="col-lg-7 align-self-center">
                             <div class="p-3">
                                 <h2 class="mb-2">Reset Password</h2>
                                 <p>Enter your email address and we'll send you an email with instructions to reset your password.</p>
 
-                                {{-- Alert: Session Status --}}
+                                <!-- Alert: Session Status -->
                                 @if (session('status'))
                                     <div class="alert alert-success" role="alert">
                                         {{ session('status') }}
@@ -23,7 +22,7 @@
                                 <form action="{{ route('password.email') }}" method="POST">
                                     @csrf
                                     <div class="row">
-                                        {{-- Input: Email --}}
+                                        <!-- Input: Email -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group">
                                                 <input class="floating-input form-control @error('email') is-invalid @enderror" type="email"
@@ -45,7 +44,7 @@
                             </div>
                         </div>
 
-                        {{-- Section: Right Side Image --}}
+                        <!-- Section: Right Side Image -->
                         <div class="col-lg-5 content-right">
                             <img src="{{ asset('assets/images/login/01.png') }}" class="img-fluid image-right" alt="Forgot Password Illustration">
                         </div>

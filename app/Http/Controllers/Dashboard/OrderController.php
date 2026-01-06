@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Spatie\QueryBuilder\AllowedSort;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\QueryBuilder\AllowedSort;
+use App\Http\Requests\Order\StoreOrderRequest;
 
 class OrderController extends Controller
 {
@@ -77,35 +78,12 @@ class OrderController extends Controller
         ]);
     }
 
-    public function stockManage()
-    {
-        $row = (int) request('row', 10);
 
-        if ($row < 1 || $row > 100) {
-            abort(400, 'The per-page parameter must be an integer between 1 and 100.');
-        }
-
-        return view('stock.index', [
-            'products' => QueryBuilder::for(Product::class)
-                ->allowedSorts([
-                    'name',
-                    'selling_price',
-                    'stock',
-                    AllowedSort::callback('category.name', function ($query, $descending) {
-                        $query->join('categories', 'products.category_id', '=', 'categories.id')->orderBy('categories.name', $descending ? 'DESC' : 'ASC')->select('products.*');
-                    }),
-                ])
-                ->filter(request(['search']))
-                ->with(['category'])
-                ->paginate($row)
-                ->appends(request()->query()),
-        ]);
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function storeOrder(\App\Http\Requests\Order\StoreOrderRequest $request)
+    public function storeOrder(StoreOrderRequest $request)
     {
         // Validation handled by StoreOrderRequest
 

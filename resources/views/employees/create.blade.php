@@ -15,7 +15,7 @@
                         <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
-                            {{-- Section: Image Upload --}}
+                            <!-- Section: Image Upload -->
                             <div class="form-group row align-items-center">
                                 <div class="col-md-12">
                                     <div class="d-flex flex-column align-items-center text-center">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
 
-                            {{-- Section: Personal Information --}}
+                            <!-- Section: Personal Information -->
                             <div class="row align-items-center">
                                 <div class="form-group col-md-6">
                                     <label for="name">Employee Name <span class="text-danger">*</span></label>
@@ -89,8 +89,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="salary">Employee Salary ($) <span class="text-danger">*</span></label>
-                                    <input type="number" step="0.01"
-                                        class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary"
+                                    <input type="number" step="0.01" class="form-control @error('salary') is-invalid @enderror" id="salary" name="salary"
                                         value="{{ old('salary') }}" placeholder="Enter salary amount" required>
                                     @error('salary')
                                         <div class="invalid-feedback">
@@ -138,9 +137,8 @@
 
                                 <div class="form-group col-md-12">
                                     <label for="address">Address <span class="text-danger">*</span></label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" id="address"
-                                        name="address" rows="3" placeholder="Enter full address"
-                                        required>{{ old('address') }}</textarea>
+                                    <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="3"
+                                        placeholder="Enter full address" required>{{ old('address') }}</textarea>
                                     @error('address')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -149,7 +147,7 @@
                                 </div>
                             </div>
 
-                            {{-- Section: Form Actions --}}
+                            <!-- Section: Form Actions -->
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary mr-2">Save Employee</button>
                                 <a class="btn btn-secondary" href="{{ route('employees.index') }}">Cancel</a>

@@ -6,14 +6,13 @@
             <div class="card auth-card">
                 <div class="card-body p-0">
                     <div class="d-flex align-items-center auth-content">
-
-                        {{-- Section: Login Form --}}
+                        <!-- Section: Login Form -->
                         <div class="col-lg-7 align-self-center">
                             <div class="p-3">
                                 <h2 class="mb-2">Log In</h2>
                                 <p>Login to stay connected.</p>
 
-                                {{-- Alert: Session Status --}}
+                                <!-- Alert: Session Status -->
                                 @if (session('status'))
                                     <div class="alert alert-success" role="alert">
                                         {{ session('status') }}
@@ -23,7 +22,7 @@
                                 <form action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <div class="row">
-                                        {{-- Input: Username --}}
+                                        <!-- Input: Username -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group">
                                                 <input class="floating-input form-control @error('username') is-invalid @enderror" type="text"
@@ -38,7 +37,7 @@
                                             @enderror
                                         </div>
 
-                                        {{-- Input: Password --}}
+                                        <!-- Input: Password -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group position-relative">
                                                 <input class="floating-input form-control @error('password') is-invalid @enderror"
@@ -52,7 +51,7 @@
                                             </div>
                                         </div>
 
-                                        {{-- Links: Register & Forgot Password --}}
+                                        <!-- Links: Register & Forgot Password -->
                                         <div class="col-lg-6">
                                             <p>
                                                 Not a Member yet? <a href="{{ route('register') }}" class="text-primary">Register</a>
@@ -67,17 +66,17 @@
                             </div>
                         </div>
 
-                        {{-- Section: Right Side Image --}}
+                        <!-- Section: Right Side Image -->
                         <div class="col-lg-5 content-right">
                             <img src="{{ asset('assets/images/login/01.png') }}" class="img-fluid image-right" alt="Login Illustration">
                         </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
 
-                        {{-- Script: Password Visibility Toggle --}}
+    <!-- Script: Password Visibility Toggle -->
     <script>
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);

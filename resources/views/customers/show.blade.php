@@ -17,7 +17,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            {{-- Section: Left Profile (Contact) --}}
+                            <!-- Section: Left Profile (Contact) -->
                             <div class="col-lg-4 col-md-12 mb-4 mb-lg-0 pr-lg-4 border-lg-right">
                                 <div class="d-flex align-items-center mb-4 justify-content-center justify-content-lg-start">
                                     <div class="ml-3">
@@ -47,7 +47,7 @@
                                 </ul>
                             </div>
 
-                            {{-- Section: Right Detailed Info --}}
+                            <!-- Section: Right Detailed Info -->
                             <div class="col-lg-8 col-md-12 pl-lg-4">
                                 <h5 class="mb-3">Information</h5>
                                 <div class="row">

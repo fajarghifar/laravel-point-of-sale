@@ -5,7 +5,7 @@
 
 <!-- Cart Items Container -->
 <div class="cart-items-wrapper position-relative" style="height: 350px; overflow-y: auto; overflow-x: hidden;">
-    @if($productItem->count() > 0)
+    @if ($productItem->count() > 0)
         <div class="list-group list-group-flush">
             @foreach ($productItem as $item)
                 <!-- Individual Cart Item -->
@@ -22,19 +22,23 @@
 
                         <!-- Quantity Controls -->
                         <div class="d-flex align-items-center bg-light rounded-pill px-1">
-                            <button type="button" class="btn btn-sm btn-circle text-danger" onclick="updateCart('{{ $item->rowId }}', {{ $item->qty - 1 }})">
+                            <button type="button" class="btn btn-sm btn-circle text-danger"
+                                onclick="updateCart('{{ $item->rowId }}', {{ $item->qty - 1 }})">
                                 <x-heroicon-o-minus class="w-3 h-3" />
                             </button>
-                            <span class="font-weight-bold text-dark mx-2 small" style="min-width: 20px; text-align: center;">
+                            <span class="font-weight-bold text-dark mx-2 small"
+                                style="min-width: 20px; text-align: center;">
                                 {{ $item->qty }}
                             </span>
-                            <button type="button" class="btn btn-sm btn-circle text-success" onclick="updateCart('{{ $item->rowId }}', {{ $item->qty + 1 }})">
+                            <button type="button" class="btn btn-sm btn-circle text-success"
+                                onclick="updateCart('{{ $item->rowId }}', {{ $item->qty + 1 }})">
                                 <x-heroicon-o-plus class="w-3 h-3" />
                             </button>
                         </div>
 
                         <!-- Remove Button -->
-                        <button type="button" class="btn btn-sm text-secondary hover-text-danger p-0" onclick="deleteCart('{{ $item->rowId }}')">
+                        <button type="button" class="btn btn-sm text-secondary hover-text-danger p-0"
+                            onclick="deleteCart('{{ $item->rowId }}')">
                             <x-heroicon-o-trash class="w-4 h-4" />
                         </button>
                     </div>
@@ -71,7 +75,7 @@
 
 <!-- Payment Section -->
 <div class="p-3 bg-white border-top">
-    @if(Cart::count() > 0)
+    @if (Cart::count() > 0)
         <div class="row">
             <!-- Payment Method -->
             <div class="col-6 pr-1">
@@ -87,12 +91,8 @@
             <div class="col-6 pl-1">
                 <div class="form-group mb-2">
                     <label class="small font-weight-bold text-muted mb-1">Received</label>
-                    <input type="number"
-                           class="form-control form-control-sm"
-                           id="pay_amount"
-                           placeholder="0"
-                           oninput="calculateChange()"
-                           min="0">
+                    <input type="number" class="form-control form-control-sm" id="pay_amount" placeholder="0"
+                        oninput="calculateChange()" min="0">
                 </div>
             </div>
         </div>
@@ -105,8 +105,8 @@
 
         <!-- Confirm Payment Button -->
         <button type="button"
-                class="btn btn-primary btn-lg btn-block rounded-pill shadow-lg d-flex align-items-center justify-content-center"
-                onclick="validateAndShowModal()">
+            class="btn btn-primary btn-lg btn-block rounded-pill shadow-lg d-flex align-items-center justify-content-center"
+            onclick="validateAndShowModal()">
             <span class="mr-2">Confirm Payment</span>
             <x-heroicon-o-arrow-right class="w-5 h-5" />
         </button>
