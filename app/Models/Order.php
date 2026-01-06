@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
 class Order extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory;
 
     protected $fillable = [
         'customer_id',
@@ -19,25 +18,27 @@ class Order extends Model
         'vat',
         'invoice_no',
         'total',
-        'payment_status',
-        'pay',
-        'due',
+        'payment_type',
+        'pay_amount',
+        'due_amount',
     ];
 
-    public $sortable = [
-        'customer_id',
-        'order_date',
-        'pay',
-        'due',
-        'total',
-    ];
-
-    protected $guarded = [
-        'id',
+    protected $casts = [
+        'order_date' => 'datetime',
+        'sub_total' => 'float',
+        'vat' => 'float',
+        'total' => 'float',
+        'pay_amount' => 'float',
+        'due_amount' => 'float',
     ];
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(OrderDetails::class);
     }
 }

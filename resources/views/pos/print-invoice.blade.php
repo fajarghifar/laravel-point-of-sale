@@ -1,153 +1,135 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>POS Dash</title>
+@extends('dashboard.body.main')
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=1.0.0') }}">
-        <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/remixicon/fonts/remixicon.css') }}">
-    </head>
-<body>
+@section('container')
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Invoice Preview Card -->
+            <div class="sc-card shadow-sm border-0 rounded-lg">
+                <div class="card-body p-0">
 
-    <!-- Wrapper Start -->
-    <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card card-block">
-                        <div class="card-header d-flex justify-content-between bg-primary">
-                            <div class="iq-header-title">
-                                <h4 class="card-title mb-0">Invoice#1234567</h4>
+                    <!-- Toolbar: Actions -->
+                    <div class="d-flex justify-content-between align-items-center p-4 bg-light border-bottom rounded-top-lg">
+                        <div>
+                            <h5 class="mb-0 font-weight-bold text-dark">Invoice Preview</h5>
+                            <p class="mb-0 text-muted small">Order #{{ $order->invoice_no }}</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('pos.index') }}" class="btn btn-outline-secondary btn-sm mr-2">
+                                <x-heroicon-o-arrow-left class="w-4 h-4 mr-1 inline"/> Back to POS
+                            </a>
+                            <!-- Opens dedicated Thermal Receipt Popup -->
+                            <button onclick="openPrintWindow()" class="btn btn-dark btn-sm shadow-sm">
+                                <x-heroicon-o-printer class="w-4 h-4 mr-1 inline"/> Print Receipt
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Visual Invoice Representation -->
+                    <div class="p-5">
+                        <!-- Company Header -->
+                        <div class="row mb-5">
+                            <div class="col-6">
+                                <h3 class="font-weight-bold text-dark mb-1">POS SHOP</h3>
+                                <p class="text-muted mb-0">123 Commerce Avenue</p>
+                                <p class="text-muted">Jakarta, Indonesia</p>
+                            </div>
+                            <div class="col-6 text-right">
+                                <h6 class="text-uppercase text-muted font-weight-bold letter-spacing-2 mb-2">Invoice</h6>
+                                <h4 class="font-weight-bold text-dark mb-0">{{ $order->invoice_no }}</h4>
+                                <p class="text-muted small mb-0">{{ $order->created_at->format('d M Y, H:i') }}</p>
+                                <span class="badge badge-success mt-1 px-3 py-1">PAID</span>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <img src="{{ asset('assets/images/logo.png') }}" class="logo-invoice img-fluid mb-3">
-                                    <h5 class="mb-3">Hello, {{ $customer->name }}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive-sm">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Order Date</th>
-                                                    <th scope="col">Order Status</th>
-                                                    <th scope="col">Invoice No</th>
-                                                    <th scope="col">Billing Address</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Jan 17, 2016</td>
-                                                    <td><span class="badge badge-danger">Unpaid</span></td>
-                                                    <td>250028</td>
-                                                    <td>
-                                                        <p class="mb-0">{{ $customer->address }}<br>
-                                                            Shop Name: {{ $customer->shopname ? $customer->shopname : '-' }}<br>
-                                                            Phone: {{ $customer->phone }}<br>
-                                                            Email: {{ $customer->email }}<br>
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h5 class="mb-3">Order Summary</h5>
-                                    <div class="table-responsive-lg">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">#</th>
-                                                    <th scope="col">Item</th>
-                                                    <th class="text-center" scope="col">Quantity</th>
-                                                    <th class="text-center" scope="col">Price</th>
-                                                    <th class="text-center" scope="col">Totals</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($content as $item)
-                                                <tr>
-                                                    <th class="text-center" scope="row">{{ $loop->iteration }}</th>
-                                                    <td>
-                                                        <h6 class="mb-0">{{ $item->name }}</h6>
-                                                    </td>
-                                                    <td class="text-center">{{ $item->qty }}</td>
-                                                    <td class="text-center">{{ $item->price }}</td>
-                                                    <td class="text-center"><b>{{ $item->subtotal }}</b></td>
-                                                </tr>
 
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        <hr class="border-light my-4">
+
+                        <!-- Client & Cashier Info -->
+                        <div class="row mb-5">
+                            <div class="col-6">
+                                <p class="text-uppercase text-muted small font-weight-bold mb-2">Billed To</p>
+                                <h6 class="font-weight-bold text-dark mb-1">{{ $order->customer->name }}</h6>
+                                <p class="text-muted small mb-0">{{ $order->customer->phone ?? '' }}</p>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <b class="text-danger">Notes:</b>
-                                    <p class="mb-0">It is a long established fact that a reader will be distracted by the readable content of a page
-                                        when looking
-                                        at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,
-                                        as opposed to using 'Content here, content here', making it look like readable English.</p>
-                                </div>
-                            </div>
-                            <div class="row mt-4 mb-3">
-                                <div class="offset-lg-8 col-lg-4">
-                                    <div class="or-detail rounded">
-                                        <div class="p-3">
-                                            <h5 class="mb-3">Order Details</h5>
-                                            <div class="mb-2">
-                                                <h6>Bank</h6>
-                                                <p>{{ $customer->bank_name }}</p>
-                                            </div>
-                                            <div class="mb-2">
-                                                <h6>Acc. No</h6>
-                                                <p>{{ $customer->account_number }}</p>
-                                            </div>
-                                            <div class="mb-2">
-                                                <h6>Due Date</h6>
-                                                <p>12 August 2020</p>
-                                            </div>
-                                            <div class="mb-2">
-                                                <h6>Sub Total</h6>
-                                                <p>${{ Cart::subtotal() }}</p>
-                                            </div>
-                                            <div>
-                                                <h6>Vat (5%)</h6>
-                                                <p>${{ Cart::tax() }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="ttl-amt py-2 px-3 d-flex justify-content-between align-items-center">
-                                            <h6>Total</h6>
-                                            <h3 class="text-primary font-weight-700">${{ Cart::total() }}</h3>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-6 text-right">
+                                <p class="text-uppercase text-muted small font-weight-bold mb-2">Cashier</p>
+                                <h6 class="font-weight-bold text-dark mb-0">{{ auth()->user()->name ?? 'Staff' }}</h6>
                             </div>
                         </div>
+
+                        <!-- Order Items Table -->
+                        <div class="table-responsive mb-4">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0 font-weight-bold text-muted small text-uppercase pl-4">Item</th>
+                                        <th class="border-0 font-weight-bold text-muted small text-uppercase text-center">Qty</th>
+                                        <th class="border-0 font-weight-bold text-muted small text-uppercase text-right">Price</th>
+                                        <th class="border-0 font-weight-bold text-muted small text-uppercase text-right pr-4">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($orderDetails as $item)
+                                        <tr>
+                                            <td class="border-bottom-0 pl-4 py-3">
+                                                <p class="font-weight-bold text-dark mb-0">{{ $item->product->name }}</p>
+                                            </td>
+                                            <td class="border-bottom-0 text-center py-3">{{ $item->quantity }}</td>
+                                            <td class="border-bottom-0 text-right py-3">{{ number_format($item->unit_price, 2) }}</td>
+                                            <td class="border-bottom-0 text-right py-3 pr-4 font-weight-bold">{{ number_format($item->total, 2) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Calculation Totals -->
+                        <div class="row">
+                            <div class="col-md-5 ml-auto">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td class="text-muted">Subtotal</td>
+                                        <td class="text-right font-weight-bold">{{ number_format($order->sub_total, 2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Tax (VAT)</td>
+                                        <td class="text-right font-weight-bold">{{ number_format($order->vat, 2) }}</td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <td class="text-dark font-weight-bold pt-3 h5">Total</td>
+                                        <td class="text-primary font-weight-bold text-right pt-3 h5">{{ number_format($order->total, 2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Paid</td>
+                                        <td class="text-success text-right font-weight-bold">{{ number_format($order->pay_amount, 2) }}</td>
+                                    </tr>
+                                     <tr>
+                                        <td class="text-muted">Change</td>
+                                        <td class="text-dark text-right font-weight-bold">{{ number_format($order->due_amount < 0 ? abs($order->due_amount) : 0, 2) }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Wrapper End-->
+</div>
 
-    <script>
-    window.addEventListener("load", (event) => {
-        window.print();
-    });
-    </script>
-</body>
-</html>
+<script>
+    /**
+     * Opens the dedicated Thermal Receipt View in a new small window for printing.
+     */
+    function openPrintWindow() {
+        const url = "{{ route('order.printReceipt', $order->id) }}";
+        const width = 400;
+        const height = 600;
+        const left = (screen.width - width) / 2;
+        const top = (screen.height - height) / 2;
+
+        window.open(url, 'PrintReceipt', `width=${width},height=${height},top=${top},left=${left},scrollbars=yes`);
+    }
+</script>
+@endsection

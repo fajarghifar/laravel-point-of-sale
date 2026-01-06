@@ -1,122 +1,183 @@
 @extends('dashboard.body.main')
 
 @section('container')
-<div class="container-fluid">
-    <div class="row">
+    <div class="container-fluid">
+        <div class="row">
 
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="header-title">
-                        <h4 class="card-title">Information Order Details</h4>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <!-- begin: Show Data -->
-                    <div class="form-group row align-items-center">
-                        <div class="col-md-12">
-                            <div class="profile-img-edit">
-                                <div class="crm-profile-img-edit">
-                                    <img class="crm-profile-pic rounded-circle avatar-100" id="image-preview" src="{{ $order->customer->photo ? asset('storage/customers/'.$order->customer->photo) : asset('storage/customers/default.png') }}" alt="profile-pic">
-                                </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Order Details Information</h4>
                             </div>
+                            <div>
+                                <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
+                                    <x-heroicon-o-arrow-left class="w-4 h-4 mr-1 inline" /> Back
+                                </a>
+                            </div>
+                            </div>
+
+                            <div class="card-body">
+                    {{-- Customer Profile Info --}}
+                    <div class="d-flex align-items-center mb-4">
+                        <div>
+                            <h5 class="mb-1">{{ $order->customer->name }}</h5>
+                            <p class="mb-0 text-muted">{{ $order->customer->email }}</p>
+                            <p class="mb-0 text-muted">{{ $order->customer->address }}</p>
                         </div>
                     </div>
 
-                    <div class="row align-items-center">
-                        <div class="form-group col-md-12">
-                            <label>Customer Name</label>
-                            <input type="text" class="form-control bg-white" value="{{ $order->customer->name }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Customer Email</label>
-                            <input type="text" class="form-control bg-white" value="{{ $order->customer->email }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Customer Phone</label>
-                            <input type="text" class="form-control bg-white" value="{{ $order->customer->phone }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Order Date</label>
-                            <input type="text" class="form-control bg-white" value="{{ $order->order_date }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Order Invoice</label>
-                            <input class="form-control bg-white" id="buying_date" value="{{ $order->invoice_no }}" readonly/>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Payment Status</label>
-                            <input class="form-control bg-white" id="expire_date" value="{{ $order->payment_status }}" readonly />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Paid Amount</label>
-                            <input type="text" class="form-control bg-white" value="{{ $order->pay }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Due Amount</label>
-                            <input type="text" class="form-control bg-white" value="{{ $order->due }}" readonly>
-                        </div>
-                    </div>
-                    <!-- end: Show Data -->
+                                {{-- Order Information Form (Read Only) --}}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Customer Name</label>
+                                            <input type="text" class="form-control bg-white" value="{{ $order->customer->name }}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Customer Phone</label>
+                                            <input type="text" class="form-control bg-white" value="{{ $order->customer->phone }}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Order Date</label>
+                                            <input type="text" class="form-control bg-white" value="{{ $order->order_date->format('Y-m-d') }}"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Order Invoice</label>
+                                            <input class="form-control bg-white" value="{{ $order->invoice_no }}" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Payment Type</label>
+                                            <input class="form-control bg-white" value="{{ $order->payment_type }}" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Paid Amount</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" value="{{ number_format($order->pay_amount, 2) }}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Due Amount</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control bg-white" value="{{ number_format($order->due_amount, 2) }}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    @if ($order->order_status == 'pending')
-                        <div class="row">
+                                {{-- Actions for Pending Orders --}}
+                                @if ($order->order_status == 'pending')
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12 d-flex justify-content-end">
+                                            <form action="{{ route('order.updateStatus') }}" method="POST" class="d-inline">
+                                                @method('put')
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $order->id }}">
+
+                                                <a class="btn btn-outline-danger mr-2" href="{{ route('order.pendingOrders') }}">
+                                                    <x-heroicon-o-x-mark class="w-5 h-5 mr-1 inline" /> Cancel
+                                                </a>
+
+                                                <button type="submit" class="btn btn-success"
+                                                    onclick="return confirm('Are you sure you want to complete this order? This reduces stock.')">
+                                                    <x-heroicon-o-check-circle class="w-5 h-5 mr-1 inline" /> Complete Order
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row mt-3">
+                                        <div class="col-lg-12">
+                                            <div class="alert alert-success text-center" role="alert">
+                                                <x-heroicon-o-check-circle class="w-5 h-5 mr-1 inline" /> This order is completed.
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            </div>
+                            </div>
+
+                            {{-- Order Items Table --}}
                             <div class="col-lg-12">
-                                <div class="d-flex align-items-center list-action">
-                                    <form action="{{ route('order.updateStatus') }}" method="POST" style="margin-bottom: 5px">
-                                        @method('put')
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $order->id }}">
-                                        <button type="submit" class="btn btn-success mr-2 border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Complete">Complete Order</button>
-
-                                        <a class="btn btn-danger mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel" href="{{ route('order.pendingOrders') }}">Cancel</a>
-                                    </form>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Order Items</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive rounded">
+                                            <table class="table mb-0">
+                                                <thead class="bg-light text-uppercase">
+                                                    <tr class="ligth ligth-data">
+                                                        <th>No.</th>
+                                                        <th>Photo</th>
+                                                        <th>Product Name</th>
+                                                        <th>Product Code</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="ligth-body">
+                                                    @foreach ($orderDetails as $item)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration  }}</td>
+                                                            <td>
+                                                                <img class="avatar-50 rounded"
+                                                                    src="{{ $item->product->image ? asset('storage/products/' . $item->product->image) : asset('assets/images/product/default.webp') }}"
+                                                                    alt="{{ $item->product->name }}" style="object-fit: cover;">
+                                                            </td>
+                                                            <td>{{ $item->product->name }}</td>
+                                                            <td>{{ $item->product->code }}</td>
+                                                            <td>{{ $item->quantity }}</td>
+                                                            <td>{{ number_format($item->unit_price, 2) }}</td>
+                                                            <td>{{ number_format($item->total, 2) }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot class="bg-light">
+                                                    <tr>
+                                                        <td colspan="6" class="text-right font-weight-bold">Subtotal</td>
+                                                        <td class="font-weight-bold">{{ number_format($order->sub_total, 2) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6" class="text-right font-weight-bold">VAT</td>
+                                                        <td class="font-weight-bold">{{ number_format($order->vat, 2) }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6" class="text-right font-weight-bold text-primary" style="font-size: 1.1em;">
+                                                            Total</td>
+                                                        <td class="font-weight-bold text-primary" style="font-size: 1.1em;">
+                                                            {{ number_format($order->total, 2) }}</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
 
-
-        <!-- end: Show Data -->
-        <div class="col-lg-12">
-            <div class="table-responsive rounded mb-3">
-                <table class="table mb-0">
-                    <thead class="bg-white text-uppercase">
-                        <tr class="ligth ligth-data">
-                            <th>No.</th>
-                            <th>Photo</th>
-                            <th>Product Name</th>
-                            <th>Product Code</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total(+vat)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ligth-body">
-                        @foreach ($orderDetails as $item)
-                        <tr>
-                            <td>{{ $loop->iteration  }}</td>
-                            <td>
-                                <img class="avatar-60 rounded" src="{{ $item->product->product_image ? asset('storage/products/'.$item->product_image) : asset('storage/products/default.webp') }}">
-                            </td>
-                            <td>{{ $item->product->product_name }}</td>
-                            <td>{{ $item->product->product_code }}</td>
-                            <td>{{ $item->quantity }}</td>
-                            <td>{{ $item->unitcost }}</td>
-                            <td>{{ $item->total }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- Page end  -->
-</div>
-
-@include('components.preview-img-form')
+                            </div>
+                            </div>
 @endsection

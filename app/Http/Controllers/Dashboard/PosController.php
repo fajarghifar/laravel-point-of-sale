@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Dashboard;
 
 use Carbon\Carbon;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PosController extends Controller
 {
+    /**
+     * Display the POS interface.
+     */
     public function index()
     {
         $todayDate = Carbon::now();
@@ -22,24 +27,28 @@ class PosController extends Controller
         }
 
         return view('pos.index', [
-            'customers' => Customer::all()->sortBy('name'),
+            'categories' => Category::orderBy('name')->get(),
             'productItem' => Cart::content(),
-            'products' => Product::where('expire_date', '>', $todayDate)->filter(request(['search']))
-                ->sortable()
+            'products' => QueryBuilder::for(Product::class)
+                ->where('expire_date', '>', $todayDate)
+                ->allowedSorts(['name', 'selling_price'])
+                ->allowedFilters(['name', 'category_id'])
+                ->filter(request(['search', 'category_id']))
                 ->paginate($row)
                 ->appends(request()->query()),
         ]);
     }
 
+    /**
+     * Add item to the cart.
+     */
     public function addCart(Request $request)
     {
-        $rules = [
+        $validatedData = $request->validate([
             'id' => 'required|numeric',
             'name' => 'required|string',
             'price' => 'required|numeric',
-        ];
-
-        $validatedData = $request->validate($rules);
+        ]);
 
         Cart::add([
             'id' => $validatedData['id'],
@@ -49,58 +58,108 @@ class PosController extends Controller
             'options' => ['size' => 'large']
         ]);
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Product has been added!',
+                'cart_html' => view('pos.cart-sidebar', [
+                    'productItem' => Cart::content()
+                ])->render(),
+                'cart_count' => Cart::count()
+            ]);
+        }
+
         return Redirect::back()->with('success', 'Product has been added!');
     }
 
-    public function updateCart(Request $request, $rowId)
+    /**
+     * Update item quantity in the cart.
+     */
+    public function updateCart(Request $request, string $rowId)
     {
-        $rules = [
+        $validatedData = $request->validate([
             'qty' => 'required|numeric',
-        ];
-
-        $validatedData = $request->validate($rules);
+        ]);
 
         Cart::update($rowId, $validatedData['qty']);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart has been updated!',
+                'cart_html' => view('pos.cart-sidebar', [
+                    'productItem' => Cart::content()
+                ])->render(),
+                'cart_count' => Cart::count()
+            ]);
+        }
 
         return Redirect::back()->with('success', 'Cart has been updated!');
     }
 
-    public function deleteCart(String $rowId)
+    /**
+     * Remove item from the cart.
+     */
+    public function deleteCart(Request $request, string $rowId)
     {
         Cart::remove($rowId);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart has been deleted!',
+                'cart_html' => view('pos.cart-sidebar', [
+                    'productItem' => Cart::content()
+                ])->render(),
+                'cart_count' => Cart::count()
+            ]);
+        }
 
         return Redirect::back()->with('success', 'Cart has been deleted!');
     }
 
-    public function createInvoice(Request $request)
+    /**
+     * Store a newly created Customer (AJAX).
+     */
+    public function storeCustomer(Request $request)
     {
-        $rules = [
-            'customer_id' => 'required'
-        ];
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'nullable|email|max:50|unique:customers,email',
+            'phone' => 'nullable|string|max:15|unique:customers,phone',
+            'city' => 'nullable|string|max:50',
+            'address' => 'nullable|string|max:100',
+        ]);
 
-        $validatedData = $request->validate($rules);
-        $customer = Customer::where('id', $validatedData['customer_id'])->first();
-        $content = Cart::content();
+        $customer = Customer::create($validatedData);
 
-        return view('pos.create-invoice', [
-            'customer' => $customer,
-            'content' => $content
+        return response()->json([
+            'success' => true,
+            'message' => 'Customer created successfully!',
+            'customer' => $customer
         ]);
     }
 
-    public function printInvoice(Request $request)
+    /**
+     * Search Customers for Select2 (AJAX).
+     */
+    public function searchCustomers(Request $request)
     {
-        $rules = [
-            'customer_id' => 'required'
-        ];
+        $term = $request->term;
+        $query = Customer::query();
 
-        $validatedData = $request->validate($rules);
-        $customer = Customer::where('id', $validatedData['customer_id'])->first();
-        $content = Cart::content();
+        if ($term) {
+            $query->where('name', 'LIKE', "%{$term}%")
+                ->orWhere('phone', 'LIKE', "%{$term}%");
+        }
 
-        return view('pos.print-invoice', [
-            'customer' => $customer,
-            'content' => $content
-        ]);
+        $customers = $query->latest()->limit(20)->get()->map(function ($customer) {
+            return [
+                'id' => $customer->id,
+                'text' => $customer->name . ' (' . ($customer->phone ?? 'N/A') . ')'
+            ];
+        });
+
+        return response()->json(['results' => $customers]);
     }
 }

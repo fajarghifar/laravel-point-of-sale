@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_id');
-            $table->string('order_date');
-            $table->string('order_status');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->string('invoice_no')->unique(); // Unique Invoice
+            $table->dateTime('order_date')->index(); // Index for reporting
+            $table->string('order_status')->default('pending')->index(); // Status with default
             $table->integer('total_products');
-            $table->integer('sub_total')->nullable();
-            $table->integer('vat')->nullable();
-            $table->string('invoice_no')->nullable();
-            $table->integer('total')->nullable();
-            $table->string('payment_status')->nullable();
-            $table->integer('pay')->nullable();
-            $table->integer('due')->nullable();
+            $table->decimal('sub_total', 15, 2);
+            $table->decimal('vat', 15, 2)->default(0);
+            $table->decimal('total', 15, 2); // Grand Total
+            $table->string('payment_type')->nullable(); // Cash, Card, etc.
+            $table->decimal('pay_amount', 15, 2)->default(0); // Paid amount
+            $table->decimal('due_amount', 15, 2)->default(0); // Change or Due
             $table->timestamps();
         });
     }

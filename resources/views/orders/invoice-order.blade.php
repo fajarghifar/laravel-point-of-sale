@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <title>POS</title>
+    <title>POS Invoice #{{ $order->invoice_no }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
 
@@ -21,6 +21,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="invoice-inner-9" id="invoice_wrapper">
+{{-- Invoice Header --}}
                         <div class="invoice-top">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6">
@@ -35,20 +36,21 @@
                                 </div>
                             </div>
                         </div>
+{{-- Invoice Info --}}
                         <div class="invoice-info">
                             <div class="row">
                                 <div class="col-sm-6 mb-50">
                                     <div class="invoice-number">
                                         <h4 class="inv-title-1">Invoice date:</h4>
                                         <p class="invo-addr-1">
-                                            {{ $order->order_date }}
+                                            {{ $order->order_date->format('d M Y') }}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 text-end mb-50">
-                                    <h4 class="inv-title-1">POS</h4>
-                                    <p class="inv-from-1">pos@example.com</p>
-                                    <p class="inv-from-2">Cirebon, Indonesia</p>
+                                    <h4 class="inv-title-1">POS System</h4>
+                                    <p class="inv-from-1">admin@pos-system.com</p>
+                                    <p class="inv-from-2">Jakarta, Indonesia</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -61,52 +63,46 @@
                                 </div>
                                 <div class="col-sm-6 text-end mb-50">
                                     <h4 class="inv-title-1">Details</h4>
-                                    <p class="inv-from-1">Payment Status: {{ $order->payment_status }}</p>
-                                    <p class="inv-from-1">Total Pay: ${{ $order->pay }}</p>
-                                    <p class="inv-from-1">Due: ${{ $order->due }}</p>
+                                    <p class="inv-from-1">Payment Type: {{ $order->payment_type }}</p>
+                                    <p class="inv-from-1">Total Pay: {{ number_format($order->pay_amount, 2) }}</p>
+                                    <p class="inv-from-1">Due: {{ number_format($order->due_amount, 2) }}</p>
                                 </div>
                             </div>
                         </div>
+{{-- Order Summary --}}
                         <div class="order-summary">
                             <div class="table-outer">
                                 <table class="default-table invoice-table">
                                     <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total (+Vat)</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            </tr>
                                     </thead>
-
                                     <tbody>
                                         @foreach ($orderDetails as $item)
-                                        <tr>
-                                            <td>{{ $item->product->product_name }}</td>
-                                            <td>${{ $item->unitcost }}</td>
-                                            <td>{{ $item->quantity }}</td>
-                                            <td>${{ $item->total }}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $item->product->name }}</td>
+                                                <td>{{ number_format($item->unit_price, 2) }}</td>
+                                                <td>{{ $item->quantity }}</td>
+                                                <td>{{ number_format($item->total, 2) }}</td>
+                                                </tr>
                                         @endforeach
                                         <tr>
                                             <td><strong class="text-danger">Total</strong></td>
                                             <td></td>
                                             <td></td>
-                                            <td><strong class="text-danger">${{ $order->total }}</strong></td>
+                                            <td><strong class="text-danger">{{ number_format($order->total, 2) }}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        {{-- <div class="invoice-informeshon-footer">
-                            <ul>
-                                <li><a href="https://themeforest.net/user/themevessel/portfolio">www.themevessel.com</a></li>
-                                <li><a href="mailto:sales@hotelempire.com">info@themevessel.com</a></li>
-                                <li><a href="tel:+088-01737-133959">+088 01737 133959</a></li>
-                            </ul>
-                        </div> --}}
                     </div>
 
+                    {{-- Action Buttons --}}
                     <div class="invoice-btn-section clearfix d-print-none">
                         <a href="javascript:window.print()" class="btn btn-lg btn-print">
                             Print Invoice
@@ -115,12 +111,13 @@
                             Download Invoice
                         </a>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-
+    <!-- Scripts -->
     <script src="{{ asset('assets/invoice/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/invoice/js/jspdf.min.js') }}"></script>
     <script src="{{ asset('assets/invoice/js/html2canvas.js') }}"></script>
