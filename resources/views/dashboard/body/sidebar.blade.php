@@ -36,7 +36,7 @@
                             <span class="ml-3">Orders</span>
                             <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
                             </a>
-                            <ul id="orders" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                            <ul id="orders" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
 
                             <li class="{{ Request::is('orders/pending*') ? 'active' : '' }}">
                                 <a href="{{ route('order.pendingOrders') }}">
@@ -53,11 +53,7 @@
                                     <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Pending Due</span>
                                     </a>
                                     </li>
-                                    <li class="{{ Request::is(['stock*']) ? 'active' : '' }}">
-                                        <a href="{{ route('order.stockManage') }}">
-                                    <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Stock Management</span>
-                                    </a>
-                                    </li>
+
                                     </ul>
                                     </li>
                 @endif
@@ -69,7 +65,7 @@
                             <span class="ml-3">Products</span>
                             <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
                             </a>
-                            <ul id="products" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                            <ul id="products" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                                 <li class="{{ Request::is(['products']) ? 'active' : '' }}">
                                     <a href="{{ route('products.index') }}">
                                         <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Products</span>
@@ -125,7 +121,7 @@
                         <span class="ml-3">Salary</span>
                         <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
                         </a>
-                        <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                        <ul id="advance-salary" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
 
                             <li class="{{ Request::is(['advance-salary', 'advance-salary/*/edit']) ? 'active' : '' }}">
                                 <a href="{{ route('advance-salary.index') }}">
@@ -151,23 +147,23 @@
                                     </li>
                 @endif
 
-                @if (auth()->user()->can('attendence.menu'))
+                @if (auth()->user()->can('attendance.menu'))
                     <li>
-                        <a href="#attendence" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                        <a href="#attendance" class="collapsed" data-toggle="collapse" aria-expanded="false">
                             <x-heroicon-o-calendar-days class="w-6 h-6" />
-                            <span class="ml-3">Attendence</span>
+                            <span class="ml-3">Attendance</span>
                             <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
                             </a>
-                            <ul id="attendence" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                            <ul id="attendance" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
 
-                                <li class="{{ Request::is(['employee/attendence']) ? 'active' : '' }}">
-                                    <a href="{{ route('attendence.index') }}">
-                                        <x-heroicon-o-arrow-right class="w-4 h-4" /><span>All Attedence</span>
+                                <li class="{{ Request::is(['attendance']) ? 'active' : '' }}">
+                                    <a href="{{ route('attendance.index') }}">
+                                        <x-heroicon-o-arrow-right class="w-4 h-4" /><span>All Attendance</span>
                                         </a>
                                         </li>
-                                        <li class="{{ Request::is('employee/attendence/*') ? 'active' : '' }}">
-                                            <a href="{{ route('attendence.create') }}">
-                                        <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Create Attendence</span>
+                                        <li class="{{ Request::is('attendance/create') ? 'active' : '' }}">
+                                            <a href="{{ route('attendance.create') }}">
+                                                <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Create Attendance</span>
                                         </a>
                                         </li>
                                         </ul>
@@ -184,7 +180,7 @@
                             <span class="ml-3">Role & Permission</span>
                             <x-heroicon-o-chevron-right class="w-4 h-4 iq-arrow-right arrow-active" />
                             </a>
-                            <ul id="permission" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
+                            <ul id="permission" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                                 <li class="{{ Request::is(['permission', 'permission/create', 'permission/edit/*']) ? 'active' : '' }}">
                                     <a href="{{ route('permission.index') }}">
                                         <x-heroicon-o-arrow-right class="w-4 h-4" /><span>Permissions</span>

@@ -4,212 +4,262 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-            @if (session()->has('success'))
-                <div class="alert text-white bg-success" role="alert">
-                    <div class="iq-alert-text">{{ session('success') }}</div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <x-heroicon-o-x-mark class="w-5 h-5" />
-                    </button>
+                @if (session()->has('success'))
+                    <div class="alert text-white bg-success" role="alert">
+                        <div class="iq-alert-text">{{ session('success') }}</div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <x-heroicon-o-x-mark class="w-5 h-5" />
+                        </button>
                     </div>
-            @endif
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card card-transparent card-block card-stretch card-height border-none">
-                            <div class="card-body p-0 mt-lg-2 mt-0">
-                                <h3 class="mb-3">Hi {{ auth()->user()->name }}, Good Morning</h3>
-                                <p class="mb-0 mr-4">Your dashboard gives you views of key performance or business process.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4">
-                                <div class="card card-block card-stretch card-height">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center mb-4 card-total-sale">
-                                            <div class="icon iq-icon-box-2 bg-info-light">
-                                                <img src="../assets/images/product/1.png" class="img-fluid" alt="image">
-                                            </div>
-                                            <div>
-                                                <p class="mb-2">Total Paid</p>
-                                                <h4>$ {{ $total_paid }}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="iq-progress-bar mt-2">
-                                            <span class="bg-info iq-progress progress-1" data-percent="85">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="card card-block card-stretch card-height">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center mb-4 card-total-sale">
-                                            <div class="icon iq-icon-box-2 bg-danger-light">
-                                                <img src="../assets/images/product/2.png" class="img-fluid" alt="image">
-                                            </div>
-                                            <div>
-                                                <p class="mb-2">Total Due</p>
-                                                <h4>$ {{ $total_due }}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="iq-progress-bar mt-2">
-                                            <span class="bg-danger iq-progress progress-1" data-percent="70">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="card card-block card-stretch card-height">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center mb-4 card-total-sale">
-                                            <div class="icon iq-icon-box-2 bg-success-light">
-                                                <img src="../assets/images/product/3.png" class="img-fluid" alt="image">
-                                            </div>
-                                            <div>
-                                                <p class="mb-2">Complete Orders</p>
-                                                <h4>{{ count($complete_orders) }}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="iq-progress-bar mt-2">
-                                            <span class="bg-success iq-progress progress-1" data-percent="75">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card card-block card-stretch card-height">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Overview</h4>
-                                </div>
-                                <div class="card-header-toolbar d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <span class="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton001" data-toggle="dropdown">
-                                            This Month<x-heroicon-o-chevron-down class="w-4 h-4 ml-1" />
-                                        </span>
-                                        <div class="dropdown-menu dropdown-menu-right shadow-none" aria-labelledby="dropdownMenuButton001">
-                                            <a class="dropdown-item" href="#">Year</a>
-                                            <a class="dropdown-item" href="#">Month</a>
-                                            <a class="dropdown-item" href="#">Week</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div id="layout1-chart1"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card card-block card-stretch card-height">
-                            <div class="card-header d-flex align-items-center justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Revenue Vs Cost</h4>
-                                </div>
-                                <div class="card-header-toolbar d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <span class="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton002" data-toggle="dropdown">
-                                            This Month<x-heroicon-o-chevron-down class="w-4 h-4 ml-1" />
-                                        </span>
-                                        <div class="dropdown-menu dropdown-menu-right shadow-none" aria-labelledby="dropdownMenuButton002">
-                                            <a class="dropdown-item" href="#">Yearly</a>
-                                            <a class="dropdown-item" href="#">Monthly</a>
-                                            <a class="dropdown-item" href="#">Weekly</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div id="layout1-chart-2" style="min-height: 360px;"></div>
-                            </div>
-                        </div>
-                    </div>
+                @endif
+                </div>
 
-                    <div class="col-lg-8">
-                        <div class="card card-block card-stretch card-height">
-                            <div class="card-header d-flex align-items-center justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Top Products</h4>
-                                </div>
-                                <div class="card-header-toolbar d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <span class="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton006" data-toggle="dropdown">
-                                            This Month<x-heroicon-o-chevron-down class="w-4 h-4 ml-1" />
-                                </span>
-                                <div class="dropdown-menu dropdown-menu-right shadow-none"
-                                    aria-labelledby="dropdownMenuButton006">
-                                    <a class="dropdown-item" href="#">Year</a>
-                                    <a class="dropdown-item" href="#">Month</a>
-                                    <a class="dropdown-item" href="#">Week</a>
-                                </div>
-                            </div>
+                <!-- Banner / Welcome Section -->
+                <div class="col-lg-12 mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 class="font-weight-bold">Dashboard Overview</h3>
+                            <p class="mb-0 text-muted">Welcome back, {{ auth()->user()->name }}! Here's what's happening in your
+                                store today.</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('pos.index') }}" class="btn btn-primary">
+                                <x-heroicon-o-computer-desktop class="w-5 h-5 mr-2" />
+                                Go to POS
+                            </a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled row top-product mb-0">
-                        @foreach ($products as $product)
-                            <li class="col-lg-3">
-                                <div class="card card-block card-stretch card-height mb-0">
-                                    <div class="card-body">
-                                        <div class="bg-warning-light rounded">
-                                            <img src="{{ $product->product_image ? asset('storage/products/' . $product->product_image) : asset('assets/images/product/default.webp') }}" class="style-img img-fluid m-auto p-3" alt="image">
-                                        </div>
-                                        <div class="style-text text-left mt-3">
-                                            <h5 class="mb-1">{{ $product->product_name }}</h5>
-                                            <p class="mb-0">{{ $product->product_store }} Item</p>
+                </div>
+
+                <!-- Metric Cards -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4 card-total-sale">
+                                <div class="icon iq-icon-box-2 bg-info-light">
+                                    <x-heroicon-o-banknotes class="w-6 h-6 text-info" />
+                                    </div>
+                                    <div>
+                                        <p class="mb-2">Total Paid</p>
+                                        <h4>${{ number_format($total_paid, 2) }}</h4>
+                                    </div>
+                                    </div>
+                                    <div class="iq-progress-bar mt-2">
+                                        <span class="bg-info iq-progress progress-1" data-percent="85" style="width: 85%;"></span>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="card card-block card-stretch card-height">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                                    <div class="icon iq-icon-box-2 bg-danger-light">
+                                                        <x-heroicon-o-credit-card class="w-6 h-6 text-danger" />
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-2">Total Due</p>
+                                                        <h4>${{ number_format($total_due, 2) }}</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="iq-progress-bar mt-2">
+                                                    <span class="bg-danger iq-progress progress-1" data-percent="40" style="width: 40%;"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card card-transparent card-block card-stretch mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between p-0">
-                        <div class="header-title">
-                            <h4 class="card-title mb-0">New Products</h4>
+
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="card card-block card-stretch card-height">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                                    <div class="icon iq-icon-box-2 bg-success-light">
+                                                        <x-heroicon-o-check-circle class="w-6 h-6 text-success" />
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-2">Complete Orders</p>
+                                                        <h4>{{ $complete_orders }}</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="iq-progress-bar mt-2">
+                                                    <span class="bg-success iq-progress progress-1" data-percent="75" style="width: 75%;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="card card-block card-stretch card-height">
+                                            <div class="card-body">
+                                                <div class="d-flex align-items-center mb-4 card-total-sale">
+                                                    <div class="icon iq-icon-box-2 bg-warning-light">
+                                                        <x-heroicon-o-clock class="w-6 h-6 text-warning" />
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-2">Pending Orders</p>
+                                                        <h4>{{ $pending_orders }}</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="iq-progress-bar mt-2">
+                                                    <span class="bg-warning iq-progress progress-1" data-percent="25" style="width: 25%;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sales Chart -->
+                                    <div class="col-lg-12">
+                                        <div class="card card-block card-stretch card-height">
+                                            <div class="card-header d-flex justify-content-between">
+                                                <div class="header-title">
+                                                    <h4 class="card-title">Monthly Sales Overview ({{ date('Y') }})</h4>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="monthly-sales-chart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bottom Section: Recent Orders & Top Products -->
+                                    <div class="col-lg-7 col-md-12">
+                                        <div class="card card-block card-stretch card-height">
+                                            <div class="card-header d-flex justify-content-between">
+                                                <div class="header-title">
+                                                    <h4 class="card-title">Recent Orders</h4>
+                                                </div>
+                                                <div class="card-header-toolbar d-flex align-items-center">
+                                                    <a href="{{ route('order.pendingOrders') }}"
+                                                        class="btn btn-outline-primary position-relative text-nowrap">View All</a>
+                                                </div>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive">
+                                                    <table class="table mb-0">
+                                                        <thead class="bg-white text-uppercase">
+                                                            <tr class="ligth ligth-data">
+                                                                <th>Date</th>
+                                                                <th>Customer</th>
+                                                                <th>Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="ligth-body">
+                                                            @forelse($recent_orders as $order)
+                                                                <tr>
+                                                                    <td>{{ $order->created_at->format('d M Y') }}</td>
+                                                                    <td>{{ $order->customer->name ?? 'Walk-in Customer' }}</td>
+                                                                    <td>${{ number_format($order->total, 2) }}</td>
+                                                                    <td>
+                                                                        <span
+                                                                            class="badge {{ $order->order_status == 'complete' ? 'bg-success' : 'bg-warning' }}">
+                                                                            {{ ucfirst($order->order_status) }}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="btn btn-primary btn-sm" href="{{ route('order.orderDetails', $order->id) }}">
+                                                                            <x-heroicon-o-eye class="w-4 h-4" />
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @empty
+                                                                <tr>
+                                                                    <td colspan="5" class="text-center">No recent orders found.</td>
+                                                                </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5 col-md-12">
+                                        <div class="card card-block card-stretch card-height">
+                                            <div class="card-header d-flex justify-content-between">
+                                                <div class="header-title">
+                        <h4 class="card-title">Top Selling Products</h4>
                         </div>
-                        <div class="card-header-toolbar d-flex align-items-center">
-                            <div><a href="#" class="btn btn-primary view-btn font-size-14">View All</a></div>
-                        </div>
-                    </div>
                 </div>
-                @foreach ($new_products as $product)
-                <div class="card card-block card-stretch card-height-helf">
-                    <div class="card-body card-item-right">
-                        <div class="d-flex align-items-top">
-                            <div class="bg-warning-light rounded">
-                                <img src="../assets/images/product/04.png" class="style-img img-fluid m-auto" alt="image">
-                            </div>
-                            <div class="style-text text-left">
-                                <h5 class="mb-2">{{ $product->product_name }}</h5>
-                                <p class="mb-2">Stock : {{ $product->product_store }}</p>
-                                <p class="mb-0">Price : ${{ $product->selling_price }}</p>
-                            </div>
-                        </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="bg-white text-uppercase">
+                                <tr class="ligth ligth-data">
+                                    <th>Product</th>
+                                    <th>Code</th>
+                                    <th>Sold</th>
+                                </tr>
+                            </thead>
+                            <tbody class="ligth-body">
+                                @forelse($top_products as $product)
+                                    <tr>
+                                        <td>{{ $product->product_name }}</td>
+                                        <td>{{ $product->product_code }}</td>
+                                        <td><strong>{{ $product->total_sold }}</strong></td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center">No sales data yet.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                @endforeach
-            </div>
+                    </div>
+                    </div>
         </div>
-        <!-- Page end  -->
+
+        </div>
     </div>
 @endsection
 
 @section('specificpagescripts')
-<!-- Table Treeview JavaScript -->
-<script src="{{ asset('assets/js/table-treeview.js') }}"></script>
-<!-- Chart Custom JavaScript -->
-<script src="{{ asset('assets/js/customizer.js') }}"></script>
-<!-- Chart Custom JavaScript -->
-<script async src="{{ asset('assets/js/chart-custom.js') }}"></script>
+    <!-- ApexCharts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof ApexCharts !== 'undefined') {
+                var options = {
+                    series: [{
+                        name: 'Sales',
+                        data: {!! $chart_data !!}
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'area',
+                        toolbar: { show: false }
+                    },
+                    dataLabels: { enabled: false },
+                    stroke: { curve: 'smooth' },
+                    xaxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function (val) {
+                                return "$ " + val
+                            }
+                        }
+                    },
+                    colors: ['#4788ff'],
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.7,
+                            opacityTo: 0.9,
+                            stops: [0, 90, 100]
+                        }
+                    }
+                };
+
+                var chart = new ApexCharts(document.querySelector("#monthly-sales-chart"), options);
+                chart.render();
+            } else {
+                console.warn('ApexCharts library not found. Sales chart cannot be rendered.');
+            }
+        });
+    </script>
 @endsection
