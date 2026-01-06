@@ -6,6 +6,9 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\QueryBuilder\QueryBuilder;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -21,8 +24,9 @@ class CategoryController extends Controller
         }
 
         return view('categories.index', [
-            'categories' => Category::filter(request(['search']))
-                ->sortable()
+            'categories' => QueryBuilder::for(Category::class)
+                ->allowedSorts(['name', 'slug'])
+                ->filter(request(['search']))
                 ->paginate($row)
                 ->appends(request()->query()),
         ]);
@@ -39,16 +43,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $rules = [
-            'name' => 'required|unique:categories,name',
-            'slug' => 'required|unique:categories,slug|alpha_dash',
-        ];
-
-        $validatedData = $request->validate($rules);
-
-        Category::create($validatedData);
+        Category::create($request->validated());
 
         return Redirect::route('categories.index')->with('success', 'Category has been created!');
     }
@@ -74,16 +71,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $rules = [
-            'name' => 'required|unique:categories,name,'.$category->id,
-            'slug' => 'required|alpha_dash|unique:categories,slug,'.$category->id,
-        ];
-
-        $validatedData = $request->validate($rules);
-
-        Category::where('slug', $category->slug)->update($validatedData);
+        $category->update($request->validated());
 
         return Redirect::route('categories.index')->with('success', 'Category has been updated!');
     }
@@ -93,7 +83,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Category::destroy($category->slug);
+        if ($category->products()->exists()) {
+            return Redirect::back()->with('error', 'Cannot delete category because it has related products.');
+        }
+
+        $category->delete();
 
         return Redirect::route('categories.index')->with('success', 'Category has been deleted!');
     }

@@ -9,7 +9,7 @@ use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\SupplierController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PaySalaryController;
-use App\Http\Controllers\Dashboard\AttendenceController;
+use App\Http\Controllers\Dashboard\AttendanceController;
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 use App\Http\Controllers\Dashboard\DatabaseBackupController;
 use App\Http\Controllers\Dashboard\OrderController;
@@ -63,15 +63,18 @@ Route::middleware(['permission:employee.menu'])->group(function () {
     Route::resource('/employees', EmployeeController::class);
 });
 
-// ====== EMPLOYEE ATTENDENCE ======
-Route::middleware(['permission:attendence.menu'])->group(function () {
-    Route::resource('/employee/attendence', AttendenceController::class)->except(['show', 'update', 'destroy']);
+// ====== EMPLOYEE ATTENDANCE ======
+Route::middleware(['permission:attendance.menu'])->group(function () {
+    Route::resource('/attendance', AttendanceController::class)->except(['show', 'update', 'destroy']);
 });
 
 // ====== SALARY EMPLOYEE ======
 Route::middleware(['permission:salary.menu'])->group(function () {
     // PaySalary
-    Route::resource('/pay-salary', PaySalaryController::class)->except(['show', 'create', 'edit', 'update']);
+    Route::get('/pay-salary/pay-all', [PaySalaryController::class, 'payAllView'])->name('pay-salary.payAllView');
+    Route::post('/pay-salary/pay-all', [PaySalaryController::class, 'payAllStore'])->name('pay-salary.payAllStore');
+    Route::get('/pay-salary/create', [PaySalaryController::class, 'create'])->name('pay-salary.create'); // Explicitly defined
+    Route::resource('/pay-salary', PaySalaryController::class)->except(['show', 'edit', 'update', 'create']); // Added create to except to avoid conflict
     Route::get('/pay-salary/history', [PaySalaryController::class, 'payHistory'])->name('pay-salary.payHistory');
     Route::get('/pay-salary/history/{id}', [PaySalaryController::class, 'payHistoryDetail'])->name('pay-salary.payHistoryDetail');
     Route::get('/pay-salary/{id}', [PaySalaryController::class, 'paySalary'])->name('pay-salary.paySalary');

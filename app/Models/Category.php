@@ -2,38 +2,34 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory;
 
     protected $fillable = [
         'name',
         'slug',
+        'description',
     ];
 
-    protected $sortable = [
-        'name',
-        'slug',
-    ];
-
-    protected $guarded = [
-        'id',
-    ];
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 
     public function scopeFilter($query, array $filters)
     {
-    $query->when($filters['search'] ?? false, function ($query, $search) {
-      return $query->where(function ($query) use ($search) {
-        $query->where('name', 'like', '%' . $search . '%')
-          ->orWhere('slug', 'like', '%' . $search . '%');
-      });
-    });
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('slug', 'like', '%' . $search . '%');
+            });
+        });
     }
-
 
     public function getRouteKeyName()
     {
