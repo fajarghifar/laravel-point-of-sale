@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -25,7 +25,12 @@ class UserController extends Controller
         }
 
         return view('users.index', [
-            'users' => User::filter(request(['search']))->sortable()->paginate($row)->appends(request()->query()),
+            'users' => QueryBuilder::for(User::class)
+                ->with('roles')
+                ->allowedSorts(['name', 'username', 'email'])
+                ->filter(request(['search']))
+                ->paginate($row)
+                ->appends(request()->query()),
         ]);
     }
 
@@ -42,18 +47,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(\App\Http\Requests\User\StoreUserRequest $request)
     {
-        $rules = [
-            'name' => 'required|max:50',
-            'photo' => 'image|file|max:1024',
-            'email' => 'required|email|max:50|unique:users,email',
-            'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username',
-            'password' => 'min:6|required_with:password_confirmation',
-            'password_confirmation' => 'min:6|same:password',
-        ];
-
-        $validatedData = $request->validate($rules);
+        $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($request->password);
 
         /**
@@ -98,22 +97,17 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(\App\Http\Requests\User\UpdateUserRequest $request, User $user)
     {
-        $rules = [
-            'name' => 'required|max:50',
-            'photo' => 'image|file|max:1024',
-            'email' => 'required|email|max:50|unique:users,email,'.$user->id,
-            'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username,'.$user->id,
-        ];
+        $validatedData = $request->validated();
 
-        if($request->password || $request->confirm_password) {
-            $rules['password'] = 'min:6|required_with:password_confirmation';
-            $rules['password_confirmation'] = 'min:6|same:password';
+        // Remove password from validated data if not provided (Request handles validation, but we need to check if we should hash it)
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+        } else {
+            unset($validatedData['password']);
+            unset($validatedData['password_confirmation']);
         }
-
-        $validatedData = $request->validate($rules);
-        $validatedData['password'] = Hash::make($request->password);
 
         /**
          * Handle upload image with Storage.
@@ -133,11 +127,10 @@ class UserController extends Controller
             $validatedData['photo'] = $fileName;
         }
 
-        $userData = User::findOrFail($user->id);
-        $userData->update($validatedData);
+        $user->update($validatedData);
 
         if($request->role) {
-            $userData->syncRoles($request->role);
+            $user->syncRoles($request->role);
         }
 
         return Redirect::route('users.index')->with('success', 'User has been updated!');

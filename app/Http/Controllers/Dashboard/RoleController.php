@@ -87,15 +87,9 @@ class RoleController extends Controller
         return view('roles.role-create');
     }
 
-    public function roleStore(Request $request)
+    public function roleStore(\App\Http\Requests\Role\StoreRoleRequest $request)
     {
-        $rules = [
-            'name' => 'required|string',
-        ];
-
-        $validatedData = $request->validate($rules);
-
-        Role::create($validatedData);
+        Role::create($request->validated());
 
         return Redirect::route('role.index')->with('success', 'Role has been created!');
     }
@@ -109,15 +103,9 @@ class RoleController extends Controller
         ]);
     }
 
-    public function roleUpdate(Request $request, Int $id)
+    public function roleUpdate(\App\Http\Requests\Role\UpdateRoleRequest $request, int $id)
     {
-        $rules = [
-            'name' => 'required|string',
-        ];
-
-        $validatedData = $request->validate($rules);
-
-        Role::findOrFail($id)->update($validatedData);
+        Role::findOrFail($id)->update($request->validated());
 
         return Redirect::route('roles.index')->with('success', 'Role has been updated!');
     }
@@ -143,28 +131,27 @@ class RoleController extends Controller
     public function rolePermissionCreate()
     {
         $roles = Role::all();
-        $permissions = Permission::all();
         $permission_groups = User::getPermissionGroups();
+
+        // Fetch ALL permissions and group them by 'group_name' to avoid N+1 in view
+        $permissions_by_group = Permission::all()->groupBy('group_name');
 
         return view('roles.role-permission-create', [
             'roles' => $roles,
-            'permissions' => $permissions,
-            'permission_groups' => $permission_groups
+            'permission_groups' => $permission_groups,
+            'permissions_by_group' => $permissions_by_group,
         ]);
     }
 
     public function rolePermissionStore(Request $request)
     {
-        $data = [];
+        $request->validate([
+            'role_id' => 'required|exists:roles,id',
+            'permission_id' => 'required|array',
+        ]);
 
-        $permissions = $request->permission_id;
-
-        foreach ($permissions as $permission) {
-            $data['role_id'] = $request->role_id;
-            $data['permission_id'] = $permission;
-
-            DB::table('role_has_permissions')->insert($data);
-        }
+        $role = Role::findOrFail($request->role_id);
+        $role->syncPermissions($request->permission_id);
 
         return Redirect::route('rolePermission.index')->with('success', 'Role Permission has been created!');
     }
