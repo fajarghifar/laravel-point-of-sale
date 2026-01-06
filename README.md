@@ -1,62 +1,79 @@
-## ✨ Laravel Point of Sale
+# Laravel Point of Sale System 🚀
 
-A simple and powerful Point of Sale (POS) management system with invoice generation, built with **Laravel 10** and **MySQL**.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Laravel](https://img.shields.io/badge/laravel-v10-red)
+![PHP](https://img.shields.io/badge/php-v8.1-blueviolet)
+![Bootstrap](https://img.shields.io/badge/bootstrap-v4.6-purple)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-utilities-38bdf8)
 
-![Dashboard](https://user-images.githubusercontent.com/71541409/234483153-38816efd-c261-4585-bb93-28639508f5e3.jpg)
+A robust, enterprise-grade **Point of Sale (POS)** management system built with **Laravel 10** and **MySQL**. Designed for efficiency, this application features a **Bootstrap-based** responsive interface with **Vanilla JS** driven POS logic for maximum compatibility and performance.
 
-## 😎 Features
+![POS Screenshot](./public/screenshots/preview.png)
 
-- **Point of Sale (POS)**
-- **Order Management**
-  - Pending Orders
-  - Completed Orders
-  - Pending Due Payments
-- **Stock Management**
-- **Product Management**
-  - Products
-  - Categories
-- **Employee Management**
-- **Customer Management**
-- **Supplier Management**
-- **Salary Management**
-  - Advance Salary
-  - Pay Salary
-  - Salary History
-- **Attendance Management**
-- **Role & Permission System**
-- **User Management**
-- **Database Backup**
+---
 
-## 🚀 How to Use
+## ✨ Key Features
 
-#### 1. Clone the Repository
-To get started, clone or download the repository:
+### 🛒 Point of Sale (POS) Interface
+*   **Efficient Transaction Processing:** Fast and user-friendly interface for managing sales and carts.
+*   **Smart Search:** Quickly find products by name or code.
+*   **Dynamic Cart:** Real-time subtotal and tax calculations using `hardevine/shoppingcart`.
 
+### 📦 Inventory & Product Management
+*   **Stock Tracking:** Automated stock deduction upon sale completion.
+*   **Barcode Support:** Integrated `picqer/php-barcode-generator` for product operational efficiency.
+*   **Category Management:** Organize products into hierarchical categories for easier access.
+
+### 👥 HR & User Management
+*   **Employee Management:** Track employee details, salaries, and attendance.
+*   **Payroll System:** Manage advance salaries and monthly payroll with history tracking.
+*   **Role-Based Access Control (RBAC):** Granular permission management powered by `spatie/laravel-permission` to secure sensitive modules.
+
+### 💰 Financial & Reporting
+*   **Order Management:** Track Pending, Completed, and Due status orders.
+*   **Interactive Dashboard:** Visual analytics using **ApexCharts** for sales trends and top-selling products.
+*   **Invoice Generation:** Professional invoice printing for every transaction.
+
+---
+
+## 🛠️ Tech Stack
+
+*   **Backend:** [Laravel 10](https://laravel.com/) (PHP 8.1+)
+*   **Frontend:** Blade Templates, **Bootstrap 4/5** (Layout), **Tailwind CSS** (Utilities), Vanilla JS
+*   **Database:** MySQL / MariaDB
+*   **Icons:** [Heroicons](https://heroicons.com/) (blade-ui-kit)
+*   **Core Libraries:**
+    *   `spatie/laravel-permission`: Authorization
+    *   `hardevine/shoppingcart`: Cart Logic
+    *   `haruncpi/laravel-id-generator`: SKU Generation
+    *   `spatie/laravel-backup`: DB Backups
+
+---
+
+## 🚀 Installation Guide
+
+Follow these steps to set up the project locally:
+
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/fajarghifar/laravel-point-of-sale
-```
-
-#### 2. Set Up the Project
-
-Once you’ve cloned the repository, navigate to the project directory and install dependencies:
-
-```bash
 cd laravel-point-of-sale
-composer install
 ```
 
-Open the project in your preferred code editor:
+### 2. Install Dependencies
 
 ```bash
-code .
+composer install
+npm install && npm run build
 ```
 
-#### 3. Configure the Environment
+### 3. Environment Setup
 
-Rename the `.env.example` file to `.env`:
+Copy the example environment file and configure your database credentials:
 
 ```bash
 cp .env.example .env
+# Open .env and set DB_DATABASE, DB_USERNAME, DB_PASSWORD
 ```
 
 Generate the application key:
@@ -65,93 +82,73 @@ Generate the application key:
 php artisan key:generate
 ```
 
-#### 4. Set Faker Locale (Optional)
+### 4. Database Setup & Seeding
 
-To set the Faker locale (for example, to Indonesian), add the following line at the end of your `.env` file:
-
-```bash
-FAKER_LOCALE="id_ID"
-```
-
-#### 5. Set Up the Database
-
-Configure your database credentials in the `.env` file.
-
-#### 6. Seed the Database
-
-Run the following command to migrate and seed the database:
+Run the migrations and seeders to populate the database with realistic test data (Indonesian/English locale supported):
 
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-**Note**: If you encounter any errors, try rerunning the command.
+### 5. Create Storage Link
 
-#### 7. Create Storage Link
-
-Create a symbolic link for storage:
+Link the storage directory to public for image serving:
 
 ```bash
 php artisan storage:link
 ```
 
-#### 8. Start the Server
-
-To run the application locally, start the Laravel development server:
+### 6. Start the Server
 
 ```bash
 php artisan serve
 ```
 
-#### 9. Log In
-
-Use the following credentials to log in:
-
-- **Username**: `admin`
-- **Password**: `password`
-
-## 🚀 Configuration
-
-#### 1. Configure Cart Settings
-
-Open the `./config/cart.php` file to configure settings like tax rates, number formats, and more.
-
-For more details, check out the [hardevine/shoppingcart documentation](https://packagist.org/packages/hardevine/shoppingcart).
-
-#### 2. Storage Link
-
-If you haven't already, run this command to create the storage link:
-
-```bash
-php artisan storage:link
-```
-
-#### 3. Start the Server
-
-Run the development server:
-
-```bash
-php artisan serve
-```
-
-#### 4. Log In
-
-Try logging in with:
-
-- **Username**: `admin`
-- **Password**: `password`
-
-## 💡 Contributing
-
-Have suggestions or want to contribute? Here’s how:
-
-- Submit a **Pull Request (PR)**
-- Report issues or request features by creating an **Issue**
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
+Access the app at `http://localhost:8000`.
 
 ---
 
-> Connect with me on [GitHub](https://github.com/fajarghifar) &nbsp;&middot;&nbsp; [YouTube](https://www.youtube.com/@fajarghifar) &nbsp;&middot;&nbsp; [Instagram](https://instagram.com/fajarghifar) &nbsp;&middot;&nbsp; [LinkedIn](https://www.linkedin.com/in/fajarghifar/)
+## 🔑 Default Credentials
+
+Use the following credentials to access the Admin Dashboard:
+
+| Role | Username | Password |
+| --- | --- | --- |
+| **Admin** | `admin` | `password` |
+
+> **Note:** For security reasons, please change these credentials or create new users immediately after deployment.
+
+---
+
+## 🚀 Configuration
+
+### Cart Settings
+Open `./config/cart.php` to configure tax rates, number formats, and other cart-specific settings via the `hardevine/shoppingcart` package.
+
+### Localization
+To set the Faker locale (e.g., for Seeder data), add this to your `.env`:
+```bash
+FAKER_LOCALE="id_ID" # or en_US
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1.  Fork the project.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
+
+---
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+**Made with ❤️ by Fajar Ghifari Nugroho**
