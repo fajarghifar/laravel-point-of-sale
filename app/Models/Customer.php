@@ -10,21 +10,23 @@ class Customer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'address',
-        'city',
+        "name",
+        "email",
+        "phone",
+        "address",
+        "city",
+        "shopname",
+        "account_holder",
+        "account_number",
+        "bank_name",
     ];
 
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ["id"];
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
+        $query->when($filters["search"] ?? false, function ($query, $search) {
+            return $query->where("name", "like", "%" . $search . "%");
         });
     }
 }
