@@ -217,6 +217,13 @@
                             </a>
                             </li>
                 @endif
+
+                <li class="{{ Request::is('help*') ? 'active' : '' }}">
+                    <a href="{{ route('help.index') }}" class="svg-icon">
+                        <x-heroicon-o-question-mark-circle class="w-6 h-6" />
+                        <span class="ml-3">Help</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div class="p-3"></div>
