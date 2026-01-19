@@ -71,8 +71,6 @@ class ProfileTest extends TestCase
 
     public function test_user_can_delete_their_account(): void
     {
-        $this->markTestSkipped('Profile deletion route is not implemented in this application.');
-        
         $user = User::factory()->create();
 
         $response = $this
@@ -91,20 +89,18 @@ class ProfileTest extends TestCase
 
     public function test_correct_password_must_be_provided_to_delete_account(): void
     {
-        $this->markTestSkipped('Profile deletion route is not implemented in this application.');
-        
         $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
-            ->from('/profile')
+            ->from('/profile/delete')
             ->delete('/profile', [
                 'password' => 'wrong-password',
             ]);
 
         $response
             ->assertSessionHasErrorsIn('userDeletion', 'password')
-            ->assertRedirect('/profile');
+            ->assertRedirect('/profile/delete');
 
         $this->assertNotNull($user->fresh());
     }
