@@ -67,8 +67,8 @@ class ProfileController extends Controller
         $rules = [
             'name' => 'required|max:50',
             'photo' => 'image|file|max:1024',
-            'email' => 'required|email|max:50|unique:users,email,'.$user->id,
-            'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username,'.$user->id
+            'email' => 'required|email|max:50|unique:users,email,' . $user->id,
+            'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username,' . $user->id
         ];
 
         $validatedData = $request->validate($rules);
@@ -81,7 +81,7 @@ class ProfileController extends Controller
          * Handle upload image with Storage.
          */
         if ($file = $request->file('photo')) {
-            $fileName = hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
+            $fileName = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
             $path = 'public/profile/';
 
             $file->storeAs($path, $fileName);
@@ -114,7 +114,7 @@ class ProfileController extends Controller
         // Get table names from config (Spatie Permission package)
         $tableNames = config('permission.table_names');
         $columnNames = config('permission.column_names');
-        
+
         // Delete associated records for GDPR compliance
         // 1. Delete from model_has_permissions (polymorphic)
         DB::table($tableNames['model_has_permissions'])
