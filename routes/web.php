@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\PaySalaryController;
 use App\Http\Controllers\Dashboard\AttendanceController;
 use App\Http\Controllers\Dashboard\AdvanceSalaryController;
 use App\Http\Controllers\Dashboard\DatabaseBackupController;
+use App\Http\Controllers\Dashboard\HelpController;
 use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PosController;
 use App\Http\Controllers\Dashboard\RoleController;
@@ -135,6 +136,11 @@ Route::middleware(['permission:database.menu'])->group(function () {
     Route::get('/database/backup/now', [DatabaseBackupController::class, 'create'])->name('backup.create');
     Route::get('/database/backup/download/{getFileName}', [DatabaseBackupController::class, 'download'])->name('backup.download');
     Route::get('/database/backup/delete/{getFileName}', [DatabaseBackupController::class, 'delete'])->name('backup.delete');
+});
+
+// ====== HELP ======
+Route::middleware('auth')->group(function () {
+    Route::get('/help', [HelpController::class, 'index'])->name('help.index');
 });
 
 // ====== ROLE CONTROLLER ======
