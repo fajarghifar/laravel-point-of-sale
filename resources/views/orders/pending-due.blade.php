@@ -37,9 +37,9 @@
                         <!-- Filter Form -->
                         <form action="{{ route('order.pendingDue') }}" method="get">
                             <div class="d-flex flex-wrap align-items-center justify-content-between">
-                                <div class="form-group row">
-                                    <label for="row" class="col-sm-3 align-self-center">Row:</label>
-                                    <div class="col-sm-9">
+                                <div class="form-group mb-0 mr-3" style="min-width: 180px; margin-top: -1rem;">
+                                    <div class="d-flex align-items-center">
+                                        <label for="row" class="mb-0 mr-2" style="min-width: 50px;">Row:</label>
                                         <select class="form-control" name="row">
                                             <option value="10" @if (request('row') == '10') selected="selected" @endif>10
                                             </option>
@@ -49,9 +49,9 @@
                                             </option>
                                             <option value="100" @if (request('row') == '100') selected="selected" @endif>100
                                             </option>
-                                            </select>
-                                            </div>
-                                            </div>
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <label class="control-label col-sm-3 align-self-center" for="search">Search:</label>
