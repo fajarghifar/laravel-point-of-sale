@@ -38,7 +38,7 @@
                         <form action="{{ route('order.completeOrders') }}" method="get">
                             <div class="d-flex flex-wrap align-items-center justify-content-between">
                                 <!-- Rows Selector -->
-                                <div class="form-group mb-0 mr-3" style="min-width: 180px; margin-top: -1rem;">
+                                <div class="form-group mb-0 mr-2 mt-n3" style="min-width: 180px;">
                                     <div class="d-flex align-items-center">
                                         <label for="row" class="mb-0 mr-2" style="min-width: 50px;">Row:</label>
                                         <select class="form-control" name="row">
