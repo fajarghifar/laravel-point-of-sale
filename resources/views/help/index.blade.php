@@ -4,7 +4,7 @@
     @vite(['resources/css/app.css'])
     <style>
         /* Protect sidebar from Tailwind CSS reset interference */
-        /* Ensure sidebar menu items remain visible and functional */
+        /* Only ensure visibility - don't override display properties to preserve alignment */
         .iq-sidebar-menu .iq-menu li,
         .iq-sidebar-menu .iq-menu li a,
         .iq-sidebar-menu .iq-menu li ul,
@@ -13,7 +13,7 @@
         .iq-sidebar-menu .iq-menu li .iq-submenu li a {
             visibility: visible !important;
         }
-        
+
         /* Preserve collapse/expand behavior for submenus */
         .iq-submenu.collapse:not(.show) {
             display: none !important;
@@ -21,13 +21,16 @@
         .iq-submenu.collapse.show {
             display: block !important;
         }
-        
-        /* Ensure links in submenu are visible and clickable */
-        .iq-submenu li a,
-        .iq-submenu li a span {
-            display: inline-block !important;
+
+        /* Ensure submenu links are visible but preserve original display property for alignment */
+        .iq-sidebar-menu .iq-menu li .iq-submenu li a {
             visibility: visible !important;
             opacity: 1 !important;
+        }
+
+        /* Preserve original display for submenu spans to maintain alignment */
+        .iq-sidebar-menu .iq-menu li .iq-submenu li a span {
+            visibility: visible !important;
         }
     </style>
 @endsection
