@@ -29,8 +29,8 @@
                                         <!-- Search Input -->
                                         <div class="form-group row mb-0 col-md-5">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="search"
-                                                    placeholder="Search by name..." value="{{ request('search') }}">
+                                                <input type="text" class="form-control" name="search" id="pos_search"
+                                                    placeholder="Search by name or barcode..." value="{{ request('search') }}" autocomplete="off">
                                                 <div class="input-group-append">
                                                     <button type="submit" class="input-group-text bg-primary text-white">
                                                         <x-heroicon-o-magnifying-glass class="w-5 h-5" />
@@ -540,6 +540,60 @@
                 alert('An error occurred while processing the order.');
             }
         }
+
+        // Barcode Scanner Handling for POS Search
+        (function() {
+            const posSearchField = document.getElementById('pos_search');
+            const searchForm = posSearchField ? posSearchField.closest('form') : null;
+            
+            if (posSearchField && searchForm) {
+                let scannerTimeout;
+                
+                // Auto-focus search field on mobile devices
+                function isMobileDevice() {
+                    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                           (window.innerWidth <= 768);
+                }
+                
+                // Handle scanner input (scanners typically send Enter after barcode)
+                posSearchField.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.keyCode === 13) {
+                        // Clear any existing timeout
+                        if (scannerTimeout) {
+                            clearTimeout(scannerTimeout);
+                        }
+                        
+                        const searchValue = posSearchField.value.trim();
+                        if (searchValue) {
+                            // Check if this looks like a barcode scan (fast input + Enter)
+                            // Barcode scanners typically input very quickly
+                            scannerTimeout = setTimeout(function() {
+                                // Submit the form to search
+                                searchForm.submit();
+                            }, 100);
+                        }
+                    }
+                });
+                
+                // Handle paste events (some scanners use paste)
+                posSearchField.addEventListener('paste', function(e) {
+                    setTimeout(function() {
+                        const pastedValue = posSearchField.value.trim();
+                        if (pastedValue) {
+                            // Auto-submit on paste (likely from scanner)
+                            searchForm.submit();
+                        }
+                    }, 50);
+                });
+                
+                // Auto-focus on mobile for better scanner experience
+                if (isMobileDevice()) {
+                    setTimeout(function() {
+                        posSearchField.focus();
+                    }, 500);
+                }
+            }
+        })();
     </script>
 
     <!-- Page Specific Styles -->

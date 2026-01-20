@@ -64,6 +64,25 @@
                                     </div>
 
                                 <div class="form-group col-md-6">
+                                    <label for="code">Product Code</label>
+                                    <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code"
+                                        value="{{ old('code', $product->code) }}" maxlength="50">
+                                    <small class="form-text text-muted">Edit code or scan new barcode below</small>
+                                    @error('code')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="barcode_scanner">Barcode Scanner</label>
+                                    <input type="text" class="form-control" id="barcode_scanner" 
+                                        placeholder="Scan barcode here (mobile-friendly)" autocomplete="off">
+                                    <small class="form-text text-muted">Scan barcode to update Product Code</small>
+                                </div>
+
+                                <div class="form-group col-md-6">
                                     <label for="category_id">Category <span class="text-danger">*</span></label>
                                     <select class="form-control" name="category_id" required>
                                         <option selected="" disabled>-- Select Category --</option>
@@ -160,6 +179,73 @@
             format: 'yyyy-mm-dd'
             // https://gijgo.com/datetimepicker/configuration/format
         });
+
+        // Barcode Scanner Handling
+        (function() {
+            const barcodeScanner = document.getElementById('barcode_scanner');
+            const codeField = document.getElementById('code');
+            
+            if (barcodeScanner && codeField) {
+                let scannerTimeout;
+                
+                // Auto-focus scanner field on mobile devices
+                function isMobileDevice() {
+                    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                           (window.innerWidth <= 768);
+                }
+                
+                if (isMobileDevice()) {
+                    // Auto-focus scanner field on mobile after a short delay
+                    setTimeout(function() {
+                        barcodeScanner.focus();
+                    }, 300);
+                }
+                
+                // Handle scanner input (scanners typically send Enter after barcode)
+                barcodeScanner.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.keyCode === 13) {
+                        e.preventDefault();
+                        
+                        const scannedValue = barcodeScanner.value.trim();
+                        if (scannedValue) {
+                            // Populate code field with scanned value
+                            codeField.value = scannedValue;
+                            
+                            // Visual feedback
+                            codeField.classList.add('border-success');
+                            setTimeout(function() {
+                                codeField.classList.remove('border-success');
+                            }, 1000);
+                            
+                            // Clear scanner field
+                            barcodeScanner.value = '';
+                            
+                            // Re-focus scanner for next scan
+                            if (isMobileDevice()) {
+                                setTimeout(function() {
+                                    barcodeScanner.focus();
+                                }, 100);
+                            }
+                        }
+                    }
+                });
+                
+                // Handle paste events (some scanners use paste)
+                barcodeScanner.addEventListener('paste', function(e) {
+                    setTimeout(function() {
+                        const pastedValue = barcodeScanner.value.trim();
+                        if (pastedValue) {
+                            codeField.value = pastedValue;
+                            codeField.classList.add('border-success');
+                            setTimeout(function() {
+                                codeField.classList.remove('border-success');
+                            }, 1000);
+                            barcodeScanner.value = '';
+                        }
+                    }, 10);
+                });
+            }
+        })();
     </script>
 
     @include('components.preview-img-form')
