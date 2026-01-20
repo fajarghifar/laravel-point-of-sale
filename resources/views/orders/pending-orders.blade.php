@@ -1,6 +1,21 @@
 @extends('dashboard.body.main')
 
 @section('container')
+    <style>
+        .row-selector-container {
+            min-width: 0; /* Default for mobile - allows shrinking */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        @media (min-width: 576px) {
+            .row-selector-container {
+                min-width: 180px; /* Apply min-width only on sm+ screens */
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+        }
+    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -38,7 +53,7 @@
                         <form action="{{ route('order.pendingOrders') }}" method="get">
                             <div class="d-flex flex-wrap align-items-center justify-content-between">
                                 <!-- Row Selector -->
-                                <div class="form-group mb-0 mr-2 mt-n3" style="min-width: 180px;">
+                                <div class="form-group mb-0 mr-2 mt-n3 row-selector-container">
                                     <div class="d-flex align-items-center">
                                         <label for="row" class="mb-0 mr-2" style="min-width: 50px;">Row:</label>
                                         <select class="form-control" name="row">
