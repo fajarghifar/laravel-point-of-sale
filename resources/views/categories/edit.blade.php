@@ -70,9 +70,15 @@
             const title = document.querySelector("#name");
             const slug = document.querySelector("#slug");
             title.addEventListener("keyup", function () {
-                let preslug = title.value;
-                preslug = preslug.replace(/ /g, "-");
-                slug.value = preslug.toLowerCase();
+                let preslug = title.value
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[^a-z0-9 ]/g, "")
+                .replace(/\s+/g, "-")
+                .replace(/-+/g, "-")
+                .replace(/^-|-$/g, "");
+                slug.value = preslug;
             });
         </script>
 @endsection
