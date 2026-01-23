@@ -26,23 +26,23 @@
                                 {{-- Section: Employee Information --}}
                                 <div class="form-group col-md-6">
                                     <label>Employee Name</label>
-                                    <input type="text" class="form-control" value="{{ $advanceSalary->employee->name }}" readonly>
+                                    <input type="text" class="form-control bg-white" value="{{ $advanceSalary->employee->name }}" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Month</label>
-                                    <input type="text" class="form-control" value="{{ $advanceSalary->date }}" readonly>
+                                    <input type="text" class="form-control bg-white" value="{{ $advanceSalary->date }}" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Salary</label>
-                                    <input type="text" class="form-control" value="{{ $advanceSalary->employee->salary }}" readonly>
+                                    <input type="text" class="form-control bg-white" value="{{ $advanceSalary->employee->salary }}" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Advance Salary</label>
-                                    <input type="text" class="form-control" value="{{ $advanceSalary->advance_salary }}" readonly>
+                                    <input type="text" class="form-control bg-white" value="{{ $advanceSalary->advance_salary }}" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Due Salary</label>
-                                    <input type="text" class="form-control"
+                                    <input type="text" class="form-control bg-white"
                                         value="{{ $advanceSalary->employee->salary - $advanceSalary->advance_salary }}" readonly>
                                 </div>
 
@@ -95,8 +95,12 @@
 
                             {{-- Section: Form Actions --}}
                             <div class="mt-2">
-                                <button type="submit" class="btn btn-primary mr-2">Pay Salary</button>
-                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">Cancel</a>
+                                <button type="submit" class="btn btn-primary mr-2">
+                                    <x-heroicon-o-check-circle class="w-5 h-5 mr-1 inline" /> Pay Salary
+                                </button>
+                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">
+                                    <x-heroicon-o-x-mark class="w-5 h-5 mr-1 inline" /> Cancel
+                                </a>
                             </div>
                         </form>
                     </div>
