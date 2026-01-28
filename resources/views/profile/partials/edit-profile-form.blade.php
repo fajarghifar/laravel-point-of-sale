@@ -59,6 +59,24 @@
                 </div>
                 @enderror
             </div>
+            <div class="form-group col-md-6">
+                <label for="job_description">Job Description</label>
+                <input type="text" class="form-control @error('job_description') is-invalid @enderror" id="job_description" name="job_description" value="{{ old('job_description', $user->job_description) }}">
+                @error('job_description')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group col-md-6">
+                <label for="location">Location</label>
+                <input type="text" class="form-control @error('location') is-invalid @enderror" id="location" name="location" value="{{ old('location', $user->location) }}">
+                @error('location')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
         </div>
         <!-- end: Input Data -->
         <div class="mt-2">

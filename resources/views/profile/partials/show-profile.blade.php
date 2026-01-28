@@ -31,5 +31,13 @@
             <label for="email">Email</label>
             <input type="text" class="form-control bg-white" id="email" value="{{  auth()->user()->email }}" readonly>
         </div>
+        <div class="form-group col-md-6">
+            <label for="job_description">Job Description</label>
+            <input type="text" class="form-control bg-white" id="job_description" value="{{  auth()->user()->job_description ?? '' }}" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="location">Location</label>
+            <input type="text" class="form-control bg-white" id="location" value="{{  auth()->user()->location ?? 'Unknown' }}" readonly>
+        </div>
     </div>
 </div>

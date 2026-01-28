@@ -8,7 +8,7 @@
     <div class="alert alert-warning" role="alert">
         <strong class="pr-2">Warning:</strong> Once your account is deleted, all of your data will be permanently removed. This action cannot be undone.
     </div>
-    
+
     <form action="{{ route('profile.destroy') }}" method="POST">
         @csrf
         @method('delete')
