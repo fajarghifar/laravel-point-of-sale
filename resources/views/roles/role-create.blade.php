@@ -28,8 +28,12 @@
                             </div>
                             <!-- end: Input Data -->
                             <div class="mt-2">
-                                <button type="submit" class="btn btn-primary mr-2">Save</button>
-                                <a class="btn bg-danger" href="{{ route('role.index') }}">Cancel</a>
+                                <button type="submit" class="btn btn-primary mr-2">
+                                    <x-heroicon-o-check-circle class="w-5 h-5 mr-1 inline" /> Save
+                                </button>
+                                <a class="btn bg-danger" href="{{ route('role.index') }}">
+                                    <x-heroicon-o-x-mark class="w-5 h-5 mr-1 inline" /> Cancel
+                                </a>
                             </div>
                         </form>
                     </div>

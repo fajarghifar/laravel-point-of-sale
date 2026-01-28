@@ -9,7 +9,7 @@
                     <div class="alert text-white bg-success" role="alert">
                         <div class="iq-alert-text">{{ session('success') }}</div>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="ri-close-line"></i>
+                            <x-heroicon-o-x-mark class="w-5 h-5" />
                         </button>
                     </div>
                 @endif
@@ -21,7 +21,7 @@
                     </div>
                     <div>
                         <a href="{{ route('pay-salary.index') }}" class="btn btn-primary add-list">
-                            Pay Salary
+                            <x-heroicon-o-arrow-left class="w-5 h-5 mr-1 inline" /> Back to Pay Salary
                         </a>
                     </div>
                 </div>

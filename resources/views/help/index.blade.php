@@ -2,6 +2,37 @@
 
 @section('specificpagestyles')
     @vite(['resources/css/app.css'])
+    <style>
+        /* Protect sidebar from Tailwind CSS reset interference */
+        /* Only ensure visibility - don't override display properties to preserve alignment */
+        .iq-sidebar-menu .iq-menu li,
+        .iq-sidebar-menu .iq-menu li a,
+        .iq-sidebar-menu .iq-menu li ul,
+        .iq-sidebar-menu .iq-menu li .iq-submenu,
+        .iq-sidebar-menu .iq-menu li .iq-submenu li,
+        .iq-sidebar-menu .iq-menu li .iq-submenu li a {
+            visibility: visible !important;
+        }
+
+        /* Preserve collapse/expand behavior for submenus */
+        .iq-submenu.collapse:not(.show) {
+            display: none !important;
+        }
+        .iq-submenu.collapse.show {
+            display: block !important;
+        }
+
+        /* Ensure submenu links are visible but preserve original display property for alignment */
+        .iq-sidebar-menu .iq-menu li .iq-submenu li a {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* Preserve original display for submenu spans to maintain alignment */
+        .iq-sidebar-menu .iq-menu li .iq-submenu li a span {
+            visibility: visible !important;
+        }
+    </style>
 @endsection
 
 @section('container')

@@ -25,7 +25,7 @@
                     <div class="card-body">
                         {{-- Information Alert --}}
                         <div class="alert alert-warning">
-                            <i class="ri-alert-line mr-2"></i>
+                            <x-heroicon-o-exclamation-triangle class="w-5 h-5 mr-2 inline" />
                             <strong>Heads up!</strong> This will check all employees. If they haven't been paid for the selected month, a payment record will be created. Any approved Advance Salaries for that month will be automatically deducted.
                         </div>
 
@@ -58,9 +58,11 @@
                             {{-- Actions --}}
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary mr-2" onclick="return confirm('Are you sure you want to process payroll for ALL employees for this month?')">
-                                    <i class="ri-money-dollar-circle-line mr-1"></i> Process All Payments
+                                    <x-heroicon-o-currency-dollar class="w-5 h-5 mr-1 inline" /> Process All Payments
                                 </button>
-                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">Cancel</a>
+                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">
+                                    <x-heroicon-o-x-mark class="w-5 h-5 mr-1 inline" /> Cancel
+                                </a>
                             </div>
                         </form>
                     </div>

@@ -34,8 +34,12 @@
                                 <!-- Section: Employee Attendance Table -->
                                 <div class="col-lg-12">
                                     <div class="d-flex justify-content-end mb-2">
-                                        <button type="button" class="btn btn-sm btn-outline-success mr-2" id="btn-all-present">Mark All Present</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" id="btn-all-leave">Mark All Leave</button>
+                                        <button type="button" class="btn btn-sm btn-outline-success mr-2" id="btn-all-present">
+                                            <x-heroicon-o-check class="w-4 h-4 mr-1 inline" />Mark All Present
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="btn-all-leave">
+                                            <x-heroicon-o-x-mark class="w-4 h-4 mr-1 inline" />Mark All Leave
+                                        </button>
                                     </div>
                                     <div class="table-responsive rounded mb-3" style="max-height: 500px; overflow-y: auto;">
                                         <table class="table mb-0 table-striped">

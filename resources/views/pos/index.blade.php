@@ -334,6 +334,8 @@
                 if (data.success) {
                     // Update Cart Sidebar HTML
                     document.getElementById('cart-sidebar-container').innerHTML = data.cart_html;
+                    // Update Cart Count Badge
+                    document.getElementById('cart-count-badge').innerText = data.cart_count + ' items';
                 }
             } catch (error) {
                 console.error('Error adding to cart:', error);
@@ -359,6 +361,7 @@
                 const data = await response.json();
                 if (data.success) {
                     document.getElementById('cart-sidebar-container').innerHTML = data.cart_html;
+                    document.getElementById('cart-count-badge').innerText = data.cart_count + ' items';
                 }
             } catch (error) {
                 console.error('Error updating cart:', error);
@@ -379,6 +382,7 @@
                 const data = await response.json();
                 if (data.success) {
                     document.getElementById('cart-sidebar-container').innerHTML = data.cart_html;
+                    document.getElementById('cart-count-badge').innerText = data.cart_count + ' items';
                 }
             } catch (error) {
                 console.error('Error deleting cart:', error);
@@ -523,6 +527,11 @@
                     // Reset UI
                     if (data.cart_html) {
                         document.getElementById('cart-sidebar-container').innerHTML = data.cart_html;
+                    }
+
+                    // Update Cart Count Badge
+                    if (data.cart_count !== undefined) {
+                        document.getElementById('cart-count-badge').innerText = data.cart_count + ' items';
                     }
 
                     // Optional: Reset Pay Input

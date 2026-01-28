@@ -12,7 +12,9 @@
             </div>
             <div class="iq-search-bar device-search">
                 <form action="#" class="searchbox">
-                    <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                    <a class="search-link" href="#">
+                        <x-heroicon-o-magnifying-glass class="w-5 h-5" />
+                    </a>
                     <input type="text" class="text search-input" placeholder="Search here...">
                 </form>
             </div>
@@ -20,7 +22,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-label="Toggle navigation">
-                    <i class="ri-menu-3-line"></i>
+                    <x-heroicon-o-bars-3 class="w-6 h-6" />
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -28,14 +30,16 @@
                         <li class="nav-item nav-icon search-content">
                             <a href="#" class="search-toggle rounded" id="dropdownSearch" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <i class="ri-search-line"></i>
+                                <x-heroicon-o-magnifying-glass class="w-5 h-5" />
                             </a>
                             <div class="iq-search-bar iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownSearch">
                                 <form action="#" class="searchbox p-2">
                                     <div class="form-group mb-0 position-relative">
                                         <input type="text" class="text search-input font-size-12"
                                             placeholder="type here to search...">
-                                        <a href="#" class="search-link"><i class="las la-search"></i></a>
+                                        <a href="#" class="search-link">
+                                            <x-heroicon-o-magnifying-glass class="w-4 h-4" />
+                                        </a>
                                     </div>
                                 </form>
                             </div>

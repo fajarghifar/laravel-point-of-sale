@@ -135,6 +135,7 @@ class OrderController extends Controller
                     'message' => 'Order created successfully!',
                     'invoice_url' => route('order.invoiceDownload', $order->id),
                     'cart_html' => view('pos.cart-sidebar', ['productItem' => Cart::content()])->render(),
+                    'cart_count' => Cart::count(),
                 ]);
             }
 

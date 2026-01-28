@@ -87,8 +87,12 @@
                             </div>
 
                             <div class="mt-2">
-                                <button type="submit" class="btn btn-primary mr-2">Pay Salary</button>
-                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">Cancel</a>
+                                <button type="submit" class="btn btn-primary mr-2">
+                                    <x-heroicon-o-check-circle class="w-5 h-5 mr-1 inline" /> Pay Salary
+                                </button>
+                                <a class="btn btn-secondary" href="{{ route('pay-salary.index') }}">
+                                    <x-heroicon-o-x-mark class="w-5 h-5 mr-1 inline" /> Cancel
+                                </a>
                             </div>
                         </form>
                     </div>

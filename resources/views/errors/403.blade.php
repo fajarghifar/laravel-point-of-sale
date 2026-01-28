@@ -7,7 +7,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/remixicon/fonts/remixicon.css') }}">
+
 </head>
 <body>
     <div class="wrapper">
@@ -17,7 +17,10 @@
                     <div class="iq-error position-relative">
                         <h2 class="mb-0 mt-4">403</h2>
                         <p>Oops! User does not have the right permissions.</p>
-                        <a class="btn btn-primary d-inline-flex align-items-center mt-3" href="{{ route('dashboard') }}"><i class="ri-home-4-line"></i>Back to Home</a>
+                        <a class="btn btn-primary d-inline-flex align-items-center mt-3" href="{{ route('dashboard') }}">
+                            <x-heroicon-o-home class="w-5 h-5 mr-2" />
+                            Back to Home
+                        </a>
                     </div>
                 </div>
             </div>
