@@ -69,17 +69,18 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $code = IdGenerator::generate([
-            'table' => 'products',
-            'field' => 'code',
-            'length' => 4,
-            'prefix' => 'PC'
-        ]);
-
         $validatedData = $request->validated();
 
-        // save product code value
-        $validatedData['code'] = $code;
+        // Generate code only if not provided
+        if (!isset($validatedData['code']) || empty($validatedData['code'])) {
+            $validatedData['code'] = IdGenerator::generate([
+                'table' => 'products',
+                'field' => 'code',
+                'length' => 4,
+                'prefix' => 'PC'
+            ]);
+        }
+
         $validatedData['slug'] = Str::slug($validatedData['name']);
 
         /**
