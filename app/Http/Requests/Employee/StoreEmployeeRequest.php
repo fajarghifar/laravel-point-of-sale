@@ -14,7 +14,7 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => 'image|file|max:1024',
+            'photo' => 'file|mimes:jpg,jpeg,png,gif,webp|max:1024',
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50|unique:employees,email',
             'phone' => 'required|string|max:15|unique:employees,phone',
