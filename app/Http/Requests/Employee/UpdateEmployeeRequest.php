@@ -17,7 +17,7 @@ class UpdateEmployeeRequest extends FormRequest
         $employeeId = $this->route('employee')->id;
 
         return [
-            'photo' => 'image|file|max:1024',
+            'photo' => 'file|mimes:jpg,jpeg,png,gif,webp|max:1024',
             'name' => 'required|string|max:50',
             'email' => ['required', 'email', 'max:50', Rule::unique('employees')->ignore($employeeId)],
             'phone' => ['required', 'string', 'max:20', Rule::unique('employees')->ignore($employeeId)],

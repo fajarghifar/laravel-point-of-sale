@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
 
         $rules = [
             'name' => 'required|max:50',
-            'photo' => 'nullable|image|file|max:1024',
+            'photo' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp|max:1024',
             'email' => [
                 'required',
                 'email',

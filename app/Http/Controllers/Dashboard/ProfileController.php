@@ -66,7 +66,7 @@ class ProfileController extends Controller
 
         $rules = [
             'name' => 'required|max:50',
-            'photo' => 'image|file|max:1024',
+            'photo' => 'file|mimes:jpg,jpeg,png,gif,webp|max:1024',
             'email' => 'required|email|max:50|unique:users,email,' . $user->id,
             'username' => 'required|min:4|max:25|alpha_dash:ascii|unique:users,username,' . $user->id,
             'job_description' => 'nullable|string|max:255',
